@@ -42,8 +42,6 @@ map = readCbMap('extra_files/CentralMetabolism.txt');
 rxn_num = size(map.connectionName, 1);
 mol_num = size(map.molName, 1);
 
-map.textSize = zeros(size(map.textSize,1),1);
-map.text = cell(size(map.text,1), 1);
 map.shapeColor = repmat([210 210 210], size(map.shapeColor, 1), 1);
 map.shapeThickness = repmat(10, size(map.shapeColor, 1), 1);
 map.molPrime = cell(mol_num, 1);
@@ -67,13 +65,13 @@ map.shapePos(8, 2) = map.shapePos(6, 2) + (map.shapeSize(6,1)-map.shapeSize(8,1)
 
 text_size = zeros(size(map.molIndex,1),1); 
 node_weights = repmat(20, size(map.molIndex,1), 1);
-node_colors = repmat([100 100 100],size(map.molIndex,1),1);
+node_colors = repmat([135 135 135],size(map.molIndex,1),1);
 edge_weights = repmat(25, rxn_num, 1);
 
 changeCbMapOutput('svg');
 
-reactions         = repmat([180 180 180], size(model.rxns,1), 1);
-options.edgeColor = repmat([180 180 180], size(map.connectionName,1), 1);
+reactions         = repmat([200 200 200], size(model.rxns,1), 1);
+options.edgeColor = repmat([200 200 200], size(map.connectionName,1), 1);
 
 b = mapIDs(C4withoutTransportIDs(:,1));
 
@@ -83,6 +81,7 @@ reactions(b, :)=repmat([255 0 0], size(b, 2), 1);
 index = index(index~=0);
 
 options.edgeColor(known,:) = reactions(index,:);
+%map.connectionAbb(known, :) = model.rxnNames(index, :);
 
 b = find(options.edgeColor(:,1)==255);
 last_reactions = map.connection(b, :);
@@ -92,14 +91,26 @@ map.connection = transpose([transpose(map.connection) transpose(last_reactions)]
 
 options.edgeColor = transpose([transpose(options.edgeColor) transpose(repmat([255 0 0], size(b, 1), 1))]);
 
-options.textSize = text_size;
 options.edgeWeight = edge_weights;
 options.nodeWeight = node_weights;
 options.nodeColor = node_colors;
 
 map.connectionAbb = cell(rxn_num, 1);
 
-drawCbMap(map, options, 'FileName', 'EcoreOptFlux3.svg');
+new_text = transpose({'Menaquinone Redox',...
+                      'DMQ Redox',... 
+                      'Ubiquinone Redox'...
+                      'TCA Cycle',...
+                      'Glycolysis'});
+                  
+%text_positions = find(ismember(map.text,new_text));
+
+map.text = new_text;
+map.textPos = [7000 2355; 7030 4145; 7050 400; 3700 3370; 1800 2300];
+map.textFont = cellstr(repmat('Helvetica', size(map.text), 1));
+map.textSize = repmat(40, size(map.text), 1);
+
+drawCbMap(map, options, 'FileName', 'EcoreOptFlux2.svg');
 
 
 
