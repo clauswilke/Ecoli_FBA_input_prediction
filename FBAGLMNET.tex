@@ -23,12 +23,8 @@
 % cite package, to clean up citations in the main text. Do not remove.
 \usepackage{cite}
 
-\usepackage{color} 
-
 % Use doublespacing - comment out for single spacing
-\usepackage{setspace} 
-\doublespacing
-
+\linespread{2}
 
 % Text layout
 \topmargin 0.0cm
@@ -36,10 +32,6 @@
 \evensidemargin 0.5cm
 \textwidth 16cm 
 \textheight 21cm
-
-% Bold the 'Figure #' in the caption and separate it with a period
-% Captions will be left justified
-\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
 
 % Use the PLoS provided bibtex style
 \bibliographystyle{plos2009}
@@ -401,47 +393,22 @@ Conceived and designed the experiments: V.S. and C.O.W. Performed the experiment
 \label{Figure_label}
 \end{figure}
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=6in]{Figures/heatmap.pdf}
-\end{center}
-\caption{
-{\bf Heat maps with actual sources as columns and predicted ones in rows.}  At 20\% noise, most C sources are predicted to be acetate and most N sources are predicted to be ammonia.
-}
-\label{Figure_label}
+\clearpage
+\begin{figure}[p]
+\centerline{\includegraphics[width=6in]{Figures/heatmap.pdf}}
+\caption{\label{fig:heat_map}\title{Heat maps with actual sources as columns and predicted ones in rows.}  At 20\% noise, most C sources are predicted to be acetate and most N sources are predicted to be ammonia.}
 \end{figure}
 
-\begin{figure}[!ht]
-\begin{center}
-\hspace*{-3.5cm}
-\includegraphics[width=9in]{Figures/CarbonSources.pdf}
-\end{center}
-\caption{
-{\bf Key-reactions that discriminate Carbon sources.}  The key-reactions identified by GLMNET package were mapped onto E. coli central metabolism to visually show the differences between different growth conditions. Out of 7 carbon sources, here we show 4 carbon sources and the key-reactions.
-}
-\label{Figure_label}
+\clearpage
+\begin{figure}[p]
+\centerline{\includegraphics[width=7in]{Figures/carbon/carbon_grid.pdf}}
+\caption{\label{fig:carbon_network}\title{Discriminatory carbon sources} The key-reactions identified by GLMNET package were mapped onto E. coli central metabolism to visually show the differences between different growth conditions. Out of 7 carbon sources, here we show 4 carbon sources and the key-reactions.}
 \end{figure}
 
-\begin{figure}[!ht]
-\begin{center}
-\hspace*{-3.25cm}
-\includegraphics[width=8.5in]{Figures/NitrogenSources.pdf}
-\end{center}
-\caption{
-{\bf Key-reactions that discriminate Nitrogen sources.}  The key-reactions identified by GLMNET package were mapped onto E. coli central metabolism to visually show the differences between different growth conditions. Out of 7 nitrogen sources, here we show 4 nitrogen sources and the key-reactions.
-}
-\label{Figure_label}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{center}
-\hspace*{-3.5cm}
-\includegraphics[width=9in]{Figures/MediaSources.pdf}
-\end{center}
-\caption{
-{\bf Key-reactions that discriminate other media.}  The key-reactions identified by GLMNET package were mapped onto E. coli central metabolism to visually show the differences between different growth conditions. Here, the growth medium used are generally used for K-12 MG1655 strain.
-}
-\label{Figure_label}
+\clearpage
+\begin{figure}[p]
+\centerline{\includegraphics[width=7in]{Figures/nitrogen/nitrogen_grid.pdf}}
+\caption{\label{fig:carbon_network}\title{Discriminatory nitrogen sources} The key-reactions identified by GLMNET package were mapped onto E. coli central metabolism to visually show the differences between different growth conditions. Here, the growth medium used are generally used for K-12 MG1655 strain.}
 \end{figure}
 
 \end{document}
