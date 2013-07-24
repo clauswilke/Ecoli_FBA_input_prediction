@@ -44,7 +44,7 @@ text(x = -0.4,
 
 text(x = c(0,0.167,0.33,0.5,0.67,0.833,1.0)+0.025,
      y = -0.1,
-     labels = paste(lab=c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose'), sep = " "),
+     labels = paste(lab=rev(c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose')), sep = " "),
      srt = 45,
      adj = 1,
      cex = 1,
@@ -56,7 +56,7 @@ mtext("Growth", 1, line=4, cex=1.5, font = 2)
 
 text(x = -0.1,
      y = c(0,0.167,0.33,0.5,0.67,0.833,1.0),
-     labels = paste(lab=c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose'), sep = " "),
+     labels = paste(lab=rev(c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose')), sep = " "),
      adj = 1,
      cex = 1,
      xpd = TRUE,
@@ -83,7 +83,7 @@ text(x = -0.4,
 
 text(x = c(0,0.167,0.33,0.5,0.67,0.833,1.0)+0.025,
      y = -0.1,
-     labels = paste(lab=c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose'), sep = " "),
+     labels = paste(lab=rev(c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose')), sep = " "),
      srt = 45,
      adj = 1,
      cex = 1,
@@ -95,14 +95,14 @@ mtext("Growth", 1, line=4, cex=1.5, font = 2)
 
 text(x = -0.1,
      y = c(0,0.167,0.33,0.5,0.67,0.833,1.0),
-     labels = paste(lab=c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose'), sep = " "),
+     labels = paste(lab=rev(c('D-sorbitol',"D-fructose","D-ribose","acetate","glycerol","pyruvate",'D-glucose')), sep = " "),
      adj = 1,
      cex = 1,
      xpd = TRUE,
      font = 2
 )
 
-mtext("Prediction", 2, line=4.75, cex=1.5, font = 2)
+mtext("Prediction", 2, line=4.85, cex=1.5, font = 2)
 
 par(mar=c(5.25,7,2,2))
 
@@ -123,7 +123,7 @@ text(x = -0.4,
 
 text(x = c(0,0.167,0.33,0.5,0.67,0.833,1.0)+0.025,
      y = -0.1,
-     labels = paste(lab=c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia'), sep = " "),
+     labels = paste(lab=rev(c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia')), sep = " "),
      srt = 45,
      adj = 1,
      cex = 1,
@@ -131,18 +131,18 @@ text(x = c(0,0.167,0.33,0.5,0.67,0.833,1.0)+0.025,
      font = 2
 )
 
-mtext("Growth", 1, line=4.2, cex=1.5, font = 2)
+mtext("Growth", 1, line=4.4, cex=1.5, font = 2)
 
 text(x = -0.1,
      y = c(0,0.167,0.33,0.5,0.67,0.833,1.0),
-     labels = paste(lab=c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia'), sep = " "),
+     labels = paste(lab=rev(c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia')), sep = " "),
      adj = 1,
      cex = 1,
      xpd = TRUE,
      font = 2
 )
 
-mtext("Prediction", 2, line=4.75, cex=1.5, font = 2)
+mtext("Prediction", 2, line=4.9, cex=1.5, font = 2)
 
 par(mar=c(5.25,7,2,2))
 
@@ -163,7 +163,7 @@ text(x = -0.4,
 
 text(x = c(0,0.167,0.33,0.5,0.67,0.833,1.0)+0.025,
      y = -0.1,
-     labels = paste(lab=c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia'), sep = " "),
+     labels = paste(lab=rev(c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia')), sep = " "),
      srt = 45,
      adj = 1,
      cex = 1,
@@ -171,18 +171,18 @@ text(x = c(0,0.167,0.33,0.5,0.67,0.833,1.0)+0.025,
      font = 2
 )
 
-mtext("Growth", 1, line=4.2, cex=1.5, font = 2)
+mtext("Growth", 1, line=4.4, cex=1.5, font = 2)
 
 text(x = -0.1,
      y = c(0,0.167,0.33,0.5,0.67,0.833,1.0),
-     labels = paste(lab=c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia'), sep = " "),
+     labels = paste(lab=rev(c('L-glutamine',"L-alanine","glycine","putrescine","cytidine","adenine",'ammonia')), sep = " "),
      adj = 1,
      cex = 1,
      xpd = TRUE,
      font = 2
 )
 
-mtext("Prediction", 2, line=4.75, cex=1.5, font = 2)
+mtext("Prediction", 2, line=4.9, cex=1.5, font = 2)
 
 #legend(1.15,
 #       1.0, 
