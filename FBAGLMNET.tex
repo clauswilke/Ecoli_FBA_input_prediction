@@ -19,6 +19,7 @@
 % include graphics with the command \includegraphics
 \usepackage{graphicx}
 \usepackage{epstopdf}
+\usepackage{color}
 
 % cite package, to clean up citations in the main text. Do not remove.
 \usepackage{cite}
@@ -66,7 +67,8 @@
 % Insert Author names, affiliations and corresponding author email.
 \\
 Viswanadham Sridhara$^{1}$,
-Austin G. Meyer$^{1,2,5}$, 
+Austin G. Meyer$^{1,2,5}$,
+Piyush Rai$^{3}$,
 Jeffrey E. Barrick$^{1,2}$,
 Pradeep Ravikumar$^{3}$,
 Daniel Segre$^{4}$, 
@@ -125,15 +127,19 @@ Flux balance analysis (FBA) is a computational technique that is routinely used 
 %There are many R and MATLAB packages that can be used for LASSO. GLMNET  \cite{Friedmanetal2010} is one such package that can be used for methods based on convex penalties (lasso, ridge-regression, elastic net etc). This package also comes with algorithmic efficiency and speed \cite{Friedmanetal2010}. GLMNET is shown to work on large datasets and with many labels. Given the sparsity of the reaction flux data, we used GLMNET \cite{Friedmanetal2010} for classifying different growth conditions.
 
 \section*{Results}
-\subsection*{Reversing flux balance and the E. coli system}
+\subsection*{Predicting growth conditions from simulated flux in \emph{E. coli}}
 
-Improving growth rate and identifying the key enzymes for improving specific metabolite concentrations is a routine task in metabolic engineering. In general, FBA is a computational technique used to guide experimentalists in hypothesis generation. Specifically, it can provide detailed information about potentially product-limiting reactions within a metabolic network. The insight gained from FBA can be used to remove  road blocks to metabolic throughput. Rather than making forward predictions about network throughput from known starting materials, we wanted to know if it was possible to reverse FBA to generate predictions about starting conditions from known output fluxes. To that end, we used machine learning techniques in addition to traditional FBA to predict growth sources from simulated flux data.
+We wanted to know to what extent bacterial physiology reflects specifics about the growth environment. In other words, if we have measured the physiological state of a bacterium, can we deduce under what conditions it was grown? Here, we addressed this question in a simulation framework, using flux-balance analysis (FBA) as our model for bacterial physiology. Our overall strategy was as follows: (i) simulate metabolic fluxes under a variety of different growth conditions (primarily distinct carbon and nitrogen sources); (ii) develop regression models that regress the growth conditions against the calculated metabolic fluxes; (iii) evaluate how accurately the regression model can predict growth conditions from fluxes.
 
-We used the iAF1260 metabolic model of K-12 MG1655 strain \cite{Schellenbergeretal2010}. The complete reaction network includes transport and biochemical reactions, as well as biomass exchange reactions with a total of 2382 separate network edges. Each reaction has a small and unique set of reactants and a similarly minimal set of products. There is no inherent promiscuity in the biochemical pathways. Since the model assumes perfect fidelity, each transport protein is responsible for one and only one substrate to product transition. Thus, due to the lack of any chemical modification during transport, predicting the starting material based on a transport reaction would be a trivial result. As our intent was to predict start conditions from the simulated flux data, we removed all transport reactions from the simulated model. 
+One inherent challenge with our approach is that flux-balance models do not allow for promiscuous reactions. Each reaction in the model has a small and unique set of reactants and a similarly minimal set of products. A biochemically similar reaction on a different substrate is represented as a separate reaction in the model. Further, substrates are brought into the cell and transported among different compartments in the cell via \emph{transport reactions}, which simply take up a molecule of a specific metabolite in one compartment and release that same molecule in another compartment of the cell. Thus, any metabolic flux model contains a substantial number of transport reactions whose sole purpose it is to get specific metabolites into the cell. Clearly, predicting environmental growth conditions from fluxes through these transport reactions would be trivial, and it would not be a reflection of what information the internal metabolic state of the cell holds about the external environment. To address this issue, we discarded all transport fluxes in our regression analysis. In our model (iAF1260 metabolic model of the \emph{E. coli} K-12 MG1655 strain \cite{Schellenbergeretal2010}), this amounted to {\color{red}please insert number} among a total of 2382 distinct reactions.
 
-\subsection*{Effect of noise and prediction structure on model accuracy}
+Further, to make the task of predicting growth conditions from fluxes more difficult and more realistic, we introduced background contamination in all simulated environments. Each environment consisted of a set of primary metabolites (usually one carbon and one nitrogen source) plus a small quantitiy of randomly chosen other metabolites. We varied the number of contaminant metabolites to evaluate how sensitive the regression model was to the amount of background contamination. Contaminant sources were selected at random from a set of 174 carbon and 78 nitrogen sources used previously with the \emph{E. coli} model \cite{Feistetal2007}. A different set of random contaminants was chosen for each individual FBA calculation.
 
-We tested 7 carbon and 7 nitrogen sources in all pairwise combinations. Each flux balance simulation requires that we specify both a carbon and a nitrogen source. We also generated 100 replicates of each pairwise combination to make 4900 total observations. In addition to simulating individual carbon and nitrogen sources, we generated flux data and calculated misclassification rates for other commonly used media (Table 2). To simulate the effect of measurement error, we added randomly selected carbon and/or nitrogen sources \cite{Feistetal2007}. For reference, 2\% noise means that we randomly picked 2 carbon and 2 nitrogen sources from a set of 174 carbon and 78 nitrogen sources used previously \cite{Feistetal2007}. Next, we generated a training set by randomly drawing from our simulated fluxes. We trained the models with a generalized linear model to predict starting conditions based on final fluxes. The remaining simulation data was used to calculate the misclassification rates. We used cross-validation in a generalized linear model to pick regression coefficients. 
+We first wanted to test how well prediction might perform in a best-case scenario. To this end, we selected seven carbon and seven nitrogen sources ({\color{red}Table X}) that generated substantially distinct flux patterns in the absence of contaminants. We assessed the similarity of flux patterns by $k$-means clustering of fluxes obtained for all 174 carbon and 78 nitrogen sources (data not shown). We then generated fluxes for environments with contaminants for all pairwise combinations of the seven carbon and seven nitrogen sources. We generated 100 replicates of each pairwise combination, for a total of 4900 total sets of flux values. {\color{red}We discarded solutions that we considered to be non-viable?} 
+
+{\color{red}Copy-edit from here.}
+
+Next, we generated a training set by randomly drawing from our simulated fluxes. We trained the models with a generalized linear model to predict starting conditions based on final fluxes. The remaining simulation data was used to calculate the misclassification rates. We used cross-validation in a generalized linear model to pick regression coefficients. 
 
 \textbf{Should we report something about the regression method?}
 
