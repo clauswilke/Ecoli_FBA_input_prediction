@@ -144,18 +144,28 @@ In a direct comparison, however, the separate prediction always outperfomed the 
 
 Since individual prediction seemed to work well, we next tested whether we could use this approach to predict growth conditions chosen from the comprehensive list of 174 carbon and 78 nitrogen sources. Joint prediction in this case was infeasible, since we would have had to train a model to distinguish between $174\times78=13572$ distinct conditions. To test independent prediction in this case, we generated simulated fluxes for all pair-wise combinations of carbon/nitrogen sources for two replicates. We used one replicate to train the regression model and we used the second replicate to evaluate the prediction accuracy of the model. {\color{red}We found that the misclassification rate for carbon sources was X\% and the misclassification rate for nitrogen sources was Y\%. In combination, the two models identified the correct carbon/nitrogen combination Z\% of the time. By random chance, we would have expected $1/13572=0.007\%$.}
 
-In order to generalize our simulations to more experimentally relevant test conditions, we performed similar analyses for several media that are more commonly used in experimental microbiology. Specifically, we tested autoinducer bioassay (AB) minimal media, proprietary media from the company ATCC, Davis Mingioli (DM) media and Bochneder defined minimal media. Due to the relatively small number of available starting conditions in the training set, we were able to classify our experimentally relevant media choices very accurately. Our misclassification rate was less than 1\% for noise levels up to {\color{red}XXX contaminants.}
+
+{\color{red}Add a brief paragraph about carbon-limited vs. nitrogen-limited conditions. Add supplementary figures that show which conditions are which.}
 
 \subsection*{Identifying the predictive fluxes}
 
-{\color{blue}We need a better intro paragraph here. Explain the regression model in a few sentences, explain the fact that most parameters are set to zero, etc.}
+The previous subsection has shown that a regularized regression model is capable of predicting the primary carbon and nitrogen sources used from steady-state metabolic fluxes. We next wanted to investigate how exactly the regularized regression model carries out this task. For each flux-balance simulation, the resulting flux data set contains 1443 flux values, corresponding to 1443 reactions that are not transport reactions. Thus, we have 1443 predictor variables that we feed into the regression model. In this situation, a standard regression model would have to determine 1444 regression coefficients, one per reaction plus an intercept. By contrast, the regularized regression model we employed sets most regression coefficients to zero and retains only a small number of non-zero coefficients. (The exact number of non-zero coefficients is determined through the choice of a tuning parameter, which is selected by cross-validation. See Methods for details.) Thus, we can consider the fluxes with non-zero regression coefficients as \emph{predictive fluxes}. Those are the fluxes whose state is actually used for prediction.
 
-To gain some mechanistic insight into predictive reactions, we mapped them onto the \emph{E. coli} central metabolism model. The predictive reactions were overlayed on \emph{E. coli} MG1655 central metabolism. Manual validation of these reactions indicate that most reactions seem specific to some unique growth source. For example, using acetate as the carbon source unsurprisingly isolates TCA cycle entry as a predictive reaction. Similarly, sorbitol is the singly reduced alcohol of D-glucose and fructose enters glycolysis just three steps away from un-phosphorylated D-glucose; thus, each possesses a predictive reaction in the relative vicinity of the glycolytic pathway (Figure~\ref{fig:carbon_network}). Mapping nitrogen sources to central metabolism reveals a similar trend. For example, L-alanine as a growth source has predictive reactions near its site of entry into the three and four carbon metabolism of the TCA cycle (Figure~\ref{fig:nitrogen_network}). Each of the metabolic maps (Figure~\ref{fig:carbon_network} and Figure~\ref{fig:nitrogen_network}) is meant to highlight generally important areas in the \emph{E. coli} central metabolism.
+We found that our model required an average of 9 reactions {\color{red}Is this 9 reactions per C or N source? If yes, please state so.} for accurate prediction. {\color{red}Viswanadham, can you add a little more detail here? This must depend on separate vs. joint prediction, number of contaminants, and so on. 3-4 additional sentences would be good.}
 
-Despite the accuracy of our scheme, a model with a large number of predictive reactions would quickly become intractable in experimental applications; after all, each predictive reaction means an additional unique biochemical assay. Our model required an average of 9 reactions for accurate prediction. Considering our network included a total of 1443 reactions after transport reaction removal, 9 is an impressively minimal requirement for media prediction. To understand the effect of reducing model parameters below the optimal number, we employed a different strategy from that used above. There were 126 reactions that were assigned a non-zero coefficient in our trained model. For each of those 126 reactions, we eliminated one at a time, trained a new model, and calculated the test accuracy. With the exception of 3 reactions, we found that the misclassification rate remained unchanged for each of the other 123 reactions. Thus, the feature selected average of 9 predictive reactions very likely does not represent a unique solution. More importantly, for experimental purposes, the number of assayed reactions could very likely be further reduced without sacrificing much predictive power.
+To gain mechanistic insight into predictive reactions, we mapped them onto the \emph{E. coli} central metabolism (Figures~\ref{fig:carbon_network} and \ref{fig:nitrogen_network}, Table X {\color{red}$\leftarrow$ We need this table on top of the figures.}). Note that each of the metabolic maps is meant to highlight generally important areas in the \emph{E. coli} central metabolism; we had to limit the number of reactions shown to prevent the figure from becoming unwieldy. We found that each carbon or nitrogen source had a few reactions that were predictive to that growth source, and these reactions generally made physiologic sense. For example, using acetate as the carbon source unsurprisingly isolates TCA cycle entry as a predictive reaction (Figure~\ref{fig:carbon_network}). Similarly, D-glucose, sorbitol (the singly reduced alcohol of D-glucose), and fructose each possess predictive reactions in the relative vicinity of the glycolytic pathway (Figure~\ref{fig:carbon_network}). Mapping nitrogen sources to central metabolism reveals a similar trend. For example, L-alanine as a growth source has predictive reactions near its site of entry {\color{red}is this entry or exit from TCA cycle?} into the three and four carbon metabolism of the TCA cycle (Figure~\ref{fig:nitrogen_network}).
 
-%this paragraph is out of place and I'm not sure what it tells us.
-%As a further test, we obtained simulated flux measurements using maltose as carbon source and the 7 nitrogen sources used earlier. Individual prediction seems to classify maltose as glucose more than 85\% of the times. The nitrogen sources were predicted correctly more than 95\% of the times. However, when we tried to predict using the joint model, the nitrogen sources were mispredicted most of the times. The carbon source 'maltose' was predicted as D-sorbitol most of the times. On the other hand, most of the nitrogen sources were predicted as putrescine. 
+We also analyzed how the regression model performed when some of the key predictive reactions were removed. There were 126 reactions {\color{red}This needs some more detail. Where are these 126 reactions? Which specific scenario are we talking about? And how does 126 compare to the average of 9?} that were assigned a non-zero coefficient in our trained model. For each of those 126 reactions, we eliminated one at a time, trained a new model, and calculated the prediction accuracy. With the exception of 3 reactions {\color{red}List which ones they are}, we found that the misclassification rate remained unchanged when we removed any one of the other 123 reactions before model fitting. Thus, even though the regression model needed on average 9 reactions to make a prediction, the specific set of reactions used for successful prediction is not unique.
+
+
+\subsection*{Predicting specific media or novel metabolites}
+
+In order to generalize our simulations to more experimentally relevant test conditions, we performed similar analyses for several media that are more commonly used in experimental microbiology. Specifically, we tested autoinducer bioassay (AB) minimal media, proprietary media from the company ATCC, Davis Mingioli (DM) media and Bochneder defined minimal media {\color{red}$\leftarrow$ There needs to be a table explaining the composition of these media.}. Due to the relatively small number of available starting conditions in the training set {\color{red}$\leftarrow$I don't understand this sentence. Also, give more details. How many replicates used? Were there contaminants?}, we were able to classify our experimentally relevant media choices very accurately. Our misclassification rate was less than 1\% for noise levels up to {\color{red}XXX contaminants.}
+
+Finally, we wanted to determine how the prediction would perform on previously unseen carbon or nitrogen sources. We first obtained simulated flux measurements using maltose as carbon source and using either of the seven nitrogen sources used earlier. {\color{red}Please specify: \# of replicates; contaminants; total number of observations.} When we tested individual prediction of either carbon or nitrogen sources, we found that maltose was classified as glucose over 85\% of the time. Since maltose is a disaccharide formed from two units of glucose, this prediction is reasonable. At the same time, the seven nitrogen sources were predicted correctly over 95\% of the time ({\color{red}how does this compare to the previous result when no novel C source was used? Has the choice of C source an effect on the predictive power for N sources?}). However, when we tried to predict using the joint model, we found that using an unknown carbon source had a substantial effect on the model's ability to predict nitrogen sources. Most {\color{red}please quantify ``most''} growth conditions were predicted to be sorbitol/putrescine. While sorbitol is a reasonable choice considering the model had never seen maltose (sorbitol is the singly reduced alcohol of glucose), putrescine is not a good prediction for nitrogen sources the model has been trained on.
+
+{\color{red}can we add a result for a previously unseen nitrogen source?}
+
 
 \section*{Discussion}
 
@@ -173,114 +183,38 @@ Finally, we have shown that there is no obvious experimental restriction for app
 \section*{Materials and Methods}
 We used MATLAB and R for this study. For flux balance analysis, we used COBRA toolbox \cite{Schellenbergeretal2011} with MATLAB and for multinomial regression, we used GLMNET package \cite{Friedmanetal2010} with R. The methods are described in detail below.
 
-\subsection*{Flux Balance Analysis:} 
-In FBA, the steady-state solution for reaction fluxes is calculated. S(m,n) is the stoichiometric matrix for "m" metabolites and "n" reactions and is represented as S hereafter. The other variables used are v and x, where v is a vector of reaction fluxes for all the reactions involved and x is the concentration of the metabolites. In steady-state, the rate of change of metabolite concentrations is 0. So, we can formulate the above problem with the set of equations, as described below:
+\subsection*{Flux Balance Analysis} 
 
-\begin{align}
-dx/dt = Sv_{i}, \\
-Sv_{i}=0.
-\end{align}
+We carried out flux balance analysis using the COBRA toolbox \cite{Schellenbergeretal2011} for MATLAB. 
+We used the iAF1260 model from the BiGG database ({\color{red}reference?}). In the current iAF1260 model, there are 2382 reactions involving 1668 metabolites. The biomass composition reaction is also included in the model. Except for the input growth sources (carbon and nitrogen sources), we left all parameter settings at their default for this model. The upper bounds on 2377 reactions is set to $1000 \text{mmol}/\text{gDWhr}$, i.e., there is virtually no limit on the production of metabolites involved in these reactions. But for 5 reactions, i.e., ATPM, CAT, FHL, SPODM, SPODMpp, the upper bound is set to $50 \text{mmol}/\text{gDWhr}$. The lower bound for the majority of reactions (nearly 1800) is set to $0 \text{mmol}/\text{gDWhr}$, meaning that these reactions cannot uptake any metabolites from the media. For the ATPM reaction {\color{red}could you specify what ATPM does?}, the lower bound is set to be the same as upper bound at $8.39 \text{mmol}/\text{gDWhr}$. For the remaining reactions, all transport reactions that model metabolite uptake, the lower bounds were set to $-1000 \text{mmol}/\text{gDWhr}$, except for glucose, nitrogen, and oxygen. {\color{red}I don't understand this. Shouldn't all the uptake reactions have a lower bound of 0?} We did not change the oxygen uptake rate ($-18.5 \text{mmol}/\text{gDWhr}$), but we set the lower bounds of glucose and ammonia to zero. If we used glucose/ammonia as growth sources, we then set the lower bounds of these sources accordingly.
 
-The constraints that are typically used are: 
-\begin{align}
-\alpha_{i}<v_{i}<\beta_{i}
-\end{align}
-where $\alpha$ and $\beta$ are lower and upper bounds of the reaction fluxes.
-
-Hence, we solve this set of linear equations with interested constraints by linear programming.
-\begin{align}
-{max.} c^Tv, s. t Sv_{i}=0.
-\end{align}
-where $c^Tv$ represents the biomass composition reaction.
-
-Generally in these metabolic networks, the number of reactions are more than number of metabolites resulting in multiple solutions.  However in metabolic engineering applications, we are interested in optimizaing a certain function, for example here, we are interested in maximizing biomass composition which would result in a particular solution. 
-
-Our motivation to introduce noise is 2-fold. First, we would like to find alternate optimal solutions using FBA methods so that the final prediction results still hold for varying noise levels. The second reason is to simulate replicates for a particular growth condition to train the mathematical models. Flux variability analysis can also be used for finding alternate optimal solutions, but apart from generating alternate optimal solutions and generating replicates, we can also introduce noise and find its effect in key-reaction prediction using the method described above.
-
-\subsection*{E. coli model:} 
-From the BiGG database, we downloaded the iAF1260 model, as it has shown to be used rigorously in various studies involving metabolic engineering and seems to agree well with the experimental data. Generally these models are stored in SBML format, which is becoming a common format for systems biology related models i.e., signaling pathways, gene regulatory networks, metabolic pathways etc \cite{Huckaetal2003}. In the current iAF1260 model, there are 2382 reactions, 1668 metabolites. The biomass composition reaction is also included in the model. Except for the input growth sources (Carbon and nitrogen sources used in this study) used, we did not change any defaults that are used in this model. The upper bounds on 2377 reactions is set to 1000 mmol/gDWhr, i.e., there is no limit on the production of metabolites involved in these reactions. But for 5 reactions, i.e., ATPM, CAT, FHL, SPODM, SPODMpp, the upper bound was set to 50 mmol/gDWhr. On the other hand the lower bound for almost 1800 reactions is set to 0 mmol/gDWhr, which means these reactions cannot uptake any metabolites from the media. For ATPM reaction, the lower bound is set to be the same as upper bound at 8.39 mmol/gDWhr. For the rest, the lower bounds were set to -1000 mmol/gDWhr, except for glucose and oxygen. We did not change the oxygen uptake rate (-18.5mmol/gDWhr), but we set the lower bounds of glucose and ammonia to zero. If we used glucose/ammonia as growth sources, we then set the lower bounds of these sources accordingly.
-
-\subsection*{Growth conditions:} 
+\subsection*{Growth conditions} 
 We picked the growth conditions manually from \cite{Feistetal2007} that seemed more common in experiments. In our study, we used pairwise combinations of 7 carbon sources, and 7 nitrogen sources. 7 carbon sources when used alone did not result in any growth. On the other hand, the nitrogen sources except ammonia contributed to E. coli biomass composition that is non-zero. These carbon and nitrogen sources are listed in Table I. Depending on the input growth, we set the lower bound of that particular exchange reaction to -20 mmol/gDWhr. This lower bound of -20 mmol/gDWhr is previously used as reasonable uptake amount in many studies \cite{Feistetal2007}. For 49 pair-wise combinations of the sources, we generated 100 replicates of data. Apart from these growth conditions, we also used 4 growth media, generally used in E. coli K-12 MG1655 experiments as cited in EcoCyc database [Cite URL of EcoCyc].
 
 We changed the uptake rate of nitrogen source to -1000 mmol/gDW/hr, keeping the carbon source at -20mmol/gDW/hr to make sure carbon sources don't lack nitrogen source. We also repeated the analysis keeping the carbon source uptake at -1000 mmol/gDW/hr and nitrogen source uptake at -20mmol/g/DW/hr. 
 
-\subsection*{Background noise levels:} 
-To generate replicates and may be alternate optimal solutions using these conditions, we incorporated different background noise levels. For this, we used a subset of the 174 carbon and 78 nitrogen sources, previously used in Feist et. al \cite{Feistetal2007}.  We used different background noise levels, ranging from 1\% to 20\%. For example, if we want to set 5\% noise level, we randomly picked 5 Carbon and 5 nitrogen sources and set their lower bounds to -0.2 mmol/gDW. Please note that we generated the flux data for a pairwise combination of 1 carbon and 1 nitrogen source along with the background noise as described here. 
+\subsection*{Contaminants}
+To make the simulation scenario more challenging and more realistic, we incorporated different numbers of contaminants to the simulated growth media. background noise levels. For this, we used a subset of the 174 carbon and 78 nitrogen sources, previously used in Feist et. al \cite{Feistetal2007}.  We used different background noise levels, ranging from 1\% to 20\%. For example, if we want to set 5\% noise level, we randomly picked 5 Carbon and 5 nitrogen sources and set their lower bounds to $-0.2 \text{mmol}/\text{gDW}$. Please note that we generated the flux data for a pairwise combination of 1 carbon and 1 nitrogen source along with the background noise as described here. 
+
+
+{\color{red}Explain how viable solutions are identified. What is your biomass threshold? How did you arrive at that number?}
 %[Since we are using different noise sources, we used a minimum threshold for biomass composition (0.558)].
 
-For each noise level, we used half of the dataset as test set. We used subsets of the remaining half as training (i.e, 240,480,2400 observations). On the training sets we did 3-fold cross validation. We used cross-validation in GLMNET package for model selection. Model selection means picking the regression coefficients at the lambda value that had the lowest misclassification rate with 3-fold cross-validation. We then used this model to calculate the misclassification rate on the test set. We repeated this step to calculate the misclassification rates at different noise levels (1\%,5\%,10\%) and different training data sizes (240,480,2400 observations).
 
-\subsection*{Regression based on regularization:} 
-We used GLMNET package with R. We used 3 fold cross-validation. From the flux balance analysis, the observations we generated for different noise levels were divided into 2- halves, one for training and the other for test set. We did training and 3-fold cross validation to pick the lambda that has the lowest misclassification rate using the GLMNET. We did this for both joint prediction as well as the separate prediction and then making a joint call.
+\subsection*{Regularized regression}
 
-\bigskip
-\noindent
-1. Separately:
-\noindent
+We predicted growth conditions using regularized multinomial logistic regression, as implemented in the GLMNET package \cite{Friedmanetal2010} for R. {\color{red}As you say below, $\lambda$ is chosen by cross validation. Were there any other parameter choices that you had to make?}
 
-i) Take data set
-\noindent
-
-ii) Train model to predict C sources
-\noindent
-
-iii) Train model to predict N sources
-\noindent
-
-iv) Predict C and N separately and calculate joint prediction accuracy.
-
-\bigskip
-\noindent
-2. Jointly
-\noindent
-
-i) Take data set
-\noindent
-
-ii) Train model to predict C and N jointly
-\noindent
-
-iii) Predict C and N jointly and calculate prediction accuracy.
-
-\bigskip
-\noindent
-Since the cross-validation accuracy cannot be used to compare the GLMNET results for separately predicting to that of joint prediction, we used the test set to determine the prediction accuracy.
-
-\bigskip
-\noindent
-Below are the equations used in multinomial regression setting. If Y is a categorical response variable with "m" levels (m>2), and x is a predictor, this will result in
-\begin{align}
-log P_r(Y=l/x)/P_r(Y=m/x) = \beta_0l+x^T\beta_l, l=1,2,...,m-1.
-\end{align}
-
-From this, we can model
-\begin{align}
-P_r(Y=l/x) = e^( \beta_0l+x^T\beta_l)/\sum\limits_{k=1}^m e^( \beta_0l+x^T\beta_l).
-\end{align}
-
-The above model can be fit by maximizing the penalized log-likelihood, as explained in detail elsewhere \cite{Friedmanetal2008}
-\begin{align}
-{max} 1/N \sum\limits_{i=1}^N log p_gi(x_i) - \lambda\sum\limits_{l=1}^m P_\alpha(\beta_l)
-\end{align}
-
-
-\noindent
-Here $\beta$ are the regression coefficients and N is the total number of observations. However, in LASSO, there is a tuning constant $\lambda$ that puts the strength on the penalty introduced to achieve sparsity. We direct the reader to Friedman et. al., \cite{Friedmanetal2008} for further details.
-
-\bigskip
-\noindent
-We used GLMNET package with R, instead of MATLAB as the supercomputing cluster at TACC has R installed on it and we were able to easily add the GLMNET package to it.
-
-\subsection*{Mechanistic Insights:} 
-Mechanistic insights of the results obtained from multinomial regression can be obtained by understanding the role of features that are predicted for each growth condition. For this, we used E. coli map downloaded from BiGG database. For overlaying reactions (features) onto E. coli central metabolism map, we used modules in COBRA toolbox. We deleted 4 reactions in the map that seemed inconsistent with the E. coli model used. The predictors from GLMNET are highlighted with a different color, along with the metabolites involved in these reactions.
+For each number of contaminants, we used half of the dataset as test set. {\color{red}After filtering for biomass?} We used subsets of the remaining half as training (i.e, 240, 480, 2400 observations). On the training sets we did 3-fold cross validation. We used cross-validation in GLMNET package for model selection. Model selection means picking the regression coefficients at the lambda value that had the lowest misclassification rate with 3-fold cross-validation. We then used this model to calculate the misclassification rate on the test set. We repeated this step to calculate the misclassification rates at different numbers of contaminants (2, 10, 20) and different training data sizes (240, 480, 2400 observations).
 
 
 % Do NOT remove this, even if you are not including acknowledgments
 \section*{Acknowledgments}
-We would like to thank Segre lab members at Boston University for useful discussions on flux balance analysis. We would also like to thank BCG and TACC at UT for resources. VS would like to thank Piyush Rai for useful discussions on multinomial classification.
+{\color{red}Need to acknowledge ARO grant and any other relevant grants.}
+We would like to thank Segr\'e lab members at Boston University for useful discussions on flux balance analysis. We would also like to thank BCG and TACC at UT for computing resources. 
 
 \section*{Author Contributions}
+{\color{red}Need to update to include all authors.}
 Conceived and designed the experiments: V.S. and C.O.W. Performed the experiments: V.S. Analyzed the data: V.S and C.O.W. Wrote the paper: V.S,  J.E.B, P.R, D.S. and C.O.W.
 
 %\section*{References}
