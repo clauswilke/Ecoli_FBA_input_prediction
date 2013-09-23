@@ -1,40 +1,25 @@
-% Template for PLoS
-% Version 1.0 January 2009
-%
-% To compile to pdf, run:
-% latex plos.template
-% bibtex plos.template
-% latex plos.template
-% latex plos.template
-% dvipdf plos.template
+%MSB
 
 \documentclass[12pt]{article}
 
-% amsmath package, useful for mathematical formulas
 \usepackage{amsmath}
-% amssymb package, useful for mathematical symbols
 \usepackage{amssymb}
-
-% graphicx package, useful for including eps and pdf graphics
-% include graphics with the command \includegraphics
+%\usepackage{pdfpages}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{color}
 
-% cite package, to clean up citations in the main text. Do not remove.
 \usepackage{cite}
 
-% Use doublespacing - comment out for single spacing
 \linespread{1.5}
 
-% Text layout
 \topmargin 0.0cm
 \oddsidemargin 0.5cm
 \evensidemargin 0.5cm
 \textwidth 16cm 
 \textheight 21cm
 
-% Use the PLoS provided bibtex style
+% Use the MSB bibtex style
 \bibliographystyle{plos2009}
 
 % Remove brackets from numbering in List of References
@@ -49,22 +34,15 @@
 \pagestyle{myheadings}
 %% ** EDIT HERE **
 
-
-%% ** EDIT HERE **
-%% PLEASE INCLUDE ALL MACROS BELOW
-
-%% END MACROS SECTION
-
 \begin{document}
 
-% Title must be 150 characters or less
 \begin{flushleft}
 {\Large
 \textbf{Computational Identification and Annotation of Key-reactions in Metabolic Pathways of E. coli that Discriminate Different Growth Conditions.}
 }
+
 \bigskip
 \noindent
-% Insert Author names, affiliations and corresponding author email.
 \\
 Viswanadham Sridhara$^{1}$,
 Austin G. Meyer$^{1,2,5}$,
@@ -77,34 +55,24 @@ Claus O. Wilke$^{1,5,\ast}$
 \bigskip
 \bf{1} Center for Computational Biology and Bioinformatics, The University of Texas at Austin, Austin, TX, USA
 \\
-%\\[3\baselineskip]
 \bf{2} Department of Chemistry and Biochemistry, The University of Texas at Austin, Austin, TX, USA
 \\
-%\\[3ex]
 \bf{3} Department of Computer Science, The University of Texas at Austin, Austin, TX, USA
 \\
-%\\[3ex]
 \bf{4} Department of Biology, Boston University, Boston, MA, USA
 \\
-%\\[3ex]
 \bf{5} Section of Integrative Biology, The University of Texas at Austin, Austin, TX, USA
 \\
-%\\[3ex]
 \bigskip
 $\ast$ E-mail: wilke@austin.utexas.edu
 \end{flushleft}
 %\\
-% Please keep the abstract between 250 and 300 words
+% Abstract 
 \newpage
 \begin{abstract}
 Currently, predicting bacterial growth conditions without prior knowledge of the medium is an unresolved problem. By contrast, computing bacterial metabolic output, given a set of starting conditions has become a comparatively routine task via flux balance analysis (FBA). To compute metabolic output, one specifies a set of starting conditions within the context of a complete bacterial metabolic model. Here, we selected 7 carbon and 7 nitrogen sources along with 4 more commonly used experimental media. For these 18 growth conditions, we generated metabolic flux data using FBA with iAF1260 model for Escherichia coli MG1655 strain. We then used a model selection algorithm, LASSO, to identify the key reactions that discriminate among the tested growth conditions. These models on average require assaying the fluxes through 10.28 reactions to accurately predict the correct carbon and nitrogen source used during growth. For each source metabolite, we mapped its predictive reactions onto the E. coli central carbon metabolism to highlight important metabolic regions. Our analysis provides several important physiological and statistical insights. First, by analyzing metabolic end products, we can consistently predict growth conditions. Second, despite its heterogeneity, the experimental media appears to be similarly predictable to the homogeneous media. Third, predictive reactions seem to frequently lie near the initial entry point into central metabolism for the metabolite being predicted. Finally, we found that separately predicting the carbon and nitrogen sources is better than making joint predictions. In addition, the fact that separate prediction performs better than a more sophisticated joint prediction scheme, generates several potentially interesting hypotheses regarding bacterial physiology.
 \end{abstract}
 
-% Please keep the Author Summary between 150 and 200 words
-% Use first person. PLoS ONE authors please skip this step. 
-% Author Summary not valid for PLoS ONE submissions.   
-
-\section*{Author Summary}
 %Predicting the biomass composition, co-factors yield using FBA techniques on computational metabolic models is gaining popularity in the last decade. Moreover, metabolic pathways provide us a framework to integrate diverse kinds of high-throughput data i.e., transcriptomics/proteomics/metabolomics data. Here, we generated metabolic fluxes for different growth conditions and then used machine learning techniques to predict the key-reactions that discriminate different growth conditions. Such automatic identification of key-reactions would in turn also help experimentalists to quantitatively measure the respective metabolites involved (mass-spec based metabolomics), proteins that catalyze the reactions (mass-spec based proteomics) or the genes that encode these enzymes (sequencing based RNA-seq experiments).
 
 \section*{Introduction}
@@ -174,16 +142,16 @@ The previous subsection has shown that a regularized regression model is capable
 
 At 1C/N contaminants level and using the largest training data size (see Figure 2), there were 72 key reactions discriminating 7 carbon sources and 72 key reactions discriminating 7 nitrogen sources. So, in total there are 144 key reactions, which average out to 10.28 per source. Out of these 144 reactions, 104 reaction IDs are unique. (There are few reaction IDs that have the same reaction name.) Excel table showing these growth source-reaction pairs is provided in Supplementary info for both carbon and nitrogen sources (Supplementary Table 1 and Supplementary Table 2). 
 
-To gain mechanistic insight into predictive reactions, we mapped them onto the \emph{E. coli} central metabolism (Figures~\ref{fig:carbon_network} and \ref{fig:nitrogen_network}, Supplementary Table 1 and Supplementary Table 2). Note that each of the metabolic maps is meant to highlight generally important areas in the \emph{E. coli} central metabolism; we had to limit the number of reactions shown to prevent the figure from becoming unwieldy. We found that each carbon or nitrogen source had a few reactions that were predictive to that growth source, and these reactions generally made physiologic sense. For example, using acetate as the carbon source unsurprisingly isolates TCA cycle entry as a predictive reaction (Figure~\ref{fig:carbon_network}). Similarly, D-glucose, sorbitol (the singly reduced alcohol of D-glucose), and fructose each possess predictive reactions in the relative vicinity of the glycolytic pathway (Figure~\ref{fig:carbon_network}). Mapping nitrogen sources to central metabolism reveals a similar trend. For example, L-alanine as a growth source has predictive reactions near its site of entry {\color{red}is this entry or exit from TCA cycle?} into the three and four carbon metabolism of the TCA cycle (Figure~\ref{fig:nitrogen_network}).
+To gain mechanistic insight into predictive reactions, we mapped them onto the \emph{E. coli} central metabolism (Figures~\ref{fig:carbon_network} and \ref{fig:nitrogen_network}, Supplementary Table 1 and Supplementary Table 2). Note that each of the metabolic maps is meant to highlight generally important areas in the \emph{E. coli} central metabolism; we had to limit the number of reactions shown to prevent the figure from becoming unwieldy. We found that each carbon or nitrogen source had a few reactions that were predictive to that growth source, and these reactions generally made physiologic sense. For example, using acetate as the carbon source unsurprisingly isolates TCA cycle entry as a predictive reaction (Figure~\ref{fig:carbon_network}). Similarly, D-glucose, sorbitol (the singly reduced alcohol of D-glucose), and fructose each possess predictive reactions in the relative vicinity of the glycolytic pathway (Figure~\ref{fig:carbon_network}). Mapping nitrogen sources to central metabolism reveals a similar trend. For example, L-alanine as a growth source has predictive reactions near its site of entry into the three and four carbon metabolism of the TCA cycle (Figure~\ref{fig:nitrogen_network}).
 
-We also analyzed how the regression model performed when some of the key predictive reactions were removed. As mentioned above, there were 104 unique reaction IDs for individual prediction of carbon and nitrogen sources at lowest contamination level and with the largest training data set analyzed. We knocked-off each of these 104 reactions at a time, trained a new model separately for both the Carbon and Nitrogen sources, and calculated the prediction accuracy. We combined the results of individual predictions to calculate the prediction accuracy of the combination of the sources. With the exception of knocking-off 'glucose 6-phosphate isomerase' (PGI), the misclassification rate remained unchanged when we knocked-off the other 103 reactions before model fitting. PGI catalyzes reaction that produces fructose-6-P from glucose-6-P. A literature search to see the experimental evidence of the importance of knocking this PGI gene pointed out to a study that showed diminished growth rate \cite{Canonacoetal2001}. This also shows the importance of simulations to first predict the essential genes before conducting time consuming gene knockout studies. Thus, even though the regression model needed on average 10.28 reactions to make a prediction, the specific set of reactions used for successful prediction is not unique.
+We also analyzed how the regression model performed when some of the key predictive reactions were removed. As mentioned above, there were 104 unique reaction IDs for individual prediction of carbon and nitrogen sources at lowest contamination level and with the largest training data set analyzed. We knocked-off each of these 104 reactions at a time, trained a new model separately for both the Carbon and Nitrogen sources, and calculated the prediction accuracy. We combined the results of individual predictions to calculate the prediction accuracy of the combination of the sources. With the exception of knocking-off 'glucose 6-phosphate isomerase' (PGI), the misclassification rate remained unchanged when we knocked-off the other 103 reactions before model fitting. PGI catalyzes reaction that produces fructose-6-P from glucose-6-P. This is a reversible reaction, although the forward reaction is catalyzed most of the times unless concentrations of fructose-6-P change significantly. A literature search to see the experimental evidence of the importance of knocking this PGI gene pointed out to a study that showed diminished growth rate \cite{Canonacoetal2001}. This also shows the importance of simulations to first predict the essential genes before conducting time consuming gene knockout studies. Thus, even though the regression model needed on average 10.28 reactions to make a prediction, the specific set of reactions used for successful prediction is not unique.
 
 
 \subsection*{Predicting specific media or novel metabolites}
 
 In order to generalize our simulations to more experimentally relevant test conditions, we performed similar analyses for several media that are more commonly used in experimental microbiology. Specifically, we tested autoinducer bioassay (AB) minimal media, proprietary media from the company ATCC, Davis Mingioli (DM) media and Bochner defined minimal media. Table 2 shows the composition used in the analysis for these growth media. We were able to classify these at higher accuracy even at higher noise levels (20 contaminants) and lower number of replicates (50). This may be due to the small (4) number of growth conditions used in the study. Our misclassification rate was less than 1\% for noise levels up to 20 C/N contaminants.
 
-Finally, we wanted to determine how the prediction would perform on previously unseen carbon or nitrogen sources. We first obtained simulated flux measurements using maltose as carbon source and using either of the seven nitrogen sources used earlier. We generated simulated flux data for 100 replicates and at 1C/N and 20C/N contaminant level. This resulted in 700 observations and after using a threshold, there were 695 viable flux measurements at 1C/N contaminant level. We used all these observations for testing. Note that we trained the model using the carbon/nitrogen sources in Table 1. When we tested individual prediction of either carbon or nitrogen sources, we found that maltose was classified as glucose over 85\% of the time. Since maltose is a disaccharide formed from two units of glucose, this prediction is reasonable. At the same time, the seven nitrogen sources were predicted correctly over 95\% of the time ({\color{red}how does this compare to the previous result when no novel C source was used? Has the choice of C source an effect on the predictive power for N sources?}). However, when we tried to predict using the joint model, we found that using an unknown carbon source had a substantial effect on the model's ability to predict nitrogen sources. 33\% of the growth conditions were predicted to be sorbitol/putrescine. While sorbitol is a reasonable choice considering the model had never seen maltose (sorbitol is the singly reduced alcohol of glucose), putrescine is not a good prediction for nitrogen sources the model has been trained on.
+Finally, we wanted to determine how the prediction would perform on previously unseen carbon or nitrogen sources. We first obtained simulated flux measurements using maltose as carbon source and using either of the seven nitrogen sources used earlier. We generated simulated flux data for 100 replicates and at 1C/N and 20C/N contaminant level. This resulted in 700 observations and after using a threshold, there were 695 viable flux measurements at 1C/N contaminant level. We used all these observations for testing. Note that we trained the model using the carbon/nitrogen sources in Table 1. When we tested individual prediction of either carbon or nitrogen sources, we found that maltose was classified as glucose over 85\% of the time. Since maltose is a disaccharide formed from two units of glucose, this prediction is reasonable. At the same time, the seven nitrogen sources were predicted correctly over 95\% of the time ({\color{red}how does this compare to the previous result when no novel C source was used? Has the choice of C source an effect on the predictive power for N sources?}). \textbf{Claus, I did not see any effect of C source on the predictive power for N sources. Likewise, when I compare to the study where I used unseen nitrogen source (please see below), I did ont see any effect of N source on the predictive power for C sources. But I did this study for 1C/N contaminants.} However, when we tried to predict using the joint model, we found that using an unknown carbon source had a substantial effect on the model's ability to predict nitrogen sources. 33\% of the growth conditions were predicted to be sorbitol/putrescine. While sorbitol is a reasonable choice considering the model had never seen maltose (sorbitol is the singly reduced alcohol of glucose), putrescine is not a good prediction for nitrogen sources the model has been trained on.
 
 For 20C/N level, there were 699 viable flux measurements. At this contamination level, maltose was predicted as glucose 68\% of the times, while the correct nitrogen source was predicted 81\% of the times. Another interesting result is that 42\% of the times, the observations were predicted as D-glucose/adenine. For the 2 different contaminant levels, individual prediction seem to outperform joint prediction and would help in separately predicting all the known growth sources, while predicting the unknown ones to its nearest compound.
 
@@ -210,20 +178,17 @@ We used MATLAB and R for this study. For flux balance analysis, we used COBRA to
 \subsection*{Flux Balance Analysis} 
 
 We carried out flux balance analysis using the COBRA toolbox \cite{Schellenbergeretal2011} for MATLAB. 
-We used the iAF1260 model from the BiGG database \cite{Schellenbergeretal2010}. In the current iAF1260 model, there are 2382 reactions involving 1668 metabolites. The biomass composition reaction is also included in the model. Except for the input growth sources (carbon and nitrogen sources), we left all parameter settings at their default for this model. The upper bounds on 2377 reactions is set to 1000  mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, i.e., there is virtually no limit on the production of metabolites involved in these reactions. But for 5 reactions, i.e., ATPM, CAT, FHL, SPODM, SPODMpp, the upper bound is set to 50 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}. The lower bound for the majority of reactions (nearly 1800) is set to 0 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, meaning that these reactions cannot uptake any metabolites from the media. A set non-growth associated maintenance (NGAM) of 8.39  mmol gDW\textsuperscript{-1} hr\textsuperscript{-1} is used for ATPM reaction. ATPM is ATP maintenance requirement value. For the remaining reactions, all transport reactions that model metabolite uptake, the lower bounds were set to -1000 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, except for glucose, nitrogen, and oxygen. We did not change the oxygen uptake rate (-18.5 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}), but we set the lower bounds of glucose and ammonia to zero. If we used glucose/ammonia as growth sources, we then set the lower bounds of these sources accordingly.
+We used the iAF1260 model from the BiGG database \cite{Schellenbergeretal2010}. In the current iAF1260 model, there are 2382 reactions involving 1668 metabolites. The biomass composition reaction is also included in the model. Except for the input growth sources (carbon and nitrogen sources), we left all parameter settings at their default for this model. The upper bounds on 2377 reactions is set to 1000  mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, i.e., there is virtually no limit on the production of metabolites involved in these reactions. But for 5 reactions, i.e., ATPM, CAT, FHL, SPODM, SPODMpp, the upper bound is set to 50 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}. The lower bound for the majority of reactions (nearly 1800) is set to 0 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, meaning that these reactions cannot uptake any metabolites from the media. A set non-growth associated maintenance (NGAM) of 8.39  mmol gDW\textsuperscript{-1} hr\textsuperscript{-1} is used for ATPM reaction. ATPM is ATP maintenance requirement value. For all transport reactions that model metabolite uptake, the lower bounds were set to -1000 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, except for glucose, nitrogen, and oxygen. We did not change the default oxygen uptake rate (-18.5 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}) in the iAF1260 model, but we set the lower bounds of glucose and ammonia to zero. If we used glucose/ammonia as growth sources, we then set the lower bounds of these sources accordingly.
 
 \subsection*{Growth conditions} 
 We picked the growth conditions manually from \cite{Feistetal2007} that seemed more common in experiments. In our study, we used pairwise combinations of 7 carbon sources, and 7 nitrogen sources. 7 carbon sources when used alone did not result in any growth. On the other hand, the nitrogen sources except ammonia contributed to E. coli biomass composition that is non-zero. These carbon and nitrogen sources are listed in Table I. Depending on the input growth, we set the lower bound of that particular exchange reaction to -20 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}. This lower bound of -20 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1} is previously used as reasonable uptake amount in many studies \cite{Feistetal2007}. For 49 pair-wise combinations of the sources, we generated 100 replicates of data. Apart from these growth conditions, we also used 4 growth media, generally used in E. coli K-12 MG1655 experiments as cited in EcoCyc database [Cite URL of EcoCyc].
 
-We changed the uptake rate of nitrogen source to -1000 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, keeping the carbon source at -20 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1} to make sure carbon sources don't lack nitrogen source. We also repeated the analysis keeping the carbon source uptake at -1000 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1} and nitrogen source uptake at -20 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}. 
+We changed the lower bounds (uptake rate) of nitrogen sources to -1000 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}, keeping the lower bounds of carbon sources to -20 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1} to study carbon limiting case. We repeated the analysis keeping the carbon source lower bounds (uptake rate) to -1000 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1} and keeping the lower bound of nitrogen sources to -20 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}. 
 
 \subsection*{Contaminants}
 To make the simulation scenario more challenging and more realistic, we incorporated different numbers of contaminants to the simulated growth media. For this, we used a subset of the 174 carbon and 78 nitrogen sources, previously used in Feist et. al \cite{Feistetal2007}.  We used different background contamination levels, ranging from 1C/N to 20C/N sources. For example, if we want to set 5C/N contamination level, we randomly picked 5 Carbon and 5 nitrogen sources and set their lower bounds to -0.2 mmol gDW\textsuperscript{-1} hr\textsuperscript{-1}. Please note that we generated the flux data for a pairwise combination of 1 carbon and 1 nitrogen source along with the background noise as described above. 
 
-\textbf{Once we obtained the flux data, we then used a biomass threshold to filter out non viable growth measurements. We used a threshold value of 0.558, which is (mean - 3*standard deviation) of the biomass value for the lowest contamination level (1C/N) and with largest training set (~2450 replicates).}
-{\color{red}Explain how viable solutions are identified. What is your biomass threshold? How did you arrive at that number?}
-%[Since we are using different noise sources, we used a minimum threshold for biomass composition (0.558)].
-
+For all the results described above, we used a biomass threshold to filter out non-viable flux measurements. We calculated this threshold value using biomass measurements at the lowest contamination level case (1C/N contaminant pair) and with the largest training dataset size (~2450 replicates). Result for (mean - 3*standard deviation) of all the biomass values is used as threshold value, which came out to 0.558.
 
 \subsection*{Regularized regression}
 
@@ -231,16 +196,15 @@ We predicted growth conditions using regularized multinomial logistic regression
 
 After filtering for biomass, for each number of contaminants, we used half of the dataset as test set. We used subsets of the remaining half as training (i.e, ~245, ~490, ~2450 observations). On the training sets we did 3-fold cross validation. We used cross-validation in GLMNET package for model selection. Model selection means picking the regression coefficients at the lambda value that had the lowest misclassification rate with 3-fold cross-validation. We then used this model to calculate the misclassification rate on the test set. We repeated this step to calculate the misclassification rates at different numbers of contaminants (1 C/N, 5 C/N, 10 C/N) and different training data sizes (~245, ~490, ~2450 observations).
 
-
-% Do NOT remove this, even if you are not including acknowledgments
 \section*{Acknowledgments}
 This project is funded by ARO Grant W911NF-12-1-0390. We would like to thank Segr\'e lab members at Boston University for useful discussions on flux balance analysis. We would also like to thank BCG and TACC at UT for computing resources. 
 
 \section*{Author Contributions}
 Conceived and designed the experiments: V.S. and C.O.W. Performed the experiments: V.S. Analyzed the data: V.S, A.G.M and C.O.W. Wrote the paper: V.S, A.G.M, P.R, J.E.B, P.R, D.S. and C.O.W.
 
-%\section*{References}
-% The bibtex filename
+
+%\section*{References} (Automatically References title is added)
+% Bibliography tex filename
 \bibliography{FBAGLMNETBibliography}
 
 \newpage
@@ -296,15 +260,9 @@ Davis Mingioli medium & D-glucose/Citrate/Ammonia\\
 
 \clearpage
 \begin{figure}[!ht]
-\centerline{\includegraphics[width=4in]{Figures/VaryingNoiseNEW.pdf}\includegraphics[width=4in]{Figures/VaryingDataNEW.pdf}}
+\centerline{\includegraphics[width=6in]{Figures/CombinedContaminationTrainingdata.pdf}}
 \caption{\label{fig:misclassification}\textbf{Misclassification rate versus number of contaminants and amount of training data.} (A) The misclassification rate increases as the number of contaminants increases. (B) The misclassification rate decreases as the size of the available training data decreases. In all cases, separate prediction out-performs joint prediction.}
 \end{figure}
-
-%\clearpage
-%\begin{figure}[!ht]
-%\centerline{\includegraphics[width=6in]{Figures/VaryingNoise.pdf}}
-%\caption{\label{fig:misclassification_2}\title{Misclassification rate at different noise levels.} This plot shows that misclassification rate increases as noise increases in FBA models. This is tested for 2 different replicate sizes (480 and 2400 observations).}
-%\end{figure}
 
 \clearpage
 \begin{figure}[p]
@@ -343,18 +301,32 @@ Davis Mingioli medium & D-glucose/Citrate/Ammonia\\
 
 \renewcommand{\tablename}{Supplementary Table}
 
-
-
 \begin{table}[!ht]
 \caption{
 \bf{Carbon sources and key reactions identified to discriminate these sources.}}
-\includegraphics{Figures/SuppInfo/CarbonSources.pdf}
 \end{table}
+\includegraphics{Figures/SuppInfo/CarbonSources.pdf}
+\newpage
+\includegraphics[page=2]{Figures/SuppInfo/CarbonSources.pdf}
+\newpage
+\includegraphics[page=3]{Figures/SuppInfo/CarbonSources.pdf}
+\newpage
+\includegraphics[page=4]{Figures/SuppInfo/CarbonSources.pdf}
+\newpage
+\includegraphics[page=5]{Figures/SuppInfo/CarbonSources.pdf}
+
 
 \begin{table}[!ht]
 \caption{
 \bf{Nitrogen sources and key reactions identified to discriminate these sources.}}
-\includegraphics{Figures/SuppInfo/NitrogenSources.pdf}
 \end{table}
+\includegraphics[page=1]{Figures/SuppInfo/NitrogenSources.pdf}
+\newpage
+\includegraphics[page=2]{Figures/SuppInfo/NitrogenSources.pdf}
+\newpage
+\includegraphics[page=3]{Figures/SuppInfo/NitrogenSources.pdf}
+\newpage
+\includegraphics[page=4]{Figures/SuppInfo/NitrogenSources.pdf}
+
 
 \end{document}
