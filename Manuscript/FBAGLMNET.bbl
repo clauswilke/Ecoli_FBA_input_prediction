@@ -118,6 +118,11 @@ Canonaco F, Hess TA, Heri S, Wang T, Szyperski T, et~al. (2001) Metabolic flux
 \newblock FEMS Microbiol Lett 204: 247--252.
 \bibAnnoteFile{Canonacoetal2001}
 
+\bibitem{Tibshirani1996}
+Tibshirani R (1996) Regression shrinkage and selection via the lasso.
+\newblock J Royal Stat Soc B 58: 267--288.
+\bibAnnoteFile{Tibshirani1996}
+
 \bibitem{Menendezetal2010}
 Menendez P, Kourmpetis YA, ter Braak CJ, van Eeuwijk FA (2010) Gene regulatory
   networks from multifactorial perturbations using {Graphical Lasso:}
@@ -131,6 +136,27 @@ Wu TT, Chen YF, Hastie T, Sobel E, Lange K (2009) Genome-wide association
 \newblock Bioinformatics 25: 714--721.
 \bibAnnoteFile{Wuetal2009}
 
+\bibitem{Casanovaetal2011}
+Casanova R, Whitlow CT, Wagner B, Williamson J, Shumaker SA, et~al. (2011) High
+  dimensional classification of structural {MRI Alzheimer's} disease data based
+  on large scale regularization.
+\newblock Front Neuroinform 5: 22.
+\bibAnnoteFile{Casanovaetal2011}
+
+\bibitem{Casanovaetal2012}
+Casanova R, Hsu FC, Espeland MA, {for the Alzheimer's Disease Neuroimaging
+  Initiative} (2012) Classification of structural {MRI} images in {Alzheimer's}
+  disease from the perspective of ill-posed problems.
+\newblock Plos One 7: e44877.
+\bibAnnoteFile{Casanovaetal2012}
+
+\bibitem{Wangetal2012}
+Wang H, Nie FP, Huang H, Yan JW, Kim S, et~al. (2012) From phenotype to
+  genotype: an association study of longitudinal phenotypic markers to
+  {Alzheimer's} disease relevant {SNPs}.
+\newblock Bioinformatics 28: I619-I625.
+\bibAnnoteFile{Wangetal2012}
+
 \bibitem{Friedmanetal2008}
 Friedman J, Hastie T, Tibshirani R (2008) Sparse inverse covariance estimation
   with the graphical lasso.
@@ -143,17 +169,31 @@ Ravikumar P, Wainwright MJ, Lafferty JD (2010) High-dimensional ising model
 \newblock Annals of Statistics 38: 1287--1319.
 \bibAnnoteFile{Ravikumaretal2010}
 
-\bibitem{CovertPalsson2002}
-Covert MW, Palsson B{\O} (2002) Transcriptional regulation in constraints-based
-  metabolic models of \emph{Escherichia coli}.
-\newblock J Biol Chem 277: 28058--28064.
-\bibAnnoteFile{CovertPalsson2002}
-
 \bibitem{Brandesetal2012}
 Brandes A, Lun DS, Ip K, Zucker J, Colijn C, et~al. (2012) Inferring carbon
   sources from gene expression profiles using metabolic flux models.
 \newblock PLoS One 7: e36947.
 \bibAnnoteFile{Brandesetal2012}
+
+\bibitem{Schnappingeretal2003}
+Schnappinger D, Ehrt S, Voskuil MI, Liu Y, Mangan JA, et~al. (2003)
+  Transcriptional adaptation of \emph{Mycobacterium tuberculosis} within
+  macrophages: Insights into the phagosomal environment.
+\newblock J Exp Med 198: 693--704.
+\bibAnnoteFile{Schnappingeretal2003}
+
+\bibitem{Baevetal2006}
+Baev MV, Baev D, {Jancso Radek} A, Campbell JW (2006) Growth of
+  \emph{Escherichia coli} {MG1655} on {LB} medium: monitoring utilization of
+  sugars, alcohols, and organic acids with transcriptional microarrays.
+\newblock Appl Microbiol Biotech 71: 310--316.
+\bibAnnoteFile{Baevetal2006}
+
+\bibitem{CovertPalsson2002}
+Covert MW, Palsson B{\O} (2002) Transcriptional regulation in constraints-based
+  metabolic models of \emph{Escherichia coli}.
+\newblock J Biol Chem 277: 28058--28064.
+\bibAnnoteFile{CovertPalsson2002}
 
 \bibitem{Schellenbergeretal2011}
 Schellenberger J, Que R, Fleming RM, Thiele I, Orth JD, et~al. (2011)
