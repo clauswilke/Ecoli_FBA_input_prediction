@@ -1,26 +1,39 @@
-a <- 1
-b <- 125
-max.value <- 350*a
+max.value <- 350
+color.scale <- function()
+{
+	n = 280
+	gray(c(1, .90*(1-(1:n)/n), rep(0,70)))
+}
+value.to.color <- function( value, color.scale )
+{
+	n <- length( color.scale )
+	print(floor((n-1)*value/max.value)+1)
+	color.scale[floor((n-1)*value/max.value)+1]
+}
+
+
 N1R1C = c(344,0,0,0,0,0,0,1,338,0,0,0,0,0,0,0,348,0,0,0,0,4,10,2,350,7,11,3,0,1,0,0,342,0,0,0,0,0,0,0,337,0,0,0,0,0,0,1,347)
-N1R1C[N1R1C!=0] <- N1R1C[N1R1C!=0]*a
+N1R1C[N1R1C!=0] <- N1R1C[N1R1C!=0]
 N1R1N = c(350,1,0,1,0,0,0,0,346,0,0,0,0,0,0,3,349,1,2,0,2,0,0,0,346,0,1,0,0,0,0,0,347,0,0,0,0,1,2,0,346,0,0,0,0,0,0,0,348)
-N1R1N[N1R1N!=0] <- N1R1N[N1R1N!=0]*a
+N1R1N[N1R1N!=0] <- N1R1N[N1R1N!=0]
 N20R1C = c(221,6,7,19,10,10,7,10,202,6,16,8,8,13,5,2,211,10,4,1,10,12,11,20,34,11,12,16,5,9,5,10,216,4,5,7,8,3,9,2,238,4,4,4,11,13,4,4,199)
-N20R1C[N20R1C!=0] <- N20R1C[N20R1C!=0]*a
+N20R1C[N20R1C!=0] <- N20R1C[N20R1C!=0]
 N20R1N = c(233,40,28,26,22,18,16,8,167,13,12,14,6,4,4,7,240,3,11,4,1,4,9,3,127,2,4,8,1,5,3,3,123,2,1,0,0,2,1,1,234,0,2,2,7,1,3,1,240)
-N20R1N[N20R1N!=0] <- N20R1N[N20R1N!=0]*a
+N20R1N[N20R1N!=0] <- N20R1N[N20R1N!=0]
 dim(N1R1C) <- c(7,7)
 dim(N1R1N) <- c(7,7)
 dim(N20R1C) <- c(7,7)
 dim(N20R1N) <- c(7,7)
 
-filename = "/Users/austin/Google\ Drive/Documents/Research/Ecoli_FBA_input_prediction/Figures/heatmap.pdf"
+filename = "heatmap.pdf"
 
 #library(fields) 
 
-pdf(filename, width=10, height=10)
+pdf(filename, width=12.5, height=10)
 
-par(mfrow=c(2,2))
+#par(mfrow=c(2,2))
+
+layout( matrix(c(1,5,2,3,5,4), 2, 3, byrow=T ), widths=c(5,2,5) )
 
 par(mgp=c(1,1,0))
 par(oma=c(0,0,0,0))
@@ -28,13 +41,13 @@ par(family = "Helvetica")
 
 par(mar=c(5.25,7,2,2))
 
-image(N1R1C, zlim=c(0, max.value), col = gray(1-log(1:b)/log(b)),
+image(N1R1C, zlim=c(0, max.value), col = color.scale(),
       axes=FALSE,
       xaxt="n",
       yaxt="n"
 )
 
-text(x = -0.4,
+text(x = -0.3,
      y = 1.11,
      cex = 2.5,
      labels = 'A',
@@ -67,13 +80,13 @@ mtext("Prediction", 2, line=4.75, cex=1.5, font = 2)
 
 par(mar=c(5.25,7,2,2))
 
-image(N20R1C, zlim=c(0, max.value), col = gray(1-log(1:b)/log(b)),
+image(N20R1C, zlim=c(0, max.value), col = color.scale(),
       axes=FALSE,
       xaxt="n",
       yaxt="n"
 )
 
-text(x = -0.4,
+text(x = -0.3,
      y = 1.11,
      cex = 2.5,
      labels = 'B',
@@ -107,13 +120,13 @@ mtext("Prediction", 2, line=4.85, cex=1.5, font = 2)
 par(mar=c(5.25,7,2,2))
 
 
-image(N1R1N, zlim=c(0, max.value), col = gray(1-log(1:b)/log(b)),
+image(N1R1N, zlim=c(0, max.value), col = color.scale(),
       axes=FALSE,
       xaxt="n",
       yaxt="n"
 )
 
-text(x = -0.4,
+text(x = -0.3,
      y = 1.11,
      cex = 2.5,
      labels = 'C',
@@ -146,14 +159,14 @@ mtext("Prediction", 2, line=4.9, cex=1.5, font = 2)
 
 par(mar=c(5.25,7,2,2))
 
-image(N20R1N, zlim=c(0, max.value), col = gray(1-log(1:b)/log(b)),
+image(N20R1N, zlim=c(0, max.value), col = color.scale(),
       axes=FALSE,
       xaxt="n",
       yaxt="n"
 )
 
 
-text(x = -0.4,
+text(x = -0.3,
      y = 1.11,
      cex = 2.5,
      labels = 'D',
@@ -184,21 +197,33 @@ text(x = -0.1,
 
 mtext("Prediction", 2, line=4.9, cex=1.5, font = 2)
 
-#legend(1.15,
-#       1.0, 
-#       y.intersp=.5,
-#       legend=c("", "", "", "", "", "", "", "", ""), 
-#       fill=gray(log(seq(1,8,length=9))/max(log(seq(1,10,length=9)))), 
-#       border=gray(log(seq(1,8,length=9))/max(log(seq(1,10,length=9)))),
-#       cex=5,
-#       box.lwd=0,
-#       bty="n")
 
-#text(1.46,-0.1,expression(paste(Delta, "Units?")), cex=3, xpd = TRUE)
-#text(1.525,0.86,"350", cex=2, xpd = TRUE)
-#text(1.525,.67,"10", cex=2, xpd = TRUE)
-#text(1.525,.482,"2", cex=2, xpd = TRUE)
-#text(1.525,.295,"1", cex=2, xpd = TRUE)
-#text(1.525,.105,"0", cex=2, xpd = TRUE)
+plot.new()
+plot.window( xlim=c(-10,10), ylim=c(-2,2) )
+
+leg.x = -20
+leg.y = 2.
+leg.dx = 4
+leg.dy = -1.66
+leg.delta = .16
+
+legend(leg.x,
+       leg.y,
+       x.intersp=0,
+       y.intersp=.5,
+       legend=c("", "", "", "", "", "", "", "", ""), 
+       fill=value.to.color( c(280, 245, 210, 175, 140, 105, 70, 35, 5), color.scale() ),
+       border=value.to.color( c(280, 245, 210, 175, 140, 105, 70, 35, 5), color.scale() ),
+       cex=5,
+       box.lwd=0,
+       bty="n")
+
+#text(leg.x+leg.dx,leg.y+leg.dy+11*leg.delta,"100", cex=2, xpd = TRUE)
+text(leg.x+leg.dx,leg.y+leg.dy+9*leg.delta,">80", cex=2, xpd = TRUE)
+text(leg.x+leg.dx,leg.y+leg.dy+7*leg.delta," 60", cex=2, xpd = TRUE)
+text(leg.x+leg.dx,leg.y+leg.dy+5*leg.delta," 40", cex=2, xpd = TRUE)
+text(leg.x+leg.dx,leg.y+leg.dy+3*leg.delta," 20", cex=2, xpd = TRUE)
+text(leg.x+leg.dx,leg.y+leg.dy+1*leg.delta,"  >0", cex=2, xpd = TRUE)
+text(leg.x+leg.dx+9,leg.y+leg.dy+0*leg.delta, "% cases", cex=2, xpd = TRUE)
 
 dev.off()
