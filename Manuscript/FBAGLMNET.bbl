@@ -1,211 +1,1057 @@
-\begin{thebibliography}{10}
-\providecommand{\url}[1]{\texttt{#1}}
-\providecommand{\urlprefix}{URL }
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
-  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
-  \urlstyle{rm}\Url}\fi
-\providecommand{\bibAnnoteFile}[1]{%
-  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
-  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
-\providecommand{\bibAnnote}[2]{%
-  \begin{quotation}\noindent\textsc{Key:} #1\\
-  \textsc{Annotation:}\ #2\end{quotation}}
-\providecommand{\eprint}[2][]{\url{#2}}
+%% BioMed_Central_Bib_Style_v1.01
 
+\begin{thebibliography}{30}
+% BibTex style file: bmc-mathphys.bst (version 2.0), 2013-07-15
+\ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
+\ifx \binits  \undefined \def \binits#1{#1}\fi
+\ifx \bauthor  \undefined \def \bauthor#1{#1}\fi
+\ifx \batitle  \undefined \def \batitle#1{#1}\fi
+\ifx \bjtitle  \undefined \def \bjtitle#1{#1}\fi
+\ifx \bvolume  \undefined \def \bvolume#1{\textbf{#1}}\fi
+\ifx \byear  \undefined \def \byear#1{#1}\fi
+\ifx \bissue  \undefined \def \bissue#1{#1}\fi
+\ifx \bfpage  \undefined \def \bfpage#1{#1}\fi
+\ifx \blpage  \undefined \def \blpage #1{#1}\fi
+\ifx \burl  \undefined \def \burl#1{\textsf{#1}}\fi
+\ifx \doiurl  \undefined \def \doiurl#1{\textsf{#1}}\fi
+\ifx \betal  \undefined \def \betal{\textit{et al.}}\fi
+\ifx \binstitute  \undefined \def \binstitute#1{#1}\fi
+\ifx \binstitutionaled  \undefined \def \binstitutionaled#1{#1}\fi
+\ifx \bctitle  \undefined \def \bctitle#1{#1}\fi
+\ifx \beditor  \undefined \def \beditor#1{#1}\fi
+\ifx \bpublisher  \undefined \def \bpublisher#1{#1}\fi
+\ifx \bbtitle  \undefined \def \bbtitle#1{#1}\fi
+\ifx \bedition  \undefined \def \bedition#1{#1}\fi
+\ifx \bseriesno  \undefined \def \bseriesno#1{#1}\fi
+\ifx \blocation  \undefined \def \blocation#1{#1}\fi
+\ifx \bsertitle  \undefined \def \bsertitle#1{#1}\fi
+\ifx \bsnm \undefined \def \bsnm#1{#1}\fi
+\ifx \bsuffix \undefined \def \bsuffix#1{#1}\fi
+\ifx \bparticle \undefined \def \bparticle#1{#1}\fi
+\ifx \barticle \undefined \def \barticle#1{#1}\fi
+\ifx \bconfdate \undefined \def \bconfdate #1{#1}\fi
+\ifx \botherref \undefined \def \botherref #1{#1}\fi
+\ifx \url \undefined \def \url#1{\textsf{#1}}\fi
+\ifx \bchapter \undefined \def \bchapter#1{#1}\fi
+\ifx \bbook \undefined \def \bbook#1{#1}\fi
+\ifx \bcomment \undefined \def \bcomment#1{#1}\fi
+\ifx \oauthor \undefined \def \oauthor#1{#1}\fi
+\ifx \citeauthoryear \undefined \def \citeauthoryear#1{#1}\fi
+\ifx \endbibitem  \undefined \def \endbibitem {}\fi
+\ifx \bconflocation  \undefined \def \bconflocation#1{#1}\fi
+\ifx \arxivurl  \undefined \def \arxivurl#1{\textsf{#1}}\fi
+\csname PreBibitemsHook\endcsname
+
+%%% 1
 \bibitem{Taoetal1999}
-Tao H, Bausch C, Richmond C, Blattner FR, Conway T (1999) Functional genomics:
-  expression analysis of \emph{Escherichia coli} growing on minimal and rich
-  media.
-\newblock J Bacteriol 181: 6425--6440.
-\bibAnnoteFile{Taoetal1999}
+\begin{barticle}
+\bauthor{\bsnm{Tao}, \binits{H.}},
+\bauthor{\bsnm{Bausch}, \binits{C.}},
+\bauthor{\bsnm{Richmond}, \binits{C.}},
+\bauthor{\bsnm{Blattner}, \binits{F.R.}},
+\bauthor{\bsnm{Conway}, \binits{T.}}:
+\batitle{Functional genomics: expression analysis of \emph{Escherichia coli}
+  growing on minimal and rich media}.
+\bjtitle{J Bacteriol}
+\bvolume{181},
+\bfpage{6425}--\blpage{6440}
+(\byear{1999})
+\end{barticle}
+\endbibitem
 
+%%% 2
 \bibitem{Huaetal2004}
-Hua Q, Yang C, Oshima T, Mori H, Shimizu K (2004) Analysis of gene expression
-  in \emph{Escherichia coli} in response to changes of growth-limiting nutrient
-  in chemostat cultures.
-\newblock Appl Environ Microbiol 70: 2354--2366.
-\bibAnnoteFile{Huaetal2004}
+\begin{barticle}
+\bauthor{\bsnm{Hua}, \binits{Q.}},
+\bauthor{\bsnm{Yang}, \binits{C.}},
+\bauthor{\bsnm{Oshima}, \binits{T.}},
+\bauthor{\bsnm{Mori}, \binits{H.}},
+\bauthor{\bsnm{Shimizu}, \binits{K.}}:
+\batitle{Analysis of gene expression in \emph{Escherichia coli} in response to
+  changes of growth-limiting nutrient in chemostat cultures}.
+\bjtitle{Appl Environ Microbiol}
+\bvolume{70},
+\bfpage{2354}--\blpage{2366}
+(\byear{2004})
+\end{barticle}
+\endbibitem
 
+%%% 3
 \bibitem{Wuetal2004}
-Wu J, Zhang N, Hayes A, Panoutsopoulou K, Oliver SG (2004) Global analysis of
-  nutrient control of gene expression in \emph{Saccharomyces cerevisiae} during
-  growth and starvation.
-\newblock Proc Natl Acad Sci USA 101: 3148--3153.
-\bibAnnoteFile{Wuetal2004}
+\begin{barticle}
+\bauthor{\bsnm{Wu}, \binits{J.}},
+\bauthor{\bsnm{Zhang}, \binits{N.}},
+\bauthor{\bsnm{Hayes}, \binits{A.}},
+\bauthor{\bsnm{Panoutsopoulou}, \binits{K.}},
+\bauthor{\bsnm{Oliver}, \binits{S.G.}}:
+\batitle{Global analysis of nutrient control of gene expression in
+  \emph{Saccharomyces cerevisiae} during growth and starvation}.
+\bjtitle{Proc Natl Acad Sci USA}
+\bvolume{101},
+\bfpage{3148}--\blpage{3153}
+(\byear{2004})
+\end{barticle}
+\endbibitem
 
+%%% 4
 \bibitem{FischerSauer2003}
-Fischer E, Sauer U (2003) Metabolic flux profiling of \emph{Escherichia coli}
-  mutants in central carbon metabolism using {GC-MS}.
-\newblock Eur J Biochem 270: 880--891.
-\bibAnnoteFile{FischerSauer2003}
+\begin{barticle}
+\bauthor{\bsnm{Fischer}, \binits{E.}},
+\bauthor{\bsnm{Sauer}, \binits{U.}}:
+\batitle{Metabolic flux profiling of \emph{Escherichia coli} mutants in central
+  carbon metabolism using {GC-MS}}.
+\bjtitle{Eur J Biochem}
+\bvolume{270},
+\bfpage{880}--\blpage{891}
+(\byear{2003})
+\end{barticle}
+\endbibitem
 
+%%% 5
 \bibitem{Leeetal2009}
-Lee MC, Chou HH, Marx CJ (2009) Asymmetric, bimodal trade-offs during
-  adaptation of methylobacterium to distinct growth substrates.
-\newblock Evolution 63: 2816--2830.
-\bibAnnoteFile{Leeetal2009}
+\begin{barticle}
+\bauthor{\bsnm{Lee}, \binits{M.C.}},
+\bauthor{\bsnm{Chou}, \binits{H.H.}},
+\bauthor{\bsnm{Marx}, \binits{C.J.}}:
+\batitle{Asymmetric, bimodal trade-offs during adaptation of methylobacterium
+  to distinct growth substrates}.
+\bjtitle{Evolution}
+\bvolume{63},
+\bfpage{2816}--\blpage{2830}
+(\byear{2009})
+\end{barticle}
+\endbibitem
 
+%%% 6
 \bibitem{Boeretal2010}
-Boer VM, Crutchfield CA, Bradley PH, Botstein D, Rabinowitz JD (2010)
-  Growth-limiting intracellular metabolites in yeast growing under diverse
-  nutrient limitations.
-\newblock Mol Biol Cell 21: 198--211.
-\bibAnnoteFile{Boeretal2010}
+\begin{barticle}
+\bauthor{\bsnm{Boer}, \binits{V.M.}},
+\bauthor{\bsnm{Crutchfield}, \binits{C.A.}},
+\bauthor{\bsnm{Bradley}, \binits{P.H.}},
+\bauthor{\bsnm{Botstein}, \binits{D.}},
+\bauthor{\bsnm{Rabinowitz}, \binits{J.D.}}:
+\batitle{Growth-limiting intracellular metabolites in yeast growing under
+  diverse nutrient limitations}.
+\bjtitle{Mol Biol Cell}
+\bvolume{21},
+\bfpage{198}--\blpage{211}
+(\byear{2010})
+\end{barticle}
+\endbibitem
 
+%%% 7
 \bibitem{HaverkornvanRijsewijketal2011}
-{Haverkorn van Rijsewijk} BR, Nanchen A, Nallet S, Kleijn RJ, Sauer U (2011)
-  Large-scale {13C-flux} analysis reveals distinct transcriptional control of
-  respiratory and fermentative metabolism in \emph{Escherichia coli}.
-\newblock Mol Syst Biol 7: 477.
-\bibAnnoteFile{HaverkornvanRijsewijketal2011}
+\begin{barticle}
+\bauthor{\bsnm{{Haverkorn van Rijsewijk}}, \binits{B.R.}},
+\bauthor{\bsnm{Nanchen}, \binits{A.}},
+\bauthor{\bsnm{Nallet}, \binits{S.}},
+\bauthor{\bsnm{Kleijn}, \binits{R.J.}},
+\bauthor{\bsnm{Sauer}, \binits{U.}}:
+\batitle{Large-scale {13C-flux} analysis reveals distinct transcriptional
+  control of respiratory and fermentative metabolism in \emph{Escherichia
+  coli}}.
+\bjtitle{Mol Syst Biol}
+\bvolume{7},
+\bfpage{477}
+(\byear{2011})
+\end{barticle}
+\endbibitem
 
+%%% 8
 \bibitem{Segreetal2002}
-Segr\`e D, Vitkup D, Church GM (2002) Analysis of optimality in natural and
-  perturbed metabolic networks.
-\newblock Proc Natl Acad Sci USA 99: 15112--15117.
-\bibAnnoteFile{Segreetal2002}
+\begin{barticle}
+\bauthor{\bsnm{Segr\`e}, \binits{D.}},
+\bauthor{\bsnm{Vitkup}, \binits{D.}},
+\bauthor{\bsnm{Church}, \binits{G.M.}}:
+\batitle{Analysis of optimality in natural and perturbed metabolic networks}.
+\bjtitle{Proc Natl Acad Sci USA}
+\bvolume{99},
+\bfpage{15112}--\blpage{15117}
+(\byear{2002})
+\end{barticle}
+\endbibitem
 
+%%% 9
 \bibitem{Feistetal2007}
-Feist AM, Henry CS, Reed JL, Krummenacker M, Joyce AR, et~al. (2007) A
-  genome-scale metabolic reconstruction for \emph{Escherichia coli} {K-12
-  MG1655} that accounts for 1260 {ORFs} and thermodynamic information.
-\newblock Mol Syst Biol 3: 121.
-\bibAnnoteFile{Feistetal2007}
+\begin{barticle}
+\bauthor{\bsnm{Feist}, \binits{A.M.}},
+\bauthor{\bsnm{Henry}, \binits{C.S.}},
+\bauthor{\bsnm{Reed}, \binits{J.L.}},
+\bauthor{\bsnm{Krummenacker}, \binits{M.}},
+\bauthor{\bsnm{Joyce}, \binits{A.R.}},
+\bauthor{\bsnm{Karp}, \binits{P.D.}},
+\bauthor{\bsnm{Broadbelt}, \binits{L.J.}},
+\bauthor{\bsnm{Hatzimanikatis}, \binits{V.}},
+\bauthor{\bsnm{Palsson}, \binits{B.{\O}.}}:
+\batitle{A genome-scale metabolic reconstruction for \emph{Escherichia coli}
+  {K-12 MG1655} that accounts for 1260 {ORFs} and thermodynamic information}.
+\bjtitle{Mol Syst Biol}
+\bvolume{3},
+\bfpage{121}
+(\byear{2007})
+\end{barticle}
+\endbibitem
 
+%%% 10
 \bibitem{SnitkinSegre2008}
-Snitkin ES, Segr\`e D (2008) Optimality criteria for the prediction of
-  metabolic fluxes in yeast mutants.
-\newblock Genome Informatics 20: 123--134.
-\bibAnnoteFile{SnitkinSegre2008}
+\begin{barticle}
+\bauthor{\bsnm{Snitkin}, \binits{E.S.}},
+\bauthor{\bsnm{Segr\`e}, \binits{D.}}:
+\batitle{Optimality criteria for the prediction of metabolic fluxes in yeast
+  mutants}.
+\bjtitle{Genome Informatics}
+\bvolume{20},
+\bfpage{123}--\blpage{134}
+(\byear{2008})
+\end{barticle}
+\endbibitem
 
+%%% 11
 \bibitem{Orthetal2010}
-Orth JD, Thiele I, Palsson B{\O} (2010) What is flux balance analysis?
-\newblock Nat Biotechnol 28: 245--248.
-\bibAnnoteFile{Orthetal2010}
+\begin{barticle}
+\bauthor{\bsnm{Orth}, \binits{J.D.}},
+\bauthor{\bsnm{Thiele}, \binits{I.}},
+\bauthor{\bsnm{Palsson}, \binits{B.{\O}.}}:
+\batitle{What is flux balance analysis?}
+\bjtitle{Nat Biotechnol}
+\bvolume{28},
+\bfpage{245}--\blpage{248}
+(\byear{2010})
+\end{barticle}
+\endbibitem
 
+%%% 12
 \bibitem{Covertetal2008}
-Covert MW, Xiao N, Chen TJ, Karr JR (2008) Integrating metabolic,
-  transcriptional regulatory and signal transduction models in
-  \emph{Escherichia coli}.
-\newblock Bioinformatics 24: 2044-50.
-\bibAnnoteFile{Covertetal2008}
+\begin{barticle}
+\bauthor{\bsnm{Covert}, \binits{M.W.}},
+\bauthor{\bsnm{Xiao}, \binits{N.}},
+\bauthor{\bsnm{Chen}, \binits{T.J.}},
+\bauthor{\bsnm{Karr}, \binits{J.R.}}:
+\batitle{Integrating metabolic, transcriptional regulatory and signal
+  transduction models in \emph{Escherichia coli}}.
+\bjtitle{Bioinformatics}
+\bvolume{24},
+\bfpage{2044}--\blpage{50}
+(\byear{2008})
+\end{barticle}
+\endbibitem
 
+%%% 13
 \bibitem{Adadietal2012}
-Adadi R, Volkmer B, Milo R, Heinemann M, Shlomi T (2012) Prediction of
-  microbial growth rate versus biomass yield by a metabolic network with
-  kinetic parameters.
-\newblock PLoS Comput Biol 8: e1002575.
-\bibAnnoteFile{Adadietal2012}
+\begin{barticle}
+\bauthor{\bsnm{Adadi}, \binits{R.}},
+\bauthor{\bsnm{Volkmer}, \binits{B.}},
+\bauthor{\bsnm{Milo}, \binits{R.}},
+\bauthor{\bsnm{Heinemann}, \binits{M.}},
+\bauthor{\bsnm{Shlomi}, \binits{T.}}:
+\batitle{Prediction of microbial growth rate versus biomass yield by a
+  metabolic network with kinetic parameters}.
+\bjtitle{PLoS Comput Biol}
+\bvolume{8},
+\bfpage{1002575}
+(\byear{2012})
+\end{barticle}
+\endbibitem
 
+%%% 14
 \bibitem{Schellenbergeretal2010}
-Schellenberger J, Park JO, Conrad TM, Palsson B{\O} (2010) {BiGG:} a
-  biochemical genetic and genomic knowledgebase of large scale metabolic
-  reconstructions.
-\newblock BMC Bioinformatics 11: 213.
-\bibAnnoteFile{Schellenbergeretal2010}
+\begin{barticle}
+\bauthor{\bsnm{Schellenberger}, \binits{J.}},
+\bauthor{\bsnm{Park}, \binits{J.O.}},
+\bauthor{\bsnm{Conrad}, \binits{T.M.}},
+\bauthor{\bsnm{Palsson}, \binits{B.{\O}.}}:
+\batitle{{BiGG:} a biochemical genetic and genomic knowledgebase of large scale
+  metabolic reconstructions}.
+\bjtitle{BMC Bioinformatics}
+\bvolume{11},
+\bfpage{213}
+(\byear{2010})
+\end{barticle}
+\endbibitem
 
+%%% 15
 \bibitem{KuporFraenkel1972}
-Kupor SR, Fraenkel DG (1972) Glucose metabolism in 6 phosphogluconolactonase
-  mutants of escherichia coli.
-\newblock J Biol Chem 247: 1904--1910.
-\bibAnnoteFile{KuporFraenkel1972}
+\begin{barticle}
+\bauthor{\bsnm{Kupor}, \binits{S.R.}},
+\bauthor{\bsnm{Fraenkel}, \binits{D.G.}}:
+\batitle{Glucose metabolism in 6 phosphogluconolactonase mutants of escherichia
+  coli}.
+\bjtitle{J Biol Chem}
+\bvolume{247},
+\bfpage{1904}--\blpage{1910}
+(\byear{1972})
+\end{barticle}
+\endbibitem
 
+%%% 16
 \bibitem{Canonacoetal2001}
-Canonaco F, Hess TA, Heri S, Wang T, Szyperski T, et~al. (2001) Metabolic flux
-  response to phosphoglucose isomerase knock-out in \emph{Escherichia coli} and
-  impact of overexpression of the soluble transhydrogenase {UdhA}.
-\newblock FEMS Microbiol Lett 204: 247--252.
-\bibAnnoteFile{Canonacoetal2001}
+\begin{barticle}
+\bauthor{\bsnm{Canonaco}, \binits{F.}},
+\bauthor{\bsnm{Hess}, \binits{T.A.}},
+\bauthor{\bsnm{Heri}, \binits{S.}},
+\bauthor{\bsnm{Wang}, \binits{T.}},
+\bauthor{\bsnm{Szyperski}, \binits{T.}},
+\bauthor{\bsnm{Sauer}, \binits{U.}}:
+\batitle{Metabolic flux response to phosphoglucose isomerase knock-out in
+  \emph{Escherichia coli} and impact of overexpression of the soluble
+  transhydrogenase {UdhA}}.
+\bjtitle{FEMS Microbiol Lett}
+\bvolume{204},
+\bfpage{247}--\blpage{252}
+(\byear{2001})
+\end{barticle}
+\endbibitem
 
+%%% 17
 \bibitem{Tibshirani1996}
-Tibshirani R (1996) Regression shrinkage and selection via the lasso.
-\newblock J Royal Stat Soc B 58: 267--288.
-\bibAnnoteFile{Tibshirani1996}
+\begin{barticle}
+\bauthor{\bsnm{Tibshirani}, \binits{R.}}:
+\batitle{Regression shrinkage and selection via the lasso}.
+\bjtitle{J Royal Stat Soc B}
+\bvolume{58},
+\bfpage{267}--\blpage{288}
+(\byear{1996})
+\end{barticle}
+\endbibitem
 
+%%% 18
 \bibitem{Menendezetal2010}
-Menendez P, Kourmpetis YA, ter Braak CJ, van Eeuwijk FA (2010) Gene regulatory
-  networks from multifactorial perturbations using {Graphical Lasso:}
-  application to the {DREAM4} challenge.
-\newblock PLoS One 5: e14147.
-\bibAnnoteFile{Menendezetal2010}
+\begin{barticle}
+\bauthor{\bsnm{Menendez}, \binits{P.}},
+\bauthor{\bsnm{Kourmpetis}, \binits{Y.A.}},
+\bauthor{\bparticle{ter} \bsnm{Braak}, \binits{C.J.}},
+\bauthor{\bparticle{van} \bsnm{Eeuwijk}, \binits{F.A.}}:
+\batitle{Gene regulatory networks from multifactorial perturbations using
+  {Graphical Lasso:} application to the {DREAM4} challenge}.
+\bjtitle{PLoS One}
+\bvolume{5},
+\bfpage{14147}
+(\byear{2010})
+\end{barticle}
+\endbibitem
 
+%%% 19
 \bibitem{Wuetal2009}
-Wu TT, Chen YF, Hastie T, Sobel E, Lange K (2009) Genome-wide association
-  analysis by lasso penalized logistic regression.
-\newblock Bioinformatics 25: 714--721.
-\bibAnnoteFile{Wuetal2009}
+\begin{barticle}
+\bauthor{\bsnm{Wu}, \binits{T.T.}},
+\bauthor{\bsnm{Chen}, \binits{Y.F.}},
+\bauthor{\bsnm{Hastie}, \binits{T.}},
+\bauthor{\bsnm{Sobel}, \binits{E.}},
+\bauthor{\bsnm{Lange}, \binits{K.}}:
+\batitle{Genome-wide association analysis by lasso penalized logistic
+  regression}.
+\bjtitle{Bioinformatics}
+\bvolume{25},
+\bfpage{714}--\blpage{721}
+(\byear{2009})
+\end{barticle}
+\endbibitem
 
+%%% 20
 \bibitem{Casanovaetal2011}
-Casanova R, Whitlow CT, Wagner B, Williamson J, Shumaker SA, et~al. (2011) High
-  dimensional classification of structural {MRI Alzheimer's} disease data based
-  on large scale regularization.
-\newblock Front Neuroinform 5: 22.
-\bibAnnoteFile{Casanovaetal2011}
+\begin{barticle}
+\bauthor{\bsnm{Casanova}, \binits{R.}},
+\bauthor{\bsnm{Whitlow}, \binits{C.T.}},
+\bauthor{\bsnm{Wagner}, \binits{B.}},
+\bauthor{\bsnm{Williamson}, \binits{J.}},
+\bauthor{\bsnm{Shumaker}, \binits{S.A.}},
+\bauthor{\bsnm{Maldjian}, \binits{J.A.}},
+\bauthor{\bsnm{Espeland}, \binits{M.A.}}:
+\batitle{High dimensional classification of structural {MRI Alzheimer's}
+  disease data based on large scale regularization}.
+\bjtitle{Front Neuroinform}
+\bvolume{5},
+\bfpage{22}
+(\byear{2011})
+\end{barticle}
+\endbibitem
 
+%%% 21
 \bibitem{Casanovaetal2012}
-Casanova R, Hsu FC, Espeland MA, {for the Alzheimer's Disease Neuroimaging
-  Initiative} (2012) Classification of structural {MRI} images in {Alzheimer's}
-  disease from the perspective of ill-posed problems.
-\newblock Plos One 7: e44877.
-\bibAnnoteFile{Casanovaetal2012}
+\begin{barticle}
+\bauthor{\bsnm{Casanova}, \binits{R.}},
+\bauthor{\bsnm{Hsu}, \binits{F.C.}},
+\bauthor{\bsnm{Espeland}, \binits{M.A.}},
+\bauthor{\bsnm{{for the Alzheimer's Disease Neuroimaging Initiative}}}:
+\batitle{Classification of structural {MRI} images in {Alzheimer's} disease
+  from the perspective of ill-posed problems}.
+\bjtitle{Plos One}
+\bvolume{7},
+\bfpage{44877}
+(\byear{2012})
+\end{barticle}
+\endbibitem
 
+%%% 22
 \bibitem{Wangetal2012}
-Wang H, Nie FP, Huang H, Yan JW, Kim S, et~al. (2012) From phenotype to
-  genotype: an association study of longitudinal phenotypic markers to
-  {Alzheimer's} disease relevant {SNPs}.
-\newblock Bioinformatics 28: I619-I625.
-\bibAnnoteFile{Wangetal2012}
+\begin{barticle}
+\bauthor{\bsnm{Wang}, \binits{H.}},
+\bauthor{\bsnm{Nie}, \binits{F.P.}},
+\bauthor{\bsnm{Huang}, \binits{H.}},
+\bauthor{\bsnm{Yan}, \binits{J.W.}},
+\bauthor{\bsnm{Kim}, \binits{S.}},
+\bauthor{\bsnm{Nho}, \binits{K.}},
+\bauthor{\bsnm{Risacher}, \binits{S.L.}},
+\bauthor{\bsnm{Saykin}, \binits{A.J.}},
+\bauthor{\bsnm{Shen}, \binits{L.}},
+\bauthor{\bsnm{Initi}, \binits{A.D.N.}}:
+\batitle{From phenotype to genotype: an association study of longitudinal
+  phenotypic markers to {Alzheimer's} disease relevant {SNPs}}.
+\bjtitle{Bioinformatics}
+\bvolume{28},
+\bfpage{619}--\blpage{625}
+(\byear{2012})
+\end{barticle}
+\endbibitem
 
+%%% 23
 \bibitem{Friedmanetal2008}
-Friedman J, Hastie T, Tibshirani R (2008) Sparse inverse covariance estimation
-  with the graphical lasso.
-\newblock Biostatistics 9: 432--441.
-\bibAnnoteFile{Friedmanetal2008}
+\begin{barticle}
+\bauthor{\bsnm{Friedman}, \binits{J.}},
+\bauthor{\bsnm{Hastie}, \binits{T.}},
+\bauthor{\bsnm{Tibshirani}, \binits{R.}}:
+\batitle{Sparse inverse covariance estimation with the graphical lasso}.
+\bjtitle{Biostatistics}
+\bvolume{9},
+\bfpage{432}--\blpage{441}
+(\byear{2008})
+\end{barticle}
+\endbibitem
 
+%%% 24
 \bibitem{Ravikumaretal2010}
-Ravikumar P, Wainwright MJ, Lafferty JD (2010) High-dimensional ising model
-  selection using l(1)-regularized logistic regression.
-\newblock Annals of Statistics 38: 1287--1319.
-\bibAnnoteFile{Ravikumaretal2010}
+\begin{barticle}
+\bauthor{\bsnm{Ravikumar}, \binits{P.}},
+\bauthor{\bsnm{Wainwright}, \binits{M.J.}},
+\bauthor{\bsnm{Lafferty}, \binits{J.D.}}:
+\batitle{High-dimensional ising model selection using l(1)-regularized logistic
+  regression}.
+\bjtitle{Annals of Statistics}
+\bvolume{38},
+\bfpage{1287}--\blpage{1319}
+(\byear{2010})
+\end{barticle}
+\endbibitem
 
+%%% 25
 \bibitem{Brandesetal2012}
-Brandes A, Lun DS, Ip K, Zucker J, Colijn C, et~al. (2012) Inferring carbon
-  sources from gene expression profiles using metabolic flux models.
-\newblock PLoS One 7: e36947.
-\bibAnnoteFile{Brandesetal2012}
+\begin{barticle}
+\bauthor{\bsnm{Brandes}, \binits{A.}},
+\bauthor{\bsnm{Lun}, \binits{D.S.}},
+\bauthor{\bsnm{Ip}, \binits{K.}},
+\bauthor{\bsnm{Zucker}, \binits{J.}},
+\bauthor{\bsnm{Colijn}, \binits{C.}},
+\bauthor{\bsnm{Weiner}, \binits{B.}},
+\bauthor{\bsnm{Galagan}, \binits{J.E.}}:
+\batitle{Inferring carbon sources from gene expression profiles using metabolic
+  flux models}.
+\bjtitle{PLoS One}
+\bvolume{7},
+\bfpage{36947}
+(\byear{2012})
+\end{barticle}
+\endbibitem
 
+%%% 26
 \bibitem{Schnappingeretal2003}
-Schnappinger D, Ehrt S, Voskuil MI, Liu Y, Mangan JA, et~al. (2003)
-  Transcriptional adaptation of \emph{Mycobacterium tuberculosis} within
-  macrophages: Insights into the phagosomal environment.
-\newblock J Exp Med 198: 693--704.
-\bibAnnoteFile{Schnappingeretal2003}
+\begin{barticle}
+\bauthor{\bsnm{Schnappinger}, \binits{D.}},
+\bauthor{\bsnm{Ehrt}, \binits{S.}},
+\bauthor{\bsnm{Voskuil}, \binits{M.I.}},
+\bauthor{\bsnm{Liu}, \binits{Y.}},
+\bauthor{\bsnm{Mangan}, \binits{J.A.}},
+\bauthor{\bsnm{Monahan}, \binits{I.M.}},
+\bauthor{\bsnm{Dolganov}, \binits{G.}},
+\bauthor{\bsnm{Efron}, \binits{B.}},
+\bauthor{\bsnm{Butcher}, \binits{P.D.}},
+\bauthor{\bsnm{Nathan}, \binits{C.}},
+\bauthor{\bsnm{Schoolnik}, \binits{G.K.}}:
+\batitle{Transcriptional adaptation of \emph{Mycobacterium tuberculosis} within
+  macrophages: Insights into the phagosomal environment}.
+\bjtitle{J. Exp. Med.}
+\bvolume{198},
+\bfpage{693}--\blpage{704}
+(\byear{2003})
+\end{barticle}
+\endbibitem
 
+%%% 27
 \bibitem{Baevetal2006}
-Baev MV, Baev D, {Jancso Radek} A, Campbell JW (2006) Growth of
-  \emph{Escherichia coli} {MG1655} on {LB} medium: monitoring utilization of
-  sugars, alcohols, and organic acids with transcriptional microarrays.
-\newblock Appl Microbiol Biotech 71: 310--316.
-\bibAnnoteFile{Baevetal2006}
+\begin{barticle}
+\bauthor{\bsnm{Baev}, \binits{M.V.}},
+\bauthor{\bsnm{Baev}, \binits{D.}},
+\bauthor{\bsnm{{Jancso Radek}}, \binits{A.}},
+\bauthor{\bsnm{Campbell}, \binits{J.W.}}:
+\batitle{Growth of \emph{Escherichia coli} {MG1655} on {LB} medium: monitoring
+  utilization of sugars, alcohols, and organic acids with transcriptional
+  microarrays}.
+\bjtitle{Appl. Microbiol. Biotech.}
+\bvolume{71},
+\bfpage{310}--\blpage{316}
+(\byear{2006})
+\end{barticle}
+\endbibitem
 
+%%% 28
 \bibitem{CovertPalsson2002}
-Covert MW, Palsson B{\O} (2002) Transcriptional regulation in constraints-based
-  metabolic models of \emph{Escherichia coli}.
-\newblock J Biol Chem 277: 28058--28064.
-\bibAnnoteFile{CovertPalsson2002}
+\begin{barticle}
+\bauthor{\bsnm{Covert}, \binits{M.W.}},
+\bauthor{\bsnm{Palsson}, \binits{B.{\O}.}}:
+\batitle{Transcriptional regulation in constraints-based metabolic models of
+  \emph{Escherichia coli}}.
+\bjtitle{J Biol Chem}
+\bvolume{277},
+\bfpage{28058}--\blpage{28064}
+(\byear{2002})
+\end{barticle}
+\endbibitem
 
+%%% 29
 \bibitem{Schellenbergeretal2011}
-Schellenberger J, Que R, Fleming RM, Thiele I, Orth JD, et~al. (2011)
-  Quantitative prediction of cellular metabolism with constraint-based models:
-  the {COBRA Toolbox} v2.0.
-\newblock Nat Protoc 6: 1290--1307.
-\bibAnnoteFile{Schellenbergeretal2011}
+\begin{barticle}
+\bauthor{\bsnm{Schellenberger}, \binits{J.}},
+\bauthor{\bsnm{Que}, \binits{R.}},
+\bauthor{\bsnm{Fleming}, \binits{R.M.}},
+\bauthor{\bsnm{Thiele}, \binits{I.}},
+\bauthor{\bsnm{Orth}, \binits{J.D.}},
+\bauthor{\bsnm{Feist}, \binits{A.M.}},
+\bauthor{\bsnm{Zielinski}, \binits{D.C.}},
+\bauthor{\bsnm{Bordbar}, \binits{A.}},
+\bauthor{\bsnm{Lewis}, \binits{N.E.}},
+\bauthor{\bsnm{Rahmanian}, \binits{S.}},
+\bauthor{\bsnm{Kang}, \binits{J.}},
+\bauthor{\bsnm{Hyduke}, \binits{D.R.}},
+\bauthor{\bsnm{Palsson}, \binits{B.{\O}.}}:
+\batitle{Quantitative prediction of cellular metabolism with constraint-based
+  models: the {COBRA Toolbox} v2.0}.
+\bjtitle{Nat Protoc}
+\bvolume{6},
+\bfpage{1290}--\blpage{1307}
+(\byear{2011})
+\end{barticle}
+\endbibitem
 
+%%% 30
 \bibitem{Friedmanetal2010}
-Friedman J, Hastie T, Tibshirani R (2010) Regularization paths for generalized
-  linear models via coordinate descent.
-\newblock Journal of Statistical Software 33: 1--22.
-\bibAnnoteFile{Friedmanetal2010}
+\begin{barticle}
+\bauthor{\bsnm{Friedman}, \binits{J.}},
+\bauthor{\bsnm{Hastie}, \binits{T.}},
+\bauthor{\bsnm{Tibshirani}, \binits{R.}}:
+\batitle{Regularization paths for generalized linear models via coordinate
+  descent}.
+\bjtitle{Journal of Statistical Software}
+\bvolume{33},
+\bfpage{1}--\blpage{22}
+(\byear{2010})
+\end{barticle}
+\endbibitem
 
 \end{thebibliography}
+
+\newcommand{\BMCxmlcomment}[1]{}
+
+\BMCxmlcomment{
+
+<refgrp>
+
+<bibl id="B1">
+  <title><p>Functional genomics: expression analysis of \emph{Escherichia coli}
+  growing on minimal and rich media</p></title>
+  <aug>
+    <au><snm>Tao</snm><fnm>H.</fnm></au>
+    <au><snm>Bausch</snm><fnm>C.</fnm></au>
+    <au><snm>Richmond</snm><fnm>C.</fnm></au>
+    <au><snm>Blattner</snm><fnm>F. R.</fnm></au>
+    <au><snm>Conway</snm><fnm>T.</fnm></au>
+  </aug>
+  <source>J Bacteriol</source>
+  <pubdate>1999</pubdate>
+  <volume>181</volume>
+  <fpage>6425</fpage>
+  <lpage>-6440</lpage>
+</bibl>
+
+<bibl id="B2">
+  <title><p>Analysis of gene expression in \emph{Escherichia coli} in response
+  to changes of growth-limiting nutrient in chemostat cultures</p></title>
+  <aug>
+    <au><snm>Hua</snm><fnm>Q.</fnm></au>
+    <au><snm>Yang</snm><fnm>C.</fnm></au>
+    <au><snm>Oshima</snm><fnm>T.</fnm></au>
+    <au><snm>Mori</snm><fnm>H.</fnm></au>
+    <au><snm>Shimizu</snm><fnm>K.</fnm></au>
+  </aug>
+  <source>Appl Environ Microbiol</source>
+  <pubdate>2004</pubdate>
+  <volume>70</volume>
+  <fpage>2354</fpage>
+  <lpage>-2366</lpage>
+</bibl>
+
+<bibl id="B3">
+  <title><p>Global analysis of nutrient control of gene expression in
+  \emph{Saccharomyces cerevisiae} during growth and starvation</p></title>
+  <aug>
+    <au><snm>Wu</snm><fnm>J.</fnm></au>
+    <au><snm>Zhang</snm><fnm>N.</fnm></au>
+    <au><snm>Hayes</snm><fnm>A.</fnm></au>
+    <au><snm>Panoutsopoulou</snm><fnm>K.</fnm></au>
+    <au><snm>Oliver</snm><fnm>S. G.</fnm></au>
+  </aug>
+  <source>Proc Natl Acad Sci USA</source>
+  <pubdate>2004</pubdate>
+  <volume>101</volume>
+  <fpage>3148</fpage>
+  <lpage>-3153</lpage>
+</bibl>
+
+<bibl id="B4">
+  <title><p>Metabolic flux profiling of \emph{Escherichia coli} mutants in
+  central carbon metabolism using {GC-MS}</p></title>
+  <aug>
+    <au><snm>Fischer</snm><fnm>E.</fnm></au>
+    <au><snm>Sauer</snm><fnm>U.</fnm></au>
+  </aug>
+  <source>Eur J Biochem</source>
+  <pubdate>2003</pubdate>
+  <volume>270</volume>
+  <fpage>880</fpage>
+  <lpage>-891</lpage>
+</bibl>
+
+<bibl id="B5">
+  <title><p>Asymmetric, bimodal trade-offs during adaptation of
+  Methylobacterium to distinct growth substrates</p></title>
+  <aug>
+    <au><snm>Lee</snm><fnm>M. C.</fnm></au>
+    <au><snm>Chou</snm><fnm>H. H.</fnm></au>
+    <au><snm>Marx</snm><fnm>C. J.</fnm></au>
+  </aug>
+  <source>Evolution</source>
+  <pubdate>2009</pubdate>
+  <volume>63</volume>
+  <fpage>2816</fpage>
+  <lpage>-2830</lpage>
+</bibl>
+
+<bibl id="B6">
+  <title><p>Growth-limiting intracellular metabolites in yeast growing under
+  diverse nutrient limitations</p></title>
+  <aug>
+    <au><snm>Boer</snm><fnm>V. M.</fnm></au>
+    <au><snm>Crutchfield</snm><fnm>C. A.</fnm></au>
+    <au><snm>Bradley</snm><fnm>P. H.</fnm></au>
+    <au><snm>Botstein</snm><fnm>D.</fnm></au>
+    <au><snm>Rabinowitz</snm><fnm>J. D.</fnm></au>
+  </aug>
+  <source>Mol Biol Cell</source>
+  <pubdate>2010</pubdate>
+  <volume>21</volume>
+  <fpage>198</fpage>
+  <lpage>-211</lpage>
+</bibl>
+
+<bibl id="B7">
+  <title><p>Large-scale {13C-flux} analysis reveals distinct transcriptional
+  control of respiratory and fermentative metabolism in \emph{Escherichia
+  coli}</p></title>
+  <aug>
+    <au><snm>{Haverkorn van Rijsewijk}</snm><fnm>B. R.</fnm></au>
+    <au><snm>Nanchen</snm><fnm>A.</fnm></au>
+    <au><snm>Nallet</snm><fnm>S.</fnm></au>
+    <au><snm>Kleijn</snm><fnm>R. J.</fnm></au>
+    <au><snm>Sauer</snm><fnm>U.</fnm></au>
+  </aug>
+  <source>Mol Syst Biol</source>
+  <pubdate>2011</pubdate>
+  <volume>7</volume>
+  <fpage>477</fpage>
+</bibl>
+
+<bibl id="B8">
+  <title><p>Analysis of optimality in natural and perturbed metabolic
+  networks</p></title>
+  <aug>
+    <au><snm>Segr\`e</snm><fnm>D.</fnm></au>
+    <au><snm>Vitkup</snm><fnm>D.</fnm></au>
+    <au><snm>Church</snm><fnm>G. M.</fnm></au>
+  </aug>
+  <source>Proc Natl Acad Sci USA</source>
+  <pubdate>2002</pubdate>
+  <volume>99</volume>
+  <fpage>15112</fpage>
+  <lpage>-15117</lpage>
+</bibl>
+
+<bibl id="B9">
+  <title><p>A genome-scale metabolic reconstruction for \emph{Escherichia coli}
+  {K-12 MG1655} that accounts for 1260 {ORFs} and thermodynamic
+  information</p></title>
+  <aug>
+    <au><snm>Feist</snm><fnm>A. M.</fnm></au>
+    <au><snm>Henry</snm><fnm>C. S.</fnm></au>
+    <au><snm>Reed</snm><fnm>J. L.</fnm></au>
+    <au><snm>Krummenacker</snm><fnm>M.</fnm></au>
+    <au><snm>Joyce</snm><fnm>A. R.</fnm></au>
+    <au><snm>Karp</snm><fnm>P. D.</fnm></au>
+    <au><snm>Broadbelt</snm><fnm>L. J.</fnm></au>
+    <au><snm>Hatzimanikatis</snm><fnm>V.</fnm></au>
+    <au><snm>Palsson</snm><fnm>B. {\O}.</fnm></au>
+  </aug>
+  <source>Mol Syst Biol</source>
+  <pubdate>2007</pubdate>
+  <volume>3</volume>
+  <fpage>121</fpage>
+</bibl>
+
+<bibl id="B10">
+  <title><p>Optimality criteria for the prediction of metabolic fluxes in yeast
+  mutants</p></title>
+  <aug>
+    <au><snm>Snitkin</snm><fnm>E. S.</fnm></au>
+    <au><snm>Segr\`e</snm><fnm>D.</fnm></au>
+  </aug>
+  <source>Genome Informatics</source>
+  <pubdate>2008</pubdate>
+  <volume>20</volume>
+  <fpage>123</fpage>
+  <lpage>-134</lpage>
+</bibl>
+
+<bibl id="B11">
+  <title><p>What is flux balance analysis?</p></title>
+  <aug>
+    <au><snm>Orth</snm><fnm>J. D.</fnm></au>
+    <au><snm>Thiele</snm><fnm>I.</fnm></au>
+    <au><snm>Palsson</snm><fnm>B. {\O}.</fnm></au>
+  </aug>
+  <source>Nat Biotechnol</source>
+  <pubdate>2010</pubdate>
+  <volume>28</volume>
+  <fpage>245</fpage>
+  <lpage>-248</lpage>
+</bibl>
+
+<bibl id="B12">
+  <title><p>Integrating metabolic, transcriptional regulatory and signal
+  transduction models in \emph{Escherichia coli}</p></title>
+  <aug>
+    <au><snm>Covert</snm><fnm>M. W.</fnm></au>
+    <au><snm>Xiao</snm><fnm>N.</fnm></au>
+    <au><snm>Chen</snm><fnm>T. J.</fnm></au>
+    <au><snm>Karr</snm><fnm>J. R.</fnm></au>
+  </aug>
+  <source>Bioinformatics</source>
+  <pubdate>2008</pubdate>
+  <volume>24</volume>
+  <fpage>2044</fpage>
+  <lpage>50</lpage>
+</bibl>
+
+<bibl id="B13">
+  <title><p>Prediction of microbial growth rate versus biomass yield by a
+  metabolic network with kinetic parameters</p></title>
+  <aug>
+    <au><snm>Adadi</snm><fnm>R.</fnm></au>
+    <au><snm>Volkmer</snm><fnm>B.</fnm></au>
+    <au><snm>Milo</snm><fnm>R.</fnm></au>
+    <au><snm>Heinemann</snm><fnm>M.</fnm></au>
+    <au><snm>Shlomi</snm><fnm>T.</fnm></au>
+  </aug>
+  <source>PLoS Comput Biol</source>
+  <pubdate>2012</pubdate>
+  <volume>8</volume>
+  <fpage>e1002575</fpage>
+</bibl>
+
+<bibl id="B14">
+  <title><p>{BiGG:} a Biochemical Genetic and Genomic knowledgebase of large
+  scale metabolic reconstructions</p></title>
+  <aug>
+    <au><snm>Schellenberger</snm><fnm>J.</fnm></au>
+    <au><snm>Park</snm><fnm>J. O.</fnm></au>
+    <au><snm>Conrad</snm><fnm>T. M.</fnm></au>
+    <au><snm>Palsson</snm><fnm>B. {\O}.</fnm></au>
+  </aug>
+  <source>BMC Bioinformatics</source>
+  <pubdate>2010</pubdate>
+  <volume>11</volume>
+  <fpage>213</fpage>
+</bibl>
+
+<bibl id="B15">
+  <title><p>Glucose metabolism in 6 phosphogluconolactonase mutants of
+  Escherichia coli</p></title>
+  <aug>
+    <au><snm>Kupor</snm><fnm>S. R.</fnm></au>
+    <au><snm>Fraenkel</snm><fnm>D. G.</fnm></au>
+  </aug>
+  <source>J Biol Chem</source>
+  <pubdate>1972</pubdate>
+  <volume>247</volume>
+  <fpage>1904</fpage>
+  <lpage>-1910</lpage>
+</bibl>
+
+<bibl id="B16">
+  <title><p>Metabolic flux response to phosphoglucose isomerase knock-out in
+  \emph{Escherichia coli} and impact of overexpression of the soluble
+  transhydrogenase {UdhA}</p></title>
+  <aug>
+    <au><snm>Canonaco</snm><fnm>F.</fnm></au>
+    <au><snm>Hess</snm><fnm>T. A.</fnm></au>
+    <au><snm>Heri</snm><fnm>S.</fnm></au>
+    <au><snm>Wang</snm><fnm>T.</fnm></au>
+    <au><snm>Szyperski</snm><fnm>T.</fnm></au>
+    <au><snm>Sauer</snm><fnm>U.</fnm></au>
+  </aug>
+  <source>FEMS Microbiol Lett</source>
+  <pubdate>2001</pubdate>
+  <volume>204</volume>
+  <fpage>247</fpage>
+  <lpage>-252</lpage>
+</bibl>
+
+<bibl id="B17">
+  <title><p>Regression shrinkage and selection via the Lasso</p></title>
+  <aug>
+    <au><snm>Tibshirani</snm><fnm>R.</fnm></au>
+  </aug>
+  <source>J Royal Stat Soc B</source>
+  <pubdate>1996</pubdate>
+  <volume>58</volume>
+  <fpage>267</fpage>
+  <lpage>-288</lpage>
+</bibl>
+
+<bibl id="B18">
+  <title><p>Gene regulatory networks from multifactorial perturbations using
+  {Graphical Lasso:} application to the {DREAM4} challenge</p></title>
+  <aug>
+    <au><snm>Menendez</snm><fnm>P.</fnm></au>
+    <au><snm>Kourmpetis</snm><fnm>Y. A.</fnm></au>
+    <au><snm>Braak</snm><fnm>C. J.</fnm></au>
+    <au><snm>Eeuwijk</snm><fnm>F. A.</fnm></au>
+  </aug>
+  <source>PLoS One</source>
+  <pubdate>2010</pubdate>
+  <volume>5</volume>
+  <fpage>e14147</fpage>
+</bibl>
+
+<bibl id="B19">
+  <title><p>Genome-wide association analysis by lasso penalized logistic
+  regression</p></title>
+  <aug>
+    <au><snm>Wu</snm><fnm>T. T.</fnm></au>
+    <au><snm>Chen</snm><fnm>Y. F.</fnm></au>
+    <au><snm>Hastie</snm><fnm>T.</fnm></au>
+    <au><snm>Sobel</snm><fnm>E.</fnm></au>
+    <au><snm>Lange</snm><fnm>K.</fnm></au>
+  </aug>
+  <source>Bioinformatics</source>
+  <pubdate>2009</pubdate>
+  <volume>25</volume>
+  <fpage>714</fpage>
+  <lpage>-721</lpage>
+</bibl>
+
+<bibl id="B20">
+  <title><p>High dimensional classification of structural {MRI Alzheimer's}
+  disease data based on large scale regularization</p></title>
+  <aug>
+    <au><snm>Casanova</snm><fnm>R.</fnm></au>
+    <au><snm>Whitlow</snm><fnm>C. T.</fnm></au>
+    <au><snm>Wagner</snm><fnm>B.</fnm></au>
+    <au><snm>Williamson</snm><fnm>J.</fnm></au>
+    <au><snm>Shumaker</snm><fnm>S. A.</fnm></au>
+    <au><snm>Maldjian</snm><fnm>J. A.</fnm></au>
+    <au><snm>Espeland</snm><fnm>M. A.</fnm></au>
+  </aug>
+  <source>Front Neuroinform</source>
+  <pubdate>2011</pubdate>
+  <volume>5</volume>
+  <fpage>22</fpage>
+</bibl>
+
+<bibl id="B21">
+  <title><p>Classification of Structural {MRI} Images in {Alzheimer's} Disease
+  from the Perspective of Ill-Posed Problems</p></title>
+  <aug>
+    <au><snm>Casanova</snm><fnm>R.</fnm></au>
+    <au><snm>Hsu</snm><fnm>F. C.</fnm></au>
+    <au><snm>Espeland</snm><fnm>M. A.</fnm></au>
+    <au><cnm>{for the Alzheimer's Disease Neuroimaging Initiative}</cnm></au>
+  </aug>
+  <source>Plos One</source>
+  <pubdate>2012</pubdate>
+  <volume>7</volume>
+  <fpage>e44877</fpage>
+</bibl>
+
+<bibl id="B22">
+  <title><p>From phenotype to genotype: an association study of longitudinal
+  phenotypic markers to {Alzheimer's} disease relevant {SNPs}</p></title>
+  <aug>
+    <au><snm>Wang</snm><fnm>H.</fnm></au>
+    <au><snm>Nie</snm><fnm>F. P.</fnm></au>
+    <au><snm>Huang</snm><fnm>H.</fnm></au>
+    <au><snm>Yan</snm><fnm>J. W.</fnm></au>
+    <au><snm>Kim</snm><fnm>S.</fnm></au>
+    <au><snm>Nho</snm><fnm>K.</fnm></au>
+    <au><snm>Risacher</snm><fnm>S. L.</fnm></au>
+    <au><snm>Saykin</snm><fnm>A. J.</fnm></au>
+    <au><snm>Shen</snm><fnm>L.</fnm></au>
+    <au><snm>Initi</snm><fnm>ADN</fnm></au>
+  </aug>
+  <source>Bioinformatics</source>
+  <pubdate>2012</pubdate>
+  <volume>28</volume>
+  <fpage>I619</fpage>
+  <lpage>I625</lpage>
+</bibl>
+
+<bibl id="B23">
+  <title><p>Sparse inverse covariance estimation with the graphical
+  lasso</p></title>
+  <aug>
+    <au><snm>Friedman</snm><fnm>J.</fnm></au>
+    <au><snm>Hastie</snm><fnm>T.</fnm></au>
+    <au><snm>Tibshirani</snm><fnm>R.</fnm></au>
+  </aug>
+  <source>Biostatistics</source>
+  <pubdate>2008</pubdate>
+  <volume>9</volume>
+  <fpage>432</fpage>
+  <lpage>-441</lpage>
+</bibl>
+
+<bibl id="B24">
+  <title><p>High-Dimensional Ising Model Selection Using L(1)-Regularized
+  Logistic Regression</p></title>
+  <aug>
+    <au><snm>Ravikumar</snm><fnm>P.</fnm></au>
+    <au><snm>Wainwright</snm><fnm>M. J.</fnm></au>
+    <au><snm>Lafferty</snm><fnm>J. D.</fnm></au>
+  </aug>
+  <source>Annals of Statistics</source>
+  <pubdate>2010</pubdate>
+  <volume>38</volume>
+  <fpage>1287</fpage>
+  <lpage>-1319</lpage>
+</bibl>
+
+<bibl id="B25">
+  <title><p>Inferring carbon sources from gene expression profiles using
+  metabolic flux models</p></title>
+  <aug>
+    <au><snm>Brandes</snm><fnm>A.</fnm></au>
+    <au><snm>Lun</snm><fnm>D. S.</fnm></au>
+    <au><snm>Ip</snm><fnm>K.</fnm></au>
+    <au><snm>Zucker</snm><fnm>J.</fnm></au>
+    <au><snm>Colijn</snm><fnm>C.</fnm></au>
+    <au><snm>Weiner</snm><fnm>B.</fnm></au>
+    <au><snm>Galagan</snm><fnm>J. E.</fnm></au>
+  </aug>
+  <source>PLoS One</source>
+  <pubdate>2012</pubdate>
+  <volume>7</volume>
+  <fpage>e36947</fpage>
+</bibl>
+
+<bibl id="B26">
+  <title><p>Transcriptional Adaptation of \emph{Mycobacterium tuberculosis}
+  within Macrophages: Insights into the Phagosomal Environment</p></title>
+  <aug>
+    <au><snm>Schnappinger</snm><fnm>D.</fnm></au>
+    <au><snm>Ehrt</snm><fnm>S.</fnm></au>
+    <au><snm>Voskuil</snm><fnm>M. I.</fnm></au>
+    <au><snm>Liu</snm><fnm>Y.</fnm></au>
+    <au><snm>Mangan</snm><fnm>J. A.</fnm></au>
+    <au><snm>Monahan</snm><fnm>I. M.</fnm></au>
+    <au><snm>Dolganov</snm><fnm>G.</fnm></au>
+    <au><snm>Efron</snm><fnm>B.</fnm></au>
+    <au><snm>Butcher</snm><fnm>P. D.</fnm></au>
+    <au><snm>Nathan</snm><fnm>C.</fnm></au>
+    <au><snm>Schoolnik</snm><fnm>G. K.</fnm></au>
+  </aug>
+  <source>J. Exp. Med.</source>
+  <pubdate>2003</pubdate>
+  <volume>198</volume>
+  <fpage>693</fpage>
+  <lpage>-704</lpage>
+</bibl>
+
+<bibl id="B27">
+  <title><p>Growth of \emph{Escherichia coli} {MG1655} on {LB} medium:
+  monitoring utilization of sugars, alcohols, and organic acids with
+  transcriptional microarrays</p></title>
+  <aug>
+    <au><snm>Baev</snm><fnm>M. V.</fnm></au>
+    <au><snm>Baev</snm><fnm>D.</fnm></au>
+    <au><snm>{Jancso Radek}</snm><fnm>A.</fnm></au>
+    <au><snm>Campbell</snm><fnm>J. W.</fnm></au>
+  </aug>
+  <source>Appl. Microbiol. Biotech.</source>
+  <pubdate>2006</pubdate>
+  <volume>71</volume>
+  <fpage>310</fpage>
+  <lpage>-316</lpage>
+</bibl>
+
+<bibl id="B28">
+  <title><p>Transcriptional regulation in constraints-based metabolic models of
+  \emph{Escherichia coli}</p></title>
+  <aug>
+    <au><snm>Covert</snm><fnm>M. W.</fnm></au>
+    <au><snm>Palsson</snm><fnm>B. {\O}.</fnm></au>
+  </aug>
+  <source>J Biol Chem</source>
+  <pubdate>2002</pubdate>
+  <volume>277</volume>
+  <fpage>28058</fpage>
+  <lpage>-28064</lpage>
+</bibl>
+
+<bibl id="B29">
+  <title><p>Quantitative prediction of cellular metabolism with
+  constraint-based models: the {COBRA Toolbox} v2.0</p></title>
+  <aug>
+    <au><snm>Schellenberger</snm><fnm>J.</fnm></au>
+    <au><snm>Que</snm><fnm>R.</fnm></au>
+    <au><snm>Fleming</snm><fnm>R. M.</fnm></au>
+    <au><snm>Thiele</snm><fnm>I.</fnm></au>
+    <au><snm>Orth</snm><fnm>J. D.</fnm></au>
+    <au><snm>Feist</snm><fnm>A. M.</fnm></au>
+    <au><snm>Zielinski</snm><fnm>D. C.</fnm></au>
+    <au><snm>Bordbar</snm><fnm>A.</fnm></au>
+    <au><snm>Lewis</snm><fnm>N. E.</fnm></au>
+    <au><snm>Rahmanian</snm><fnm>S.</fnm></au>
+    <au><snm>Kang</snm><fnm>J.</fnm></au>
+    <au><snm>Hyduke</snm><fnm>D. R.</fnm></au>
+    <au><snm>Palsson</snm><fnm>B. {\O}.</fnm></au>
+  </aug>
+  <source>Nat Protoc</source>
+  <pubdate>2011</pubdate>
+  <volume>6</volume>
+  <fpage>1290</fpage>
+  <lpage>-1307</lpage>
+</bibl>
+
+<bibl id="B30">
+  <title><p>Regularization Paths for Generalized Linear Models via Coordinate
+  Descent</p></title>
+  <aug>
+    <au><snm>Friedman</snm><fnm>J.</fnm></au>
+    <au><snm>Hastie</snm><fnm>T.</fnm></au>
+    <au><snm>Tibshirani</snm><fnm>R.</fnm></au>
+  </aug>
+  <source>Journal of Statistical Software</source>
+  <pubdate>2010</pubdate>
+  <volume>33</volume>
+  <fpage>1</fpage>
+  <lpage>-22</lpage>
+</bibl>
+
+</refgrp>
+} % end of \BMCxmlcomment
