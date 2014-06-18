@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Figure1Updated.pdf">
+   sodipodi:docname="Figure1Updated.svg">
   <defs
      id="defs4">
     <clipPath
@@ -1741,7 +1741,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2030,7 +2030,7 @@
            x="-773.77686"
            y="654.36206" /></flowRegion><flowPara
          id="flowPara49921"
-         style="font-size:32px">1. Misclassification rate</flowPara><flowPara
+         style="font-size:32px">1. Predicted growth conditions</flowPara><flowPara
          id="flowPara49923"
          style="font-size:32px">2. Key reactions that discriminate</flowPara><flowPara
          id="flowPara49925"
