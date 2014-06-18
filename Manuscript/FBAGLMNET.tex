@@ -1,6 +1,8 @@
-%MSB
-
 \documentclass[12pt]{article}
+
+\pdfminorversion=4
+
+\usepackage[utf8]{inputenc} %unicode support
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -8,24 +10,11 @@
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{color}
+\usepackage[margin=1in]{geometry}
+\usepackage{times,mathptmx}
 
-\usepackage{cite}
-
-%\linespread{1.5}
-
-\topmargin 0.0cm
-\oddsidemargin 0.5cm
-\evensidemargin 0.5cm
-\textwidth 16cm 
-\textheight 21cm
-
-% Use the MSB bibtex style
-\bibliographystyle{plos2009}
-
-% Remove brackets from numbering in List of References
-\makeatletter
-\renewcommand{\@biblabel}[1]{\quad#1.}
-\makeatother
+\usepackage[super,sort&compress,comma]{natbib}
+\bibliographystyle{rsc}
 
 % definition of \customlabel, which is used to label supplementary figures and tables
 \makeatletter
@@ -34,58 +23,32 @@
 \makeatother
 
 
-% Leave date blank
-\date{}
-
-\pagestyle{myheadings}
-%% ** EDIT HERE **
-
 \begin{document}
 
-\begin{flushleft}
-{\Large
-\textbf{Predicting bacterial growth conditions from bacterial physiology}
-}
 
-\bigskip
+\title{Predicting bacterial growth conditions\\from bacterial physiology}
+
+\author{Viswanadham Sridhara$^1$, Austin G. Meyer$^{1,2}$, Piyush Rai$^3$, Jeffrey E. Barrick$^{1,2,4,5}$,\\
+Pradeep Ravikumar$^3$, Daniel Segr\`e$^6$, and Claus O. Wilke$^{1,2,3,7}$}
+\maketitle
+
 \noindent
-\\
-Viswanadham Sridhara$^{1}$,
-Austin G. Meyer$^{1,3}$,
-Piyush Rai$^{4}$,
-Jeffrey E. Barrick$^{1,2,3,5}$,
-Pradeep Ravikumar$^{4}$,
-Daniel Segr\`e$^{6}$, 
-Claus O. Wilke$^{1,2,3,7,\ast}$
-\\
-\bigskip
-$^1$Center for Computational Biology and Bioinformatics, The University of Texas at Austin, Austin, TX, USA
-\\
-$^2$Center for Systems and Synthetic Biology, The University of Texas at Austin, Austin, TX, USA
-\\
-$^3$Institute for Cellular and Molecular Biology, The University of Texas at Austin, Austin, TX, USA
-\\
-$^4$Department of Computer Science, The University of Texas at Austin, Austin, TX, USA
-\\
-$^5$Department of Molecular Biosciences, The University of Texas at Austin, Austin, TX, USA
-\\
-$^6$Department of Biology and Bioinformatics Program, Boston University, Boston, MA, USA
-\\
-$^7$Department of Integrative Biology, The University of Texas at Austin, Austin, TX, USA
-\\
-\bigskip
-$\ast$ E-mail: wilke@austin.utexas.edu
-\end{flushleft}
-%\\
-% Abstract 
+$^1$Center for Computational Biology and Bioinformatics, The University of Texas at Austin, Austin, TX, USA\\
+$^2$Institute for Cellular and Molecular Biology, The University of Texas at Austin, Austin, TX, USA\\
+$^3$Department of Computer Science, The University of Texas at Austin, Austin, TX, USA\\
+$^4$Center for Systems and Synthetic Biology, The University of Texas at Austin, Austin, TX, USA\\
+$^5$Department of Molecular Biosciences, The University of Texas at Austin, Austin, TX, USA\\
+$^6$Department of Biology and Bioinformatics Program, Boston University, Boston, MA, USA\\
+$^7$Department of Integrative Biology, The University of Texas at Austin, Austin, TX, USA\\
+
 
 \begin{abstract}
 Bacterial physiology reflects the environmental conditions of growth. A widely studied problem in systems biology is to predict bacterial phenotype from growth conditions, using mechanistic models such as flux balance analysis (FBA). However, the inverse prediction of growth conditions from phenotype is rarely considered. Here we develop a computational framework to carry out this inverse prediction on a computational model of bacterial physiology. We use FBA to calculate bacterial phenotypes from growth conditions in \emph{E. coli}, and then we assess how accurately we can predict the original growth conditions from the phenotypes. Prediction is carried out via regularized multinomial regression. Our analysis provides several important physiological and statistical insights. First, we show that by analyzing metabolic end products we can consistently predict growth conditions. Second, prediction is reliable even in the presence of small amounts of impurities. Third, flux through a relatively small number of reactions per growth source ($\mathord{\sim}10$) is sufficient for accurate prediction. Fourth, combining the predictions from two separate models, one trained only on carbon sources and one only on nitrogen sources, performs better than models trained to perform joint prediction. Finally, that separate predictions perform better than a more sophisticated joint prediction scheme suggests that carbon and nitrogen utilization pathways, despite jointly affecting cellular growth, may be fairly decoupled in terms of their dependence on specific assortments of molecular precursors.
 \end{abstract}
 
+% keywords: flux balance analysis, regularized regression, metabolic network
 
-\section*{Introduction}
-
+\section{Introduction}
 
 Research into metabolism and physiology generally tries to uncover how an organism's internal state is determined by the environment to which the organism is exposed. For example, one might ask which genes are up or downregulated as microbes are grown on different nutrient sources \cite{Taoetal1999,Huaetal2004,Wuetal2004}. Similarly, one might ask how changes in nutrient availability and gene expression alter flux of metabolites through the organism's metabolic network \cite{FischerSauer2003,Leeetal2009,Boeretal2010,HaverkornvanRijsewijketal2011}. One can also pose the inverse question, however: If we know an organism's physiology, can we infer the environment in which the organism is living or was grown? Is physiology predictive of the current environment? On the one hand, one could envision a scenario where an organism can only assume a small number of distinct physiological states, and many diverse environments elicit the same physiological response. In other words, the mapping from environment to physiology is many-to-one. Under this scenario, physiology would not be particularly predictive of environment. On the other hand, each environment might elicit an entirely different physiological response, i.e., the mapping from environment to physiology is one-to-one. Under this scenario, organismal physiology can be considered an accurate reflection of the specific environment the organism resides in, and the environment can be predicted accurately from the physiology. In reality, we can expect the mapping between environment and physiology to fall somewhere between these two extremes. While there are probably many different physiological states an organism can assume, there will also be distinct environments that create a similar physiological response.
 
@@ -94,9 +57,44 @@ Modeling approaches to metabolism generally ask the forward question, i.e., how 
 Here, we asked how predictive physiology is of environment for a simulation model of the bacterium \emph{E. coli}. We first calculated physiological states for a variety of environmental growth conditions, using flux balance analysis as our model for bacterial physiology. We then developed statistical models to predict the particular growth conditions for a particular solution of the flux balance equation. We found that prediction is possible with surprisingly low error rates, even if a moderate amount of impurity is present in the simulated growth media. We further found that carbon and nitrogen metabolisms seem to be largely decoupled (prediction accuracy of a given carbon source does not strongly depend on the presence of particular nitrogen sources and vice versa) and that most carbon and nitrogen sources can be indentified reliably from a small number of predictive fluxes.
 
 
-\section*{Results}
+\section{Materials and Methods}
 
-\subsection*{Predicting growth conditions from simulated flux in \emph{E. coli}}
+\subsection{Flux Balance Analysis} 
+
+We carried out flux balance analysis (FBA) using the COBRA toolbox \cite{Schellenbergeretal2011} for MATLAB. 
+We used the iAF1260 model from the BiGG database \cite{Schellenbergeretal2010}. In the current iAF1260 model, there are 2382 reactions involving 1668 metabolites. The biomass composition reaction is also included in the model. Except for the input growth sources (carbon and nitrogen sources), we left all parameter settings at their default for this model. The upper bounds on 2377 reactions is set to 1000  mmol gDW$^{-1}$ hr$^{-1}$. But for 5 reactions, i.e., ATPM, CAT, FHL, SPODM, SPODMpp, the upper bound is set to 50 mmol gDW$^{-1}$ hr$^{-1}$. The lower bound for the majority of reactions (nearly 1800) is set to 0 mmol gDW$^{-1}$ hr$^{-1}$, which means that the flux cannot flow in the direction opposite to that specified in the model (irreversibility constraint). A set non-growth associated maintenance (NGAM) of 8.39  mmol gDW$^{-1}$ hr$^{-1}$ is used for the ATPM reaction (ATP maintenance). The lower bounds of some exchange reactions is set to non-zero values, i.e., these reactions by default are meant to uptake ions, carbon and nitrogen sources, and so on. We used the default oxygen uptake rate ($-18.5$ mmol gDW$^{-1}$ hr$^{-1}$) in the iAF1260 model, but we changed the lower bounds of glucose and ammonia to zero, except when we used these compounds as carbon or nitrogen sources.
+
+After setting up the constraints on transport fluxes as described in the previous paragraph, we carried out FBA using biomass as the objective function. FBA finds fluxes that are consistent with the given constraints and that maximize the objective function. The FBA was performed using the function \texttt{optimizeCbModel} in the COBRA toolbox. We considered all solutions with a biomass flux below a threshold of 0.558 to be inviable. The choice of this threshold value is explained in subsection ``Impurities'' below.
+
+\subsection{Growth conditions} 
+We initially carried out simulations on 49 growth conditions consisiting of all pairwise combinations of 7 carbon and 7 nitrogen sources (Table~\ref{tab:CN_sources}). The compounds were selected from among the 174 carbon and 78 nitrogen sources previously used in Feist et.\ al \cite{Feistetal2007}, and they were chosen to yield distinct flux profiles, as assessed by $k$-means clustering of steady-state fluxes obtained using all pair-wise combinations of the 174 carbon and 78 nitrogen sources. Of the 7 carbon sources chosen, none resulted in any growth when used as a growth condition in the absence of a nitrogen source. By contrast, all nitrogen sources except ammonia yielded growth when supplied in the absence of a carbon source.
+
+For any given growth environment we simulated, we set the lower bound of the exchange reactions corresponding to the carbon and nitrogen sources present to $-20$ mmol gDW$^{-1}$ hr$^{-1}$. This lower bound is commonly used in many studies \cite{Feistetal2007}. We set the lower bound of all other exchange reactions for carbon and nitrogen sources to 0, except for impurities (see next subsection for details). For each of the 49 pair-wise combinations of the 7 carbon and 7 nitrogen sources, we generated 100 replicates, each with different, randomly chosen impurities. Apart from these 49 growth conditions, we also used 4 growth media that are generally used in \emph{E.\ coli} K-12 MG1655 experiments, as cited in the EcoCyc database (http://ecocyc.org/). A complete overview of all simulation conditions used is given in Table~\ref{tab:sim_overview}.
+
+For carbon or nitrogen limited conditions, we increased the maximum update rate of one source while keeping the other one fixed. Thus, we changed the lower bounds (uptake rate) of carbon sources to $-1000$ mmol gDW$^{-1}$ hr$^{-1}$ while keeping the lower bounds of nitrogen sources at $-20$ mmol gDW$^{-1}$ hr$^{-1}$ and vice versa. 
+
+Finally, we also carried out simulations on all pairwise combinations of all 174 carbon and 78 nitrogen sources previously used in Feist et.\ al \cite{Feistetal2007}, again with impurities as explained below. For this analysis, we only used two replicates for each pairwise combination of carbon and nitrogen sources, one for training and one for model evaluation.
+
+\subsection{Impurities}
+To make the simulation scenario more challenging and more realistic, we incorporated different numbers of impurities (chemical noise) to the simulated growth media. For this, we used a subset of the 174 carbon and 78 nitrogen sources, previously used in Feist et.\ al \cite{Feistetal2007}.  We used different background impurity numbers, ranging from 1 C/N to 10 C/N sources. For example, if we want to set 5 C/N impurities, we randomly picked 5 carbon and 5 nitrogen sources and set their lower bounds to $-0.2$ mmol gDW$^{-1}$ hr$^{-1}$. Note that we generated the flux data for a pairwise combination of 1 carbon and 1 nitrogen source along with the background impurities as described above. 
+
+For all the results described above, we used a biomass threshold to filter out non-viable flux measurements. We calculated this threshold value using biomass measurements at the lowest number of impurities (1 C/N), using all pairwise combinations of the 7 carbon and 7 nitrogen sources chosen for the first analysis, and with the largest training dataset size ($\sim2450$ replicates). We recorded the biomass values for all these simulations, and used as lower threshold of viability three standard deviations below the mean, which came out to 0.558.
+
+\subsection{Regularized regression}
+
+We predicted growth conditions using regularized multinomial logistic regression, as implemented in the GLMNET package \cite{Friedmanetal2010} for R. Unless specified otherwise below, we used the standard settings of the GLMNET package.
+
+After filtering for biomass, for each number of impurities, we used half of the dataset as test set. We used subsets of the remaining half as training sets (i.e, ~245, ~490, ~2450 observations). On the training sets we fitted regularized regression models via 3-fold cross validation, using the function \texttt{cv.glmnet} in the GLMNET package. When using this function, we set $\alpha=1$ to specify the least absolute shrinkage and selection operator (LASSO). We set the parameter \texttt{family} equal to ``multinomial''. The cross-validation procedure yielded the  $\lambda$ value that had the lowest misclassification rate under cross-validation ($\lambda$ is the tuning parameter that controls the strength of the LASSO penalty introduced) as well as the regression coefficients at that $\lambda$. We then used the fitted models to calculate the misclassification rate on the test set, using the function \texttt{predict}. We repeated this step to calculate the misclassification rates at different numbers of impurities (1 C/N, 5 C/N, 10 C/N) and different training data sizes (~245, ~490, ~2450 observations).
+
+To guarantee that the LASSO model would converge, we imposed a minimum threshold of $10^{-6}$ on the magnitude of all flux values. Absolute flux values below the threshold were set to zero before fitting the LASSO model.
+
+\subsection{Raw data and analysis scripts}
+
+All raw data and analysis scripts are available online in the form of a git repository at\\ https://github.com/clauswilke/Ecoli\_FBA\_input\_prediction.
+
+\section{Results}
+
+\subsection{Predicting growth conditions from simulated flux in \emph{E. coli}}
 
 We wanted to know to what extent bacterial physiology reflects specifics about the growth environment. In other words, if we have measured the physiological state of a bacterium, can we deduce under what conditions it was grown? Here, we addressed this question in a simulation framework, using flux balance analysis (FBA) as our model for bacterial physiology. Our overall strategy was as follows: (i) simulate metabolic fluxes under a variety of different growth conditions (primarily distinct carbon and nitrogen sources); (ii) develop regression models that relate growth conditions to the calculated metabolic fluxes; (iii) evaluate how accurately the regression model can predict growth conditions from fluxes.
 
@@ -117,7 +115,7 @@ Next, we looked into understanding the role of resource limitation on prediction
 Since individual prediction seemed to work well, we next tested whether we could use this approach to predict growth conditions chosen from the comprehensive list of 174 carbon and 78 nitrogen sources. Joint prediction in this case was infeasible, since we would have had to train a model to distinguish between $174\times78=13572$ distinct conditions. To test independent prediction in this case, we generated simulated fluxes for all pair-wise combinations of carbon/nitrogen sources for two replicates. We used one replicate (78 carbon observations and 174 nitrogen observations respectively for each of carbon and nitrogen sources) to train the regression model and we used the second replicate to evaluate the prediction accuracy of the model. We found that the misclassification rate for carbon sources was 86\% and the misclassification rate for nitrogen sources was 37\%. In combination, the two models identified the correct carbon/nitrogen combination 8.7\% of the time. By random chance, we would have expected $1/13572=0.007\%$.
 
 
-\subsection*{Identifying the predictive fluxes}
+\subsection{Identifying the predictive fluxes}
 
 The previous subsection has shown that a regularized regression model is capable of predicting the primary carbon and nitrogen sources used from steady-state metabolic fluxes. We next wanted to investigate how exactly the regularized regression model carries out this task. For each flux balance simulation, the resulting flux data set contains 1443 flux values, corresponding to 1443 reactions that are not transport reactions. Thus, we have 1443 predictor variables that we feed into the regression model. In this situation, a standard regression model would have to determine 1444 regression coefficients, one per reaction plus an intercept. By contrast, the regularized regression model we employed sets most regression coefficients to zero and retains only a small number of non-zero coefficients. (The exact number of non-zero coefficients is determined through the choice of a tuning parameter, which is selected by cross-validation. See Methods for details.) Thus, we can consider the fluxes with non-zero regression coefficients as \emph{predictive fluxes}. Those are the fluxes whose state is actually used for prediction.
 
@@ -128,7 +126,7 @@ At an impurity number of 1 C/N and using the largest training data size (see Fig
 We also analyzed how the regression model performed when some of the key predictive reactions were removed. As mentioned above, there were 100 unique reaction IDs for individual prediction of carbon and nitrogen sources at the lowest number of impurities and with the largest training data set analyzed. We eliminated each of these 100 reactions at a time as predictors in the regression model, trained a new model separately for both the carbon and nitrogen sources, and calculated the prediction accuracy. We combined the results of individual predictions to calculate the prediction accuracy of the combination of the sources. With the exception of the reaction ``glucose 6-phosphate isomerase'' (PGI), the misclassification rate remained unchanged when we eliminated any of the other 99 reactions before model fitting. PGI catalyzes a reaction that produces fructose-6-P from glucose-6-P, and knock-out of the PGI gene causes diminished growth rate \cite{Canonacoetal2001}. The reaction PGI catalyzes is reversible, but the forward reaction occurs most of the time unless concentrations of fructose-6-P are very high. Thus, PGI seems to be critical to distinguish glucose from fructose as growth source. However, more generally, the specific set of reactions used for successful prediction was not unique.
 
 
-\subsection*{Predicting specific media or novel metabolites}
+\subsection{Predicting specific media or novel metabolites}
 
 To generalize our simulations to more experimentally relevant test conditions, we performed similar analyses for several media that are commonly used in experimental microbiology. Specifically, we tested Autoinducer Bioassay (AB) minimal media, ATCC medium 57, Davis Mingioli (DM) media, and Bochner defined minimal media. Table~\ref{tab:growth_media} shows the composition used in the analysis for these growth media. We were able to classify these at higher accuracy even at higher amounts of impurities and lower number of replicates. This may be due to the small (4) number of growth conditions used in this comparison. Our misclassification rate was consistently 0 for all cases of at least 10 replicates and up to 20 C/N impurities. Only for fewer replicates did we see misclassification rates on the order of 10--20\%. (Full results are provided as part of the accompanying complete data sets and scripts.)
 
@@ -140,9 +138,9 @@ Next, we did simulations to test how an unseen nitrogen source gets predicted wi
 
 At 20 C/N impurities, all the 700 flux measurements were viable (biomass greater than threshold). In this case, 27 carbon sources were incorrectly predicted ($\sim~0.04\%$ misclassification rate). The nitrogen source cytosine is predicted as ammonia in 78.8\% of cases and as adenine in all other cases.
 
-\section*{Discussion}
+\section{Discussion}
 
-We have developed a method for making predictions regarding bacterial growth conditions from known simulated metabolic fluxes. We generated fluxes using the complete \emph{E. coli} metabolic network model for 7 carbon and 7 nitrogen sources. Then, we divided the data into training and test sets and employed machine learning with a generalized linear framework to train a model to predict growth conditions. We found that even in growth environments contaminated with other nutrient sources, we could make reliable predictions regarding the primary composition of the growth media. Of note, our data indicate that separately predicting carbon and nitrogen sources performs better than jointly predicting them from paired input. Although this result is to some extent influenced by the volume of training data, it very likely reflects the structure of the metabolic reactions in the \emph{E. coli} network. In addition, our results indicate that for most input metabolites at least one predictive reaction commonly occurs near its entry point into central metabolism. We found that the number of reaction fluxes required to make accurate predictions is relatively small. Finally, when extending our prediction algorithm to more experimentally relevant growth media, our scheme gave comparable accuracy. Thus, we have shown that predicting growth conditions from simulated metabolic flux data is a computationally tractable problem.
+We have developed a method for making predictions regarding bacterial growth conditions from known simulated metabolic fluxes. We generated fluxes using the complete \emph{E. coli} metabolic network model for 7 carbon and 7 nitrogen sources. Then, we divided the data into training and test sets and employed machine learning with a generalized linear framework to train a model to predict growth conditions. We found that even in growth environments contaminated with other nutrient sources, we could make reliable predictions regarding the primary composition of the growth media.
 
 It was surprising to us that given the same number of observations in the training set, separate prediction of nutrients always performed better than joint prediction. There are two likely explanations for this result. First, making joint predictions requires discriminating between 49 different pairwise combinations. By contrast making individual predictions only requires discriminating 7 different conditions in two different sets. Thus, one possible explanation for the lack of predictive power is that we simply did not have the appropriate level of training data. Indeed adjusting the amount of training data appears to have a dramatic effect on joint prediction in particular (Figure~\ref{fig:misclassification}). On the other hand, such an issue represents an important experimental concern. Often the size of the training set, being experimentally determined, is just as limiting as the size of the testing set. As a result, our analysis indicates employing a separate prediction strategy will generally be more useful for experimental application. Second, although the mechanism is not completely clear to us, separate prediction may gain additional power due to the physiology of the organism. For example, if the initial, metabolite-unique, steps of metabolic entry are often predictive (as they appear to be), running independent predictions would be expected to perform better per amount of data; in essence such a prediction strategy makes the assumption that pathways for the various metabolites are largely disconnected. By contrast, if one were using a single metabolite as a combined carbon and nitrogen source, we may expect an independent prediction strategy to perform relatively poorly as the independence assumption is not satisfied.
 
@@ -157,53 +155,59 @@ One shortcoming of our statistical approach to predicting growth conditions is t
 Throughout this work, we have used basic flux balance analysis to predict the bacterial phenotype. In principle, one could use more realistic models that integrate regulatory information and/or signalling-pathway information with flux balance analysis techniques \cite{CovertPalsson2002,Covertetal2008}. However, our study was a pure simulation study, primarily aimed at testing to what extent a statistical approach could be used to identify growth conditions from physiological measurements. Since our results indicate that this approach is feasible, even with a relatively modest number of observations in the training data set, a more useful next step would be to try the same approach on experimental data, using measured mRNA or protein abundances as features in the regression model.
 
 
-\section*{Materials and Methods}
+\section{Conclusions}
 
-\subsection*{Flux Balance Analysis} 
+We have found that predicting growth conditions from simulated metabolic flux data is a computationally tractable problem. Of note, our data indicate that separately predicting carbon and nitrogen sources performs better than jointly predicting them from paired input. Although this result is to some extent influenced by the volume of training data, it very likely reflects the structure of the metabolic reactions in the \emph{E. coli} network. In addition, our results indicate that for most input metabolites at least one predictive reaction commonly occurs near its entry point into central metabolism. We found that the number of reaction fluxes required to make accurate predictions is relatively small. Finally, when extending our prediction algorithm to more experimentally relevant growth media, our scheme gave comparable accuracy.
 
-We carried out flux balance analysis (FBA) using the COBRA toolbox \cite{Schellenbergeretal2011} for MATLAB. 
-We used the iAF1260 model from the BiGG database \cite{Schellenbergeretal2010}. In the current iAF1260 model, there are 2382 reactions involving 1668 metabolites. The biomass composition reaction is also included in the model. Except for the input growth sources (carbon and nitrogen sources), we left all parameter settings at their default for this model. The upper bounds on 2377 reactions is set to 1000  mmol gDW$^{-1}$ hr$^{-1}$. But for 5 reactions, i.e., ATPM, CAT, FHL, SPODM, SPODMpp, the upper bound is set to 50 mmol gDW$^{-1}$ hr$^{-1}$. The lower bound for the majority of reactions (nearly 1800) is set to 0 mmol gDW$^{-1}$ hr$^{-1}$, which means that the flux cannot flow in the direction opposite to that specified in the model (irreversibility constraint). A set non-growth associated maintenance (NGAM) of 8.39  mmol gDW$^{-1}$ hr$^{-1}$ is used for the ATPM reaction (ATP maintenance). The lower bounds of some exchange reactions is set to non-zero values, i.e., these reactions by default are meant to uptake ions, carbon and nitrogen sources, and so on. We used the default oxygen uptake rate ($-18.5$ mmol gDW$^{-1}$ hr$^{-1}$) in the iAF1260 model, but we changed the lower bounds of glucose and ammonia to zero, except when we used these compounds as carbon or nitrogen sources.
+%\section{Competing interests}
+%The authors declare that they have no competing interests.
 
-After setting up the constraints on transport fluxes as described in the previous paragraph, we carried out FBA using biomass as the objective function. FBA finds fluxes that are consistent with the given constraints and that maximize the objective function. The FBA was performed using the function \texttt{optimizeCbModel} in the COBRA toolbox. We considered all solutions with a biomass flux below a threshold of 0.558 to be inviable. The choice of this threshold value is explained in subsection ``Impurities'' below.
+%\section{Author Contributions}
+%Conceived and designed the experiments: V.S. and C.O.W. Performed the experiments: V.S. Analyzed the data: V.S, A.G.M and C.O.W. Wrote the paper: V.S, A.G.M, P.R, J.E.B, P.R, D.S. and C.O.W.
 
-\subsection*{Growth conditions} 
-We initially carried out simulations on 49 growth conditions consisiting of all pairwise combinations of 7 carbon and 7 nitrogen sources (Table~\ref{tab:CN_sources}). The compounds were selected from among the 174 carbon and 78 nitrogen sources previously used in Feist et.\ al \cite{Feistetal2007}, and they were chosen to yield distinct flux profiles, as assessed by $k$-means clustering of steady-state fluxes obtained using all pair-wise combinations of the 174 carbon and 78 nitrogen sources. Of the 7 carbon sources chosen, none resulted in any growth when used as a growth condition in the absence of a nitrogen source. By contrast, all nitrogen sources except ammonia yielded growth when supplied in the absence of a carbon source.
-
-For any given growth environment we simulated, we set the lower bound of the exchange reactions corresponding to the carbon and nitrogen sources present to $-20$ mmol gDW$^{-1}$ hr$^{-1}$. This lower bound is commonly used in many studies \cite{Feistetal2007}. We set the lower bound of all other exchange reactions for carbon and nitrogen sources to 0, except for impurities (see next subsection for details). For each of the 49 pair-wise combinations of the 7 carbon and 7 nitrogen sources, we generated 100 replicates, each with different, randomly chosen impurities. Apart from these 49 growth conditions, we also used 4 growth media that are generally used in \emph{E.\ coli} K-12 MG1655 experiments, as cited in the EcoCyc database (http://ecocyc.org/). A complete overview of all simulation conditions used is given in Table~\ref{tab:sim_overview}.
-
-For carbon or nitrogen limited conditions, we increased the maximum update rate of one source while keeping the other one fixed. Thus, we changed the lower bounds (uptake rate) of carbon sources to $-1000$ mmol gDW$^{-1}$ hr$^{-1}$ while keeping the lower bounds of nitrogen sources at $-20$ mmol gDW$^{-1}$ hr$^{-1}$ and vice versa. 
-
-Finally, we also carried out simulations on all pairwise combinations of all 174 carbon and 78 nitrogen sources previously used in Feist et.\ al \cite{Feistetal2007}, again with impurities as explained below. For this analysis, we only used two replicates for each pairwise combination of carbon and nitrogen sources, one for training and one for model evaluation.
-
-\subsection*{Impurities}
-To make the simulation scenario more challenging and more realistic, we incorporated different numbers of impurities (chemical noise) to the simulated growth media. For this, we used a subset of the 174 carbon and 78 nitrogen sources, previously used in Feist et.\ al \cite{Feistetal2007}.  We used different background impurity numbers, ranging from 1 C/N to 10 C/N sources. For example, if we want to set 5 C/N impurities, we randomly picked 5 carbon and 5 nitrogen sources and set their lower bounds to $-0.2$ mmol gDW$^{-1}$ hr$^{-1}$. Note that we generated the flux data for a pairwise combination of 1 carbon and 1 nitrogen source along with the background impurities as described above. 
-
-For all the results described above, we used a biomass threshold to filter out non-viable flux measurements. We calculated this threshold value using biomass measurements at the lowest number of impurities (1 C/N), using all pairwise combinations of the 7 carbon and 7 nitrogen sources chosen for the first analysis, and with the largest training dataset size ($\sim2450$ replicates). We recorded the biomass values for all these simulations, and used as lower threshold of viability three standard deviations below the mean, which came out to 0.558.
-
-\subsection*{Regularized regression}
-
-We predicted growth conditions using regularized multinomial logistic regression, as implemented in the GLMNET package \cite{Friedmanetal2010} for R. Unless specified otherwise below, we used the standard settings of the GLMNET package.
-
-After filtering for biomass, for each number of impurities, we used half of the dataset as test set. We used subsets of the remaining half as training sets (i.e, ~245, ~490, ~2450 observations). On the training sets we fitted regularized regression models via 3-fold cross validation, using the function \texttt{cv.glmnet} in the GLMNET package. When using this function, we set $\alpha=1$ to specify the least absolute shrinkage and selection operator (LASSO). We set the parameter \texttt{family} equal to ``multinomial''. The cross-validation procedure yielded the  $\lambda$ value that had the lowest misclassification rate under cross-validation ($\lambda$ is the tuning parameter that controls the strength of the LASSO penalty introduced) as well as the regression coefficients at that $\lambda$. We then used the fitted models to calculate the misclassification rate on the test set, using the function \texttt{predict}. We repeated this step to calculate the misclassification rates at different numbers of impurities (1 C/N, 5 C/N, 10 C/N) and different training data sizes (~245, ~490, ~2450 observations).
-
-To guarantee that the LASSO model would converge, we imposed a minimum threshold of $10^{-6}$ on the magnitude of all flux values. Absolute flux values below the threshold were set to zero before fitting the LASSO model.
-
-\subsection*{Raw data and analysis scripts}
-
-All raw data and analysis scripts are available online in the form of a git repository at https://github.com/clauswilke/Ecoli\_FBA\_input\_prediction.
-
-\section*{Acknowledgments}
+\section{Acknowledgments}
 This project was funded by ARO Grant W911NF-12-1-0390. We thank members of the Segr\`e lab for helpful discussions on flux balance analysis. We thank Dakota Derryberry for critical reading of the manuscript. The Bioinformatics Consulting Group and the Texas Advanced Computing Center (TACC) at UT provided high-performance computing resources. 
 
-\section*{Author Contributions}
-Conceived and designed the experiments: V.S. and C.O.W. Performed the experiments: V.S. Analyzed the data: V.S, A.G.M and C.O.W. Wrote the paper: V.S, A.G.M, P.R, J.E.B, P.R, D.S. and C.O.W.
 
-
-%\section*{References} (Automatically References title is added)
+%\section{References} (Automatically References title is added)
 % Bibliography tex filename
 \bibliography{FBAGLMNETBibliography}
 
 \newpage
+
+\section*{Figures}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=4in]{Figures/flowchart_new.pdf}}
+\caption{\label{fig:flowchart}\textbf{Flowchart outlining analysis approach.}}
+\end{figure}
+
+\clearpage
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=5.5in]{Figures/combinedContaminationTrainingdata.pdf}}
+\caption{\label{fig:misclassification}\textbf{Misclassification rate versus number of impurities and amount of training data.} For joint prediction, each data point corresponds to training/testing a new regression model. Similarly for separate prediction, each data point corresponds to training/testing two separate new regression models. (A) The misclassification rate increases as the number of impurities increases. (B) The misclassification rate decreases as the size of the available training data decreases. In all cases, separate prediction out-performs joint prediction.}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centerline{\includegraphics[width=5in]{Figures/heatmap.pdf}}
+\caption{\label{fig:heat_map}\textbf{Probability of misclassification of C and N sources.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A,B) C sources predicted from models with 1 and 10 C/N impurities, respectively. (C,D) N sources predicted from models with 1 and 10 C/N impurities, respectively. In most cases, prediction is accurate (near-black squares along the diagonal). Prediction accuracy declines with the number of C/N impurities, as expected. For C sources, most misclassifications lead to a prediction of acetate, or, to a lesser degree, pyruvate. A similar pattern does not exist for N sources.}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centerline{\includegraphics[width=5in]{Figures/carbon/carbon_grid.pdf}}
+\caption{\label{fig:carbon_network}\textbf{Predictive reactions (in red) for four carbon sources, mapped onto the \emph{E.\ coli} central metabolism.} Reactions in distinct parts of the metabolism are predictive for different carbon sources. A list of the predictive reactions can be found in Table~\ref{tab:predictive_carbon_sources}.}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centerline{\includegraphics[width=5in]{Figures/nitrogen/nitrogen_grid.pdf}}
+\caption{\label{fig:nitrogen_network}\textbf{Predictive reactions (in red) for four nitrogen sources, mapped onto the \emph{E.\ coli} central metabolism.} Reactions in distinct parts of the metabolism are predictive for different nitrogen sources. A list of the predictive reactions can be found in Table~\ref{tab:predictive_nitrogen_sources}.}
+\end{figure}
+
+
+\clearpage
 \section*{Tables}
 \begin{table}[!ht]
 \caption{\label{tab:CN_sources}
@@ -284,41 +288,20 @@ Davis Mingioli medium & D-glucose/Citrate/Ammonia\\
 \end{table}
 
 
-\clearpage
-
-\section*{Figures}
-
-\begin{figure}[!ht]
-\centerline{\includegraphics[width=4in]{Figures/flowchart_new.pdf}}
-\caption{\label{fig:flowchart}\textbf{Flowchart outlining analysis approach.}}
-\end{figure}
 
 \clearpage
-\begin{figure}[!ht]
-\centerline{\includegraphics[width=6in]{Figures/combinedContaminationTrainingdata.pdf}}
-\caption{\label{fig:misclassification}\textbf{Misclassification rate versus number of impurities and amount of training data.} For joint prediction, each data point corresponds to training/testing a new regression model. Similarly for separate prediction, each data point corresponds to training/testing two separate new regression models. (A) The misclassification rate increases as the number of impurities increases. (B) The misclassification rate decreases as the size of the available training data decreases. In all cases, separate prediction out-performs joint prediction.}
-\end{figure}
+\section*{Supplementary Figures}
+\centerline{\includegraphics[width=8in]{Figures/NitrogenLimiting.pdf}}
+\customlabel{fig:NitrogenLimiting}{S1}
+Figure S1: \textbf{Scatter plot showing varying uptake amounts of C/N sources when nitrogen is limited.} We increased the upper bounds of the carbon sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
 \clearpage
-\begin{figure}[p]
-\centerline{\includegraphics[width=6in]{Figures/heatmap.pdf}}
-\caption{\label{fig:heat_map}\textbf{Probability of misclassification of C and N sources.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A,B) C sources predicted from models with 1 and 10 C/N impurities, respectively. (C,D) N sources predicted from models with 1 and 10 C/N impurities, respectively. In most cases, prediction is accurate (near-black squares along the diagonal). Prediction accuracy declines with the number of C/N impurities, as expected. For C sources, most misclassifications lead to a prediction of acetate, or, to a lesser degree, pyruvate. A similar pattern does not exist for N sources.}
-\end{figure}
+\centerline{\includegraphics[width=8in]{Figures/CarbonLimiting.pdf}}
+\customlabel{fig:CarbonLimiting}{S2}
+\noindent Figure S2: \textbf{Scatter plot showing varying uptake amounts of C/N sources when carbon is limited.} We  increased the upper bounds of the nitrogen sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
 \clearpage
-\begin{figure}[p]
-\centerline{\includegraphics[width=7in]{Figures/carbon/carbon_grid.pdf}}
-\caption{\label{fig:carbon_network}\textbf{Predictive reactions for four carbon sources, mapped onto the \emph{E.\ coli} central metabolism.} Reactions in distinct parts of the metabolism are predictive for different carbon sources. A list of the predictive reactions can be found in Table~\ref{tab:predictive_carbon_sources}.}
-\end{figure}
 
-\clearpage
-\begin{figure}[p]
-\centerline{\includegraphics[width=7in]{Figures/nitrogen/nitrogen_grid.pdf}}
-\caption{\label{fig:nitrogen_network}\textbf{Predictive reactions for four nitrogen sources, mapped onto the \emph{E.\ coli} central metabolism.} Reactions in distinct parts of the metabolism are predictive for different nitrogen sources. A list of the predictive reactions can be found in Table~\ref{tab:predictive_nitrogen_sources}.}
-\end{figure}
-
-
-\clearpage
 \section*{Supplementary Tables}
 \customlabel{tab:predictive_carbon_sources}{S1}
 Table S1: \textbf{Key reactions identified to discriminate carbon sources.} These reactions were identified from a model trained to only predict carbon sources (separate prediction). The model was trained on a data set obtained with 1 C/N impurity and with training data-set size of $\sim2450$ observations.
@@ -334,18 +317,5 @@ Available in github repository \texttt{https://github.com/clauswilke/Ecoli\_FBA\
 
 \noindent File: \texttt{SupportingInfo/NitrogenSources.xlsx}\\
 Available in github repository \texttt{https://github.com/clauswilke/Ecoli\_FBA\_input\_prediction}
-
-
-
-\clearpage
-\section*{Supplementary Figures}
-\centerline{\includegraphics[width=8in]{Figures/NitrogenLimiting.pdf}}
-\customlabel{fig:NitrogenLimiting}{S1}
-Figure S1: \textbf{Scatter plot showing varying uptake amounts of C/N sources when nitrogen is limited.} We increased the upper bounds of the carbon sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
-
-\clearpage
-\centerline{\includegraphics[width=8in]{Figures/CarbonLimiting.pdf}}
-\customlabel{fig:CarbonLimiting}{S2}
-\noindent Figure S2: \textbf{Scatter plot showing varying uptake amounts of C/N sources when carbon is limited.} We  increased the upper bounds of the nitrogen sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
 \end{document}
