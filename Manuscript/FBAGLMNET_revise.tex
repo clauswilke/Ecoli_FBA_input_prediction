@@ -93,8 +93,7 @@ When predicting growth conditions from the final fluxes, we obtained similar res
 
 Since individual prediction seemed to work well, we next tested whether we could use this approach to predict growth conditions chosen from the comprehensive list of 174 carbon and 78 nitrogen sources. Joint prediction in this case was infeasible, since we would have had to train a model to distinguish between $174\times78=13572$ distinct conditions. To test independent prediction in this case, we generated simulated fluxes for all pair-wise combinations of carbon/nitrogen sources for two replicates. We used one replicate (78 carbon observations and 174 nitrogen observations respectively for each of carbon and nitrogen sources) to train the regression model and we used the second replicate to evaluate the prediction accuracy of the model. We found that the misclassification rate for carbon sources was 86\% and the misclassification rate for nitrogen sources was 37\%. In combination, the two models identified the correct carbon/nitrogen combination 8.7\% of the time. By random chance, we would have expected $1/13572=0.007\%$.
 
-FBA can be carried out with different optimization functions, and the equilibrium fluxes that are found will depend on the specific optimization function chosen. All the results presented so far were obtained with a simple maximization of the biomass reaction. To confirm whether our approach would work under optimization schemes, we carried out additional simulations in which we maximized biomass and then subsequently minimized the absolute sum of fluxes, holding the maximal biomass value constant. Then we performed the regression analysis as described above. We carried out this analysis for the case of 7 distinct C and 7 distinct N growth substrates, 10 C/N impurities, and individual prediction of C and N sources. We found a misclassification rate of 23\%, relative to 15\% using only the biomass maximization. {\color{red}How is this misclassification rate calculated? Is this joint over both C and N? I think it would be good to report C and N separately.}
-
+FBA can be carried out with different optimization functions, and the equilibrium fluxes that are found will depend on the specific optimization function chosen. All the results presented so far were obtained with a simple maximization of the biomass reaction. To confirm whether our approach would work under different optimization schemes, we carried out additional simulations in which we maximized biomass and then subsequently minimized the absolute sum of fluxes, holding the maximal biomass value constant. Then we performed the regression analysis as described above. We carried out this analysis for the case of 7 distinct C and 7 distinct N growth substrates, 10 C/N impurities, and individual prediction of C and N sources. We found a combined misclassification rate of 23\%, relative to 15\% using only the biomass maximization. (See Fig.~\ref{fig:BiomassMin} for prediction results for individual C and N sources.) 
 
 \subsection{Identifying the predictive fluxes}
 
@@ -106,9 +105,7 @@ At an impurity number of 1 C/N and using the largest training data size (see Fig
 
 We also analyzed how the regression model performed when some of the key predictive reactions were removed. As mentioned above, there were 100 unique reaction IDs for individual prediction of carbon and nitrogen sources at the lowest number of impurities and with the largest training data set analyzed. We eliminated each of these 100 reactions at a time as predictors in the regression model, trained a new model separately for both the carbon and nitrogen sources, and calculated the prediction accuracy. We combined the results of individual predictions to calculate the prediction accuracy of the combination of the sources. With the exception of the reaction ``glucose 6-phosphate isomerase'' (PGI), the misclassification rate remained unchanged when we eliminated any of the other 99 reactions before model fitting. PGI catalyzes a reaction that produces fructose-6-P from glucose-6-P, and knock-out of the PGI gene causes diminished growth rate \cite{Canonacoetal2001}. The reaction PGI catalyzes is reversible, but the forward reaction occurs most of the time unless concentrations of fructose-6-P are very high. Thus, PGI seems to be critical to distinguish glucose from fructose as growth source. However, more generally, the specific set of reactions used for successful prediction was not unique.
 
-Finally, we asked whether we could predicting growth substrates simply on the basis of flux through the entry points of the metabolites into the metabolic network, i.e., based on first set of reactions past transport. For the 7 C and 7 N substrates we considered, there are 38 such post-transport reactions (Table \ref{tab:post_transport_reactions}). Thus, we built a regression model {\color{red}was this lasso?} that contained only these 38 reactions as predictors for the growth substrates. At 1 C/N impurities, we obtained a misclassification rate of  6\%, relative to 1.6\% using the entire metabolic model. Similarly, at 10 C/N impurities, the misclassification rate was 25\%, relative to 15\% using the entire set of internal fluxes. This result suggests that the growth substrates are non-trivially encoded in more central parts of the metabolic network. Just knowing the flux through post-transport reactions is not as useful for predicting growth substrates as knowing the flux through the most predictive reactions, wherever they fall inside the metabolic network. 
-{\color{red}How is this misclassification rate calculated? Is this joint over both C and N? I think it would be good to report C and N separately.}
-
+Finally, we asked whether we could predicting growth substrates simply on the basis of flux through the entry points of the metabolites into the metabolic network, i.e., based on first set of reactions past transport. For the 7 C and 7 N substrates we considered, there are 38 such post-transport reactions (Table \ref{tab:post_transport_reactions}). Thus, we built a regression model that contained only these 38 reactions as predictors for the growth substrates. At 1 C/N impurities, we obtained a combined misclassification rate of  6\%, relative to 2.16\% using the entire metabolic model. Similarly, at 10 C/N impurities, the combined misclassification rate was 25\%, relative to 15\% using the entire set of internal fluxes. This result suggests that the growth substrates are non-trivially encoded in more central parts of the metabolic network. Just knowing the flux through post-transport reactions is not as useful for predicting growth substrates as knowing the flux through the most predictive reactions, wherever they fall inside the metabolic network.
 
 \subsection{Predicting novel metabolites}
 
@@ -151,9 +148,9 @@ We have found that predicting growth conditions from simulated metabolic flux da
 We carried out flux balance analysis (FBA) using the COBRA toolbox \cite{Schellenbergeretal2011} for MATLAB. 
 We used the iAF1260 model from the BiGG database \cite{Schellenbergeretal2010}. In the current iAF1260 model, there are 2382 reactions involving 1668 metabolites. The biomass composition reaction is also included in the model. Except for the input growth sources (carbon and nitrogen sources), we left all parameter settings at their default for this model. The upper bounds on 2377 reactions is set to 1000  mmol gDW$^{-1}$ hr$^{-1}$. But for 5 reactions, i.e., ATPM, CAT, FHL, SPODM, SPODMpp, the upper bound is set to 50 mmol gDW$^{-1}$ hr$^{-1}$. The lower bound for the majority of reactions (nearly 1800) is set to 0 mmol gDW$^{-1}$ hr$^{-1}$, which means that the flux cannot flow in the direction opposite to that specified in the model (irreversibility constraint). A set non-growth associated maintenance (NGAM) of 8.39  mmol gDW$^{-1}$ hr$^{-1}$ is used for the ATPM reaction (ATP maintenance). The lower bounds of some exchange reactions is set to non-zero values, i.e., these reactions by default are meant to uptake ions, carbon and nitrogen sources, and so on. We used the default oxygen uptake rate ($-18.5$ mmol gDW$^{-1}$ hr$^{-1}$) in the iAF1260 model, but we changed the lower bounds of glucose and ammonia to zero, except when we used these compounds as carbon or nitrogen sources.
 
-After setting up the constraints on transport fluxes as described in the previous paragraph, we carried out FBA using biomass as the objective function. FBA finds fluxes that are consistent with the given constraints and that maximize the objective function. The FBA was performed using the function \texttt{optimizeCbModel} in the COBRA toolbox, {\color{red}using the parameters \dots}. We considered all solutions with a biomass flux below a threshold of 0.558 to be inviable. The choice of this threshold value is explained in subsection ``Impurities'' below.
+After setting up the constraints on transport fluxes as described in the previous paragraph, we carried out FBA using biomass as the objective function. FBA finds fluxes that are consistent with the given constraints and that maximize the objective function. The FBA was performed with the function \texttt{optimizeCbModel} in the COBRA toolbox, using default parameters. We considered all solutions with a biomass flux below a threshold of 0.558 to be inviable. The choice of this threshold value is explained in subsection ``Impurities'' below.
 
-To understand if the choice of objective function affects the prediction of growth substrates, we also carried out simulations with an additional level of constraints. For these simulations, we first run standard FBA maximizing biomass, as before. We then set the biomass reaction to the solution determined in this step, and carried out a second optimization where we minimized the absolute sum of fluxes. {\color{red}This analysis was carried out using the parameters \dots in the function \texttt{optimizeCbModel}.}
+To understand if the choice of objective function affects the prediction of growth substrates, we also carried out simulations with an additional level of constraints. For these simulations, we first run standard FBA maximizing biomass, as before. We then set the biomass reaction to the solution determined in this step, and carried out a second optimization where we minimized the absolute sum of fluxes. This analysis was carried out using the function \texttt{optimizeCbModel(model,[],'one')},  where \texttt{model} is the iAF1260 model with biomass maximization.
 
 \subsection{Growth conditions} 
 We initially carried out simulations on 49 growth conditions consisiting of all pairwise combinations of 7 carbon and 7 nitrogen sources (Table~\ref{tab:CN_sources}). The compounds were selected from among the 174 carbon and 78 nitrogen sources previously used in Feist et.\ al \cite{Feistetal2007}, and they were chosen to yield distinct flux profiles, as assessed by $k$-means clustering of steady-state fluxes obtained using all pair-wise combinations of the 174 carbon and 78 nitrogen sources. Of the 7 carbon sources chosen, none resulted in any growth when used as a growth condition in the absence of a nitrogen source. By contrast, all nitrogen sources except ammonia yielded growth when supplied in the absence of a carbon source. Note that all of these remaining nitrogen sources do contain carbon atoms, thus additional supply of carbon was not strictly necessary for growth on these substrates.
@@ -215,7 +212,7 @@ We thank members of the Segr\`e lab for helpful discussions on flux balance anal
 \clearpage
 \begin{figure}[p]
 \centerline{\includegraphics[width=5in]{Figures/heatmap.pdf}}
-\caption{\label{fig:heat_map}\textbf{Probability of misclassification of C and N sources.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A,B) C sources predicted from models with 1 and 10 C/N impurities, respectively. (C,D) N sources predicted from models with 1 and 10 C/N impurities, respectively. In most cases, prediction is accurate (near-black squares along the diagonal). Prediction accuracy declines with the number of C/N impurities, as expected. For C sources, most misclassifications lead to a prediction of acetate, or, to a lesser degree, pyruvate. A similar pattern does not exist for N sources.}
+\caption{\label{fig:heat_map}\textbf{Probability of misclassification of C and N sources.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A, B) C sources predicted from models with 1 and 10 C/N impurities, respectively. (C, D) N sources predicted from models with 1 and 10 C/N impurities, respectively. In most cases, prediction is accurate (near-black squares along the diagonal). Prediction accuracy declines with the number of C/N impurities, as expected. For C sources, most misclassifications lead to a prediction of acetate, or, to a lesser degree, pyruvate. A similar pattern does not exist for N sources.}
 \end{figure}
 
 \clearpage
@@ -256,7 +253,7 @@ D-sorbitol & L-glutamine \\
 
 \begin{table}[!ht]
 \caption{\label{tab:sim_overview}
-\textbf{Summary of all simulations performed.} Each row details the growth conditions used for flux balance analysis (FBA) and the sizes of training and test data sets for inverse prediction of growth conditions from simulated phenotypes. {\color{red}Please update/finalize this table. Add unequal C/N impurities, make sure the number of viable observation, and training and test data set sizes are always reported.}}
+\textbf{Summary of all simulations performed.} Each row details the growth conditions used for flux balance analysis (FBA) and the sizes of training and test data sets for inverse prediction of growth conditions from simulated phenotypes.}
 \bigskip
 
 \centerline{
@@ -278,12 +275,17 @@ Maltose, 7N & 100 & 700 & 1 C/N & 695 & NA$^\text{b}$ & 695 \\
  & & & 20 C/N & 699 & NA$^\text{b}$ & 699 \\
 Cytosine, 7C & 100 & 700 & 1 C/N & 602 & NA$^\text{b}$ & 602 \\
  & & & 20 C/N & 700 & NA$^\text{b}$ & 700 \\
-Unlimited N, normal C & 100 & 4900 & 1 C/N & 4865 & 2432 & 2433 \\
+Excess N, normal C & 100 & 4900 & 1 C/N & 4865 & 2432 & 2433 \\
  (7N, 7C)\\
-Unlimited C, normal N & 100 & 4900 & 1 C/N & 4848 & 2424 & 2424 \\
+Excess C, normal N & 100 & 4900 & 1 C/N & 4848 & 2424 & 2424 \\
  (7C, 7N) \\
+min. abs. flux & 100 & 4900 & 10 C/N & 4139 & 2069 & 2070\\
+ (7C, 7N) \\
+ only C impurities & 100 & 4900 & 20 C & 4396 & 2198 & 2198\\
+ (7C, 7N) \\
+ only N impurities & 100 & 4900 & 20 N & 4898 & 2449 & 2449\\
+ (7C, 7N)\\
 174C, 78N & 2 & 27144 & 1 C/N & 25140 & 12596 & 12544 \\
-max. Biomass and min. Absolute sum & 100 & 4900 & 10 C/N \\
 \hline
 \end{tabular}
 }
@@ -317,7 +319,7 @@ Adenine & ADD, ADPT\\
 Cytidine &  CYTD, CYTDH, CYTDK2\\
 Putrescine & GGPTRCS, PTRCTA, SPMS\\
 L-glycine & GLYAT, GLYCL, GLYTRS\\
-L-alanine & ALAR, ALATA-L,ALATA-L2\\
+L-alanine & ALAR, ALATA\_L,ALATA\_L2\\
 L-glutamine &  GLNX, GLUN, GLUSy\\
 \hline
 \end{tabular}
@@ -337,6 +339,10 @@ L-glutamine &  GLNX, GLUN, GLUSy\\
 \customlabel{fig:CarbonLimiting}{S2}
 \noindent \textbf{Figure S2: Scatter plot showing varying uptake amounts of C/N sources when nitrogen is unlimited.} We  increased the upper bounds of the nitrogen sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
+\clearpage
+\centerline{\includegraphics[width=5in]{Figures/heatmap_10CN_Biomass_Minimization.pdf}}
+\customlabel{fig:BiomassMin}{S3}
+\noindent \textbf{Figure S3: Probability of misclassification, for FBA with and without minimization of absolute fluxes.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A, C) Predictions performed on fluxes whose absolute values were not minimized (default throughout this work). (B, D) Predictions performed on fluxes whose absolute values were minimized. In all cases, we added 10 C/N impurities to the growth environment.
 \clearpage
 
 \section*{Supplementary Tables}
