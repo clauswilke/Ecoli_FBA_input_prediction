@@ -73,7 +73,7 @@ Here, we asked whether the internal metabolic fluxes in an \emph{in-silico} mode
 
 \subsection{Predicting growth conditions from simulated flux in \emph{E. coli}}
 
-Our overarching question is to what extent the internal metabolic fluxes in an \emph{in-silico} model of \emph{E. coli} encode the growth substrates. Are there distinct metabolic states that reflect specific growth conditions? We addressed this question using the following strategy: (i) simulate metabolic fluxes under a variety of different growth conditions (primarily distinct carbon and nitrogen sources); (ii) develop regression models that relate growth conditions to the calculated metabolic fluxes; (iii) evaluate how accurately the regression model can predict growth conditions from fluxes, and identify the most predictive fluxes.
+Our overarching question is to what extent the internal metabolic fluxes in an \emph{in-silico} model of \emph{E. coli} encode the growth substrates. Are there distinct metabolic states that reflect specific growth conditions? We addressed this question using the following strategy (Figure~\ref{fig:flowchart}): (i) simulate metabolic fluxes under a variety of different growth conditions (primarily distinct carbon and nitrogen sources); (ii) develop regression models that relate growth conditions to the calculated metabolic fluxes; (iii) evaluate how accurately the regression model can predict growth conditions from fluxes, and identify the most predictive fluxes.
 
 A biochemical network can be treated as a system that takes up the nutrients from the environment and converts them into useful metabolic precursors such as amino acids, nucleotides, and lipids. These environmental nutrients are brought into the cell via \emph{exchange reactions}, which simply take up a molecule of a specific metabolite and place it into cell. Any metabolic flux model contains a substantial number of such exchange reactions. Within a cell, the metabolites are transferred via \emph{transport reactions}. Clearly, predicting environmental growth conditions from fluxes through these exchange or transport reactions would be trivial, and it would not be a reflection of what information the internal metabolic state of the cell holds about the external environment. To address this issue, we discarded all transport and exchange reactions in our regression analysis. In our model (the iAF1260 metabolic model of the \emph{E. coli} K-12 MG1655 strain \cite{Schellenbergeretal2010}), this amounted to 939 reactions among a total of 2382 distinct reactions. We also discarded the biomass composition reaction, and thus were left with a total of 1442 reactions for regression analyses.
 
@@ -332,17 +332,17 @@ L-glutamine &  GLNX, GLUN, GLUSy\\
 
 \clearpage
 \section*{Supplementary Figures}
-\centerline{\includegraphics[width=8in]{Figures/NitrogenLimiting.pdf}}
+%\centerline{\includegraphics[width=8in]{Figures/NitrogenLimiting.pdf}}
 \customlabel{fig:NitrogenLimiting}{S1}
 \textbf{Figure S1: Scatter plot showing varying uptake amounts of C/N sources when carbon is unlimited.} We increased the upper bounds of the carbon sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
 \clearpage
-\centerline{\includegraphics[width=8in]{Figures/CarbonLimiting.pdf}}
+%\centerline{\includegraphics[width=8in]{Figures/CarbonLimiting.pdf}}
 \customlabel{fig:CarbonLimiting}{S2}
 \noindent \textbf{Figure S2: Scatter plot showing varying uptake amounts of C/N sources when nitrogen is unlimited.} We  increased the upper bounds of the nitrogen sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
 \clearpage
-\centerline{\includegraphics[width=5in]{Figures/heatmap_10CN_Biomass_Minimization.pdf}}
+%\centerline{\includegraphics[width=5in]{Figures/heatmap_10CN_Biomass_Minimization.pdf}}
 \customlabel{fig:BiomassMin}{S3}
 \noindent \textbf{Figure S3: Probability of misclassification, for FBA with and without minimization of absolute fluxes.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A, C) Predictions performed on fluxes whose absolute values were not minimized (default throughout this work). (B, D) Predictions performed on fluxes whose absolute values were minimized. In all cases, we added 10 C/N impurities to the growth environment.
 \clearpage
@@ -352,15 +352,15 @@ L-glutamine &  GLNX, GLUN, GLUSy\\
 \textbf{Table S1: Key reactions identified to discriminate carbon sources.} These reactions were identified from a model trained to only predict carbon sources (separate prediction). The model was trained on a data set obtained with 1 C/N impurity and with training data-set size of $\sim2450$ observations.
 \bigskip
 
-\noindent File: \texttt{SupportingInfo/CarbonSources.xlsx}\\
-Available in github repository \texttt{https://github.com/clauswilke/Ecoli\_FBA\_input\_prediction}
+%\noindent File: \texttt{SupportingInfo/CarbonSources.xlsx}\\
+%Available in github repository \texttt{https://github.com/clauswilke/Ecoli\_FBA\_input\_prediction}
 
 \bigskip
 \customlabel{tab:predictive_nitrogen_sources}{S2}
 \noindent \textbf{Table S2: Key reactions identified to discriminate nitrogen sources.} These reactions were identified from a model trained to only predict carbon sources (separate prediction). The model was trained on a data set obtained with 1 C/N impurity and with training data-set size of $\sim2450$ observations.
 \bigskip
 
-\noindent File: \texttt{SupportingInfo/NitrogenSources.xlsx}\\
-Available in github repository \texttt{https://github.com/clauswilke/Ecoli\_FBA\_input\_prediction}
+%\noindent File: \texttt{SupportingInfo/NitrogenSources.xlsx}\\
+%Available in github repository \texttt{https://github.com/clauswilke/Ecoli\_FBA\_input\_prediction}
 
 \end{document}
