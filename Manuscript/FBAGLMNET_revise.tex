@@ -40,7 +40,7 @@
 \title{Predicting growth conditions from internal metabolic fluxes in an \emph{in-silico} model of \emph{E. coli}}
 
 \author{Viswanadham Sridhara$^1$, Austin G. Meyer$^{1,2}$, Piyush Rai$^3$, Jeffrey E. Barrick$^{1,2,4,5}$,\\
-Pradeep Ravikumar$^3$, Daniel Segr\`e$^6$, and Claus O. Wilke$^{1,2,4,7}$}
+Pradeep Ravikumar$^3$, Daniel Segr\`e$^6$, and Claus O. Wilke$^{1,2,4,7*}$}
 \maketitle
 
 \noindent
@@ -52,6 +52,9 @@ $^5$Department of Molecular Biosciences, The University of Texas at Austin, Aust
 $^6$Department of Biology and Bioinformatics Program, Boston University, Boston, MA, USA\\
 $^7$Department of Integrative Biology, The University of Texas at Austin, Austin, TX, USA\\
 
+\bigskip
+\noindent
+$^*$Corresponding author
 
 \begin{abstract}
 A widely studied problem in systems biology is to predict bacterial phenotype from growth conditions, using mechanistic models such as flux balance analysis (FBA). However, the inverse prediction of growth conditions from phenotype is rarely considered. Here we develop a computational framework to carry out this inverse prediction on a computational model of bacterial metabolism. We use FBA to calculate bacterial phenotypes from growth conditions in \emph{E. coli}, and then we assess how accurately we can predict the original growth conditions from the phenotypes. Prediction is carried out via regularized multinomial regression. Our analysis provides several important physiological and statistical insights. First, we show that by analyzing metabolic end products we can consistently predict growth conditions. Second, prediction is reliable even in the presence of small amounts of impurities. Third, flux through a relatively small number of reactions per growth source ($\mathord{\sim}10$) is sufficient for accurate prediction. Fourth, combining the predictions from two separate models, one trained only on carbon sources and one only on nitrogen sources, performs better than models trained to perform joint prediction. Finally, that separate predictions perform better than a more sophisticated joint prediction scheme suggests that carbon and nitrogen utilization pathways, despite jointly affecting cellular growth, may be fairly decoupled in terms of their dependence on specific assortments of molecular precursors.
@@ -186,6 +189,12 @@ All raw data and analysis scripts are available online in the form of a git repo
 %\section{Author Contributions}
 %Conceived and designed the experiments: V.S. and C.O.W. Performed the experiments: V.S. Analyzed the data: V.S, A.G.M and C.O.W. Wrote the paper: V.S, A.G.M, P.R, J.E.B, P.R, D.S. and C.O.W.
 
+%Conceived and designed the experiments: Viswanadham Sridhara, Claus O Wilke
+%Performed the experiments: Viswanadham Sridhara
+%Analyzed the data: Viswanadham Sridhara, Austin G. Meyer
+%Contributed reagents/materials/analysis tools: Piyush Rai, Daniel Segrè
+%Contributed to the writing of the manuscript: Viswanadham Sridhara, Austin G. Meyer, Piyush Rai, Jeffrey E. Barrick, Pradeep Ravikumar, Daniel Segrè, Claus O Wilke
+
 \section{Acknowledgments}
 %This project was funded by ARO Grant W911NF-12-1-0390.
 We thank members of the Segr\`e lab for helpful discussions on flux balance analysis. We thank Dakota Derryberry for a critical reading of the manuscript. The Bioinformatics Consulting Group and the Texas Advanced Computing Center (TACC) at UT provided high-performance computing resources. 
@@ -193,39 +202,258 @@ We thank members of the Segr\`e lab for helpful discussions on flux balance anal
 
 %\section{References} (Automatically References title is added)
 % Bibliography tex filename
-\bibliography{FBAGLMNETBibliography}
+%\bibliography{FBAGLMNETBibliography}
+
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Taoetal1999}
+Tao H, Bausch C, Richmond C, Blattner FR, Conway T (1999) Functional genomics:
+  expression analysis of \emph{Escherichia coli} growing on minimal and rich
+  media.
+\newblock J Bacteriol 181: 6425--6440.
+\bibAnnoteFile{Taoetal1999}
+
+\bibitem{Huaetal2004}
+Hua Q, Yang C, Oshima T, Mori H, Shimizu K (2004) Analysis of gene expression
+  in \emph{Escherichia coli} in response to changes of growth-limiting nutrient
+  in chemostat cultures.
+\newblock Appl Environ Microbiol 70: 2354--2366.
+\bibAnnoteFile{Huaetal2004}
+
+\bibitem{Wuetal2004}
+Wu J, Zhang N, Hayes A, Panoutsopoulou K, Oliver SG (2004) Global analysis of
+  nutrient control of gene expression in \emph{Saccharomyces cerevisiae} during
+  growth and starvation.
+\newblock Proc Natl Acad Sci USA 101: 3148--3153.
+\bibAnnoteFile{Wuetal2004}
+
+\bibitem{FischerSauer2003}
+Fischer E, Sauer U (2003) Metabolic flux profiling of \emph{Escherichia coli}
+  mutants in central carbon metabolism using {GC-MS}.
+\newblock Eur J Biochem 270: 880--891.
+\bibAnnoteFile{FischerSauer2003}
+
+\bibitem{Leeetal2009}
+Lee MC, Chou HH, Marx CJ (2009) Asymmetric, bimodal trade-offs during
+  adaptation of methylobacterium to distinct growth substrates.
+\newblock Evolution 63: 2816--2830.
+\bibAnnoteFile{Leeetal2009}
+
+\bibitem{Boeretal2010}
+Boer VM, Crutchfield CA, Bradley PH, Botstein D, Rabinowitz JD (2010)
+  Growth-limiting intracellular metabolites in yeast growing under diverse
+  nutrient limitations.
+\newblock Mol Biol Cell 21: 198--211.
+\bibAnnoteFile{Boeretal2010}
+
+\bibitem{HaverkornvanRijsewijketal2011}
+{Haverkorn van Rijsewijk} BR, Nanchen A, Nallet S, Kleijn RJ, Sauer U (2011)
+  Large-scale {13C-flux} analysis reveals distinct transcriptional control of
+  respiratory and fermentative metabolism in \emph{Escherichia coli}.
+\newblock Mol Syst Biol 7: 477.
+\bibAnnoteFile{HaverkornvanRijsewijketal2011}
+
+\bibitem{Segreetal2002}
+Segr\`e D, Vitkup D, Church GM (2002) Analysis of optimality in natural and
+  perturbed metabolic networks.
+\newblock Proc Natl Acad Sci USA 99: 15112--15117.
+\bibAnnoteFile{Segreetal2002}
+
+\bibitem{Feistetal2007}
+Feist AM, Henry CS, Reed JL, Krummenacker M, Joyce AR, et~al. (2007) A
+  genome-scale metabolic reconstruction for \emph{Escherichia coli} {K-12
+  MG1655} that accounts for 1260 {ORFs} and thermodynamic information.
+\newblock Mol Syst Biol 3: 121.
+\bibAnnoteFile{Feistetal2007}
+
+\bibitem{SnitkinSegre2008}
+Snitkin ES, Segr\`e D (2008) Optimality criteria for the prediction of
+  metabolic fluxes in yeast mutants.
+\newblock Genome Informatics 20: 123--134.
+\bibAnnoteFile{SnitkinSegre2008}
+
+\bibitem{Orthetal2010}
+Orth JD, Thiele I, Palsson B{\O} (2010) What is flux balance analysis?
+\newblock Nat Biotechnol 28: 245--248.
+\bibAnnoteFile{Orthetal2010}
+
+\bibitem{Covertetal2008}
+Covert MW, Xiao N, Chen TJ, Karr JR (2008) Integrating metabolic,
+  transcriptional regulatory and signal transduction models in
+  \emph{Escherichia coli}.
+\newblock Bioinformatics 24: 2044-50.
+\bibAnnoteFile{Covertetal2008}
+
+\bibitem{Adadietal2012}
+Adadi R, Volkmer B, Milo R, Heinemann M, Shlomi T (2012) Prediction of
+  microbial growth rate versus biomass yield by a metabolic network with
+  kinetic parameters.
+\newblock PLoS Comput Biol 8: e1002575.
+\bibAnnoteFile{Adadietal2012}
+
+\bibitem{Schellenbergeretal2010}
+Schellenberger J, Park JO, Conrad TM, Palsson B{\O} (2010) {BiGG:} a
+  biochemical genetic and genomic knowledgebase of large scale metabolic
+  reconstructions.
+\newblock BMC Bioinformatics 11: 213.
+\bibAnnoteFile{Schellenbergeretal2010}
+
+\bibitem{KuporFraenkel1972}
+Kupor SR, Fraenkel DG (1972) Glucose metabolism in 6 phosphogluconolactonase
+  mutants of escherichia coli.
+\newblock J Biol Chem 247: 1904--1910.
+\bibAnnoteFile{KuporFraenkel1972}
+
+\bibitem{Canonacoetal2001}
+Canonaco F, Hess TA, Heri S, Wang T, Szyperski T, et~al. (2001) Metabolic flux
+  response to phosphoglucose isomerase knock-out in \emph{Escherichia coli} and
+  impact of overexpression of the soluble transhydrogenase {UdhA}.
+\newblock FEMS Microbiol Lett 204: 247--252.
+\bibAnnoteFile{Canonacoetal2001}
+
+\bibitem{Tibshirani1996}
+Tibshirani R (1996) Regression shrinkage and selection via the lasso.
+\newblock J Royal Stat Soc B 58: 267--288.
+\bibAnnoteFile{Tibshirani1996}
+
+\bibitem{Menendezetal2010}
+Menendez P, Kourmpetis YA, ter Braak CJ, van Eeuwijk FA (2010) Gene regulatory
+  networks from multifactorial perturbations using {Graphical Lasso:}
+  application to the {DREAM4} challenge.
+\newblock PLoS One 5: e14147.
+\bibAnnoteFile{Menendezetal2010}
+
+\bibitem{Wuetal2009}
+Wu TT, Chen YF, Hastie T, Sobel E, Lange K (2009) Genome-wide association
+  analysis by lasso penalized logistic regression.
+\newblock Bioinformatics 25: 714--721.
+\bibAnnoteFile{Wuetal2009}
+
+\bibitem{Casanovaetal2011}
+Casanova R, Whitlow CT, Wagner B, Williamson J, Shumaker SA, et~al. (2011) High
+  dimensional classification of structural {MRI Alzheimer's} disease data based
+  on large scale regularization.
+\newblock Front Neuroinform 5: 22.
+\bibAnnoteFile{Casanovaetal2011}
+
+\bibitem{Casanovaetal2012}
+Casanova R, Hsu FC, Espeland MA, {for the Alzheimer's Disease Neuroimaging
+  Initiative} (2012) Classification of structural {MRI} images in {Alzheimer's}
+  disease from the perspective of ill-posed problems.
+\newblock Plos One 7: e44877.
+\bibAnnoteFile{Casanovaetal2012}
+
+\bibitem{Wangetal2012}
+Wang H, Nie FP, Huang H, Yan JW, Kim S, et~al. (2012) From phenotype to
+  genotype: an association study of longitudinal phenotypic markers to
+  {Alzheimer's} disease relevant {SNPs}.
+\newblock Bioinformatics 28: I619-I625.
+\bibAnnoteFile{Wangetal2012}
+
+\bibitem{Friedmanetal2008}
+Friedman J, Hastie T, Tibshirani R (2008) Sparse inverse covariance estimation
+  with the graphical lasso.
+\newblock Biostatistics 9: 432--441.
+\bibAnnoteFile{Friedmanetal2008}
+
+\bibitem{Ravikumaretal2010}
+Ravikumar P, Wainwright MJ, Lafferty JD (2010) High-dimensional ising model
+  selection using l(1)-regularized logistic regression.
+\newblock Annals of Statistics 38: 1287--1319.
+\bibAnnoteFile{Ravikumaretal2010}
+
+\bibitem{Brandesetal2012}
+Brandes A, Lun DS, Ip K, Zucker J, Colijn C, et~al. (2012) Inferring carbon
+  sources from gene expression profiles using metabolic flux models.
+\newblock PLoS One 7: e36947.
+\bibAnnoteFile{Brandesetal2012}
+
+\bibitem{Schnappingeretal2003}
+Schnappinger D, Ehrt S, Voskuil MI, Liu Y, Mangan JA, et~al. (2003)
+  Transcriptional adaptation of \emph{Mycobacterium tuberculosis} within
+  macrophages: Insights into the phagosomal environment.
+\newblock J Exp Med 198: 693--704.
+\bibAnnoteFile{Schnappingeretal2003}
+
+\bibitem{Baevetal2006}
+Baev MV, Baev D, {Jancso Radek} A, Campbell JW (2006) Growth of
+  \emph{Escherichia coli} {MG1655} on {LB} medium: monitoring utilization of
+  sugars, alcohols, and organic acids with transcriptional microarrays.
+\newblock Appl Microbiol Biotech 71: 310--316.
+\bibAnnoteFile{Baevetal2006}
+
+\bibitem{CovertPalsson2002}
+Covert MW, Palsson B{\O} (2002) Transcriptional regulation in constraints-based
+  metabolic models of \emph{Escherichia coli}.
+\newblock J Biol Chem 277: 28058--28064.
+\bibAnnoteFile{CovertPalsson2002}
+
+\bibitem{Schellenbergeretal2011}
+Schellenberger J, Que R, Fleming RM, Thiele I, Orth JD, et~al. (2011)
+  Quantitative prediction of cellular metabolism with constraint-based models:
+  the {COBRA Toolbox} v2.0.
+\newblock Nat Protoc 6: 1290--1307.
+\bibAnnoteFile{Schellenbergeretal2011}
+
+\bibitem{Friedmanetal2010}
+Friedman J, Hastie T, Tibshirani R (2010) Regularization paths for generalized
+  linear models via coordinate descent.
+\newblock Journal of Statistical Software 33: 1--22.
+\bibAnnoteFile{Friedmanetal2010}
+
+\end{thebibliography}
+
+
 
 \newpage
 
 \section*{Figures}
 
+% Figure 1
 \begin{figure}[!ht]
-\centerline{\includegraphics[width=4in]{Figures/flowchart_new.pdf}}
+%\centerline{\includegraphics[width=4in]{Figures/flowchart_new.pdf}}
 \caption{\label{fig:flowchart}\textbf{Flowchart outlining our analysis approach.} We use the \emph{E. coli} FBA model iAF1260 to generate metabolic fluxes under a variety of conditions. We then use multinomial classificaton via regularized regression to develop a model that can predict the chosen growth conditions from the metabolic fluxes. We find that prediction works generally well, even when there are chemical impurities in the growth environment. We further find that most growth conditions can be identified based on a small number of key reactions.
 }
 \end{figure}
 
 \clearpage
+% Figure 2
 \begin{figure}[!ht]
-\centerline{\includegraphics[width=5.5in]{Figures/combinedContaminationTrainingdata.pdf}}
+%\centerline{\includegraphics[width=5.5in]{Figures/combinedContaminationTrainingdata.pdf}}
 \caption{\label{fig:misclassification}\textbf{Misclassification rate versus number of impurities and amount of training data.} For joint prediction, each data point corresponds to training/testing a new regression model. Similarly for separate prediction, each data point corresponds to training/testing two separate new regression models. (A) The misclassification rate increases as the number of impurities increases. (B) The misclassification rate decreases as the size of the available training data increases. In all cases, separate prediction out-performs joint prediction.}
 \end{figure}
 
 \clearpage
+% Figure 3
 \begin{figure}[p]
-\centerline{\includegraphics[width=5in]{Figures/heatmap.pdf}}
+%\centerline{\includegraphics[width=5in]{Figures/heatmap.pdf}}
 \caption{\label{fig:heat_map}\textbf{Probability of misclassification of C and N sources.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A, B) C sources predicted from models with 1 and 10 C/N impurities, respectively. (C, D) N sources predicted from models with 1 and 10 C/N impurities, respectively. In most cases, prediction is accurate (near-black squares along the diagonal). Prediction accuracy declines with the number of C/N impurities, as expected. For C sources, most misclassifications lead to a prediction of acetate, or, to a lesser degree, pyruvate. A similar pattern does not exist for N sources.}
 \end{figure}
 
 \clearpage
+% Figure 4
 \begin{figure}[p]
-\centerline{\includegraphics[width=5in]{Figures/carbon/carbon_grid.pdf}}
+%\centerline{\includegraphics[width=5in]{Figures/carbon/carbon_grid.pdf}}
 \caption{\label{fig:carbon_network}\textbf{Predictive reactions (in red) for four carbon sources, mapped onto the \emph{E.\ coli} central metabolism.} Reactions in distinct parts of the metabolism are predictive for different carbon sources. A list of the predictive reactions can be found in Table~\ref{tab:predictive_carbon_sources}.}
 \end{figure}
 
 \clearpage
+% Figure 5
 \begin{figure}[p]
-\centerline{\includegraphics[width=5in]{Figures/nitrogen/nitrogen_grid.pdf}}
+%\centerline{\includegraphics[width=5in]{Figures/nitrogen/nitrogen_grid.pdf}}
 \caption{\label{fig:nitrogen_network}\textbf{Predictive reactions (in red) for four nitrogen sources, mapped onto the \emph{E.\ coli} central metabolism.} Reactions in distinct parts of the metabolism are predictive for different nitrogen sources. A list of the predictive reactions can be found in Table~\ref{tab:predictive_nitrogen_sources}.}
 \end{figure}
 
@@ -332,16 +560,19 @@ L-glutamine &  GLNX, GLUN, GLUSy\\
 
 \clearpage
 \section*{Supplementary Figures}
+% Figure S1
 %\centerline{\includegraphics[width=8in]{Figures/NitrogenLimiting.pdf}}
 \customlabel{fig:NitrogenLimiting}{S1}
 \textbf{Figure S1: Scatter plot showing varying uptake amounts of C/N sources when carbon is unlimited.} We increased the upper bounds of the carbon sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
 \clearpage
+% Figure S2
 %\centerline{\includegraphics[width=8in]{Figures/CarbonLimiting.pdf}}
 \customlabel{fig:CarbonLimiting}{S2}
 \noindent \textbf{Figure S2: Scatter plot showing varying uptake amounts of C/N sources when nitrogen is unlimited.} We  increased the upper bounds of the nitrogen sources and plotted the uptake amounts of carbon and nitrogen sources. The color coding reflects whether separate prediction could predict the carbon and nitrogen sources correctly for each replicate. Green: both C and N source are correctly predicted; blue: only N source is correctly predicted; purple: only C source is correctly predicted; red: neither source is correctly predicted.
 
 \clearpage
+% Figure S3
 %\centerline{\includegraphics[width=5in]{Figures/heatmap_10CN_Biomass_Minimization.pdf}}
 \customlabel{fig:BiomassMin}{S3}
 \noindent \textbf{Figure S3: Probability of misclassification, for FBA with and without minimization of absolute fluxes.} For each heat map, the actual C or N source is plotted along the $x$-axis and the predicted one is plotted along the $y$-axis. The gray level of squares indicates the fraction of times a given C or N source was predicted, with white corresponding to 0\% and black corresponding to 100\%. (A, C) Predictions performed on fluxes whose absolute values were not minimized (default throughout this work). (B, D) Predictions performed on fluxes whose absolute values were minimized. In all cases, we added 10 C/N impurities to the growth environment.
